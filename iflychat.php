@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 1.0.1
+ * @version 1.0.2
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat 
 Author: Shashwat Srivastava, Shubham Gupta, Varun Kapoor - iFlyChat Team
-Version: 1.0.1
+Version: 1.0.2
 Author URI: https://iflychat.com/
 */
 
@@ -112,9 +112,9 @@ function iflychat_init() {
 	}
     $protocol = isset($_SERVER["HTTPS"]) ? 'https://' : 'http://';
     $my_settings['geturl'] = admin_url('admin-ajax.php', $protocol);
-  wp_enqueue_script( 'iflychat-emotify', plugin_dir_url( __FILE__ ) . 'js/ba-emotify.js', array('jquery'), '', 'footer');	
-  wp_enqueue_script( 'iflychat-titlealert', plugin_dir_url( __FILE__ ) . 'js/jquery.titlealert.min.js', array('jquery'), '', 'footer');	
-  wp_enqueue_script( 'iflychat-ajax', plugin_dir_url( __FILE__ ) . 'js/script.js', array('jquery'), '', 'footer');
+  wp_enqueue_script( 'iflychat-emotify', plugin_dir_url( __FILE__ ) . 'js/ba-emotify.js', array('jquery'));	
+  wp_enqueue_script( 'iflychat-titlealert', plugin_dir_url( __FILE__ ) . 'js/jquery.titlealert.min.js', array('jquery'));	
+  wp_enqueue_script( 'iflychat-ajax', plugin_dir_url( __FILE__ ) . 'js/script.js', array('jquery'));
   wp_localize_script('iflychat-ajax', 'Drupal', array("settings" => array("drupalchat" => $my_settings, "basePath" => get_site_url() . "/")));
 }
 
