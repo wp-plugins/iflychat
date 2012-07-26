@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 1.0.2
+ * @version 1.0.3
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat 
 Author: Shashwat Srivastava, Shubham Gupta, Varun Kapoor - iFlyChat Team
-Version: 1.0.2
+Version: 1.0.3
 Author URI: https://iflychat.com/
 */
 
@@ -324,7 +324,7 @@ function iflychat_settings() {
 				        			<td><select id="<?php echo $option['name']; ?>" name="<?php echo $option['name']; ?>">
 				        					<?php foreach($option['data'] as $opt => $value){ ?>
 												<option <?php if(get_option($option['name']) == $value){ echo 'selected="selected"';}?> name="<?php echo $option['name']; ?>" value="<?php echo $value; ?>"><?php echo $opt ; ?></option>
-												<? } //endforeach ?>
+												<?php } //endforeach ?>
 										</select>
 									</td>
 					        </tr>
