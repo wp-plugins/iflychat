@@ -1,4 +1,4 @@
-=== iFlyChat ===
+=== iFly Chat ===
 Contributors: darklrd
 Tags: chat
 Requires at least: 3.0
