@@ -4,7 +4,32 @@ e.setAttribute("charset","utf-8"),c.ie&&!o?e.onreadystatechange=function(){if(/l
 b.urls[0]){l("css");break}h+=1;b&&(h<200?setTimeout(t,50):l("css"))}}var c,s,m={},h=0,n={css:[],js:[]},v=k.styleSheets;return{css:function(b,a,c,f){j("css",b,a,c,f)},js:function(b,a,c,f){j("js",b,a,c,f)}}}(this.document);
 (function($){
   $(document).ready(function(){
-    $.post(Drupal.settings.drupalchat.geturl, {action: 'iflychat-get'} ,function(data) {
+    Drupal = {};
+	Drupal.settings = {};
+	Drupal.settings.drupalchat = iflychat;
+	Drupal.settings.basePath = Drupal.settings.drupalchat.basePath;
+	/*
+	Drupal.settings.drupalchat = {};
+	Drupal.settings.basePath = iflychat_bp;
+    Drupal.settings.drupalchat.uid = iflychat_i;
+	Drupal.settings.drupalchat.username = iflychat_n;
+	Drupal.settings.drupalchat.current_timestamp = iflychat_ct;
+	Drupal.settings.drupalchat.polling_method = iflychat_pm;
+	Drupal.settings.drupalchat.pollUrl = ' ';
+	Drupal.settings.drupalchat.sendUrl = ' ';
+	Drupal.settings.drupalchat.statusUrl = ' ';
+	Drupal.settings.drupalchat.status = iflychat_st;
+	Drupal.settings.drupalchat.goOnline = iflychat_gO;
+	Drupal.settings.drupalchat.goIdle = iflychat_gI;
+	Drupal.settings.drupalchat.newMessage = iflychat_nM;
+	Drupal.settings.drupalchat.images = iflychat_im;
+	Drupal.settings.drupalchat.sound = iflychat_so;
+	Drupal.settings.drupalchat.noUsers = iflychat_no;
+	Drupal.settings.drupalchat.smileyURL = iflychat_sm;
+	Drupal.settings.drupalchat.addUrl = iflychat_ad;
+	Drupal.settings.drupalchat.notificationSound = iflychat_ns;
+	*/
+	$.post(Drupal.settings.drupalchat.geturl, {action: 'iflychat-get'} ,function(data) {
       if(data && (typeof data.css != "undefined") && (typeof data.key != "undefined")) {
 	    Drupal.settings.drupalchat.session_key = data.key;
 	    LazyLoad.css(Drupal.settings.drupalchat.external_a_host + ':' + Drupal.settings.drupalchat.external_a_port + '/i/' + data.css + '/cache.css', function () {

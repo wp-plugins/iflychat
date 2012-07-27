@@ -95,7 +95,9 @@ function iflychat_init() {
       'smileyURL' => plugin_dir_url( __FILE__ ) . 'smileys/very_emotional_emoticons-png/png-32x32/',
       'addUrl' => " ",
 	  'notificationSound' => get_option('iflychat_notification_sound', 1),
+	  'basePath' => get_site_url() . "/",
     );
+	
 	if($my_settings['polling_method'] == "3") {
 	  if (is_ssl()) {
         $my_settings['external_host'] = DRUPALCHAT_EXTERNAL_A_HOST;
@@ -115,7 +117,23 @@ function iflychat_init() {
   wp_enqueue_script( 'iflychat-emotify', plugin_dir_url( __FILE__ ) . 'js/ba-emotify.js', array('jquery'));	
   wp_enqueue_script( 'iflychat-titlealert', plugin_dir_url( __FILE__ ) . 'js/jquery.titlealert.min.js', array('jquery'));	
   wp_enqueue_script( 'iflychat-ajax', plugin_dir_url( __FILE__ ) . 'js/script.js', array('jquery'));
-  wp_localize_script('iflychat-ajax', 'Drupal', array("settings" => array("drupalchat" => $my_settings, "basePath" => get_site_url() . "/")));
+  /*wp_localize_script('iflychat-ajax', 'iflychat_i', iflychat_get_user_id());
+  wp_localize_script('iflychat-ajax', 'iflychat_n', iflychat_get_user_name());
+  wp_localize_script('iflychat-ajax', 'iflychat_ct', time());
+  wp_localize_script('iflychat-ajax', 'iflychat_pm', '3');
+  wp_localize_script('iflychat-ajax', 'iflychat_st', '1');
+  wp_localize_script('iflychat-ajax', 'iflychat_gO', 'Go Online');
+  wp_localize_script('iflychat-ajax', 'iflychat_gI', 'Go Idle');
+  wp_localize_script('iflychat-ajax', 'iflychat_nM', 'New chat message!');
+  wp_localize_script('iflychat-ajax', 'iflychat_im', plugin_dir_url( __FILE__ ) . 'themes/light/images/');
+  wp_localize_script('iflychat-ajax', 'iflychat_so', plugin_dir_url( __FILE__ ) . '/swf/sound.swf');
+  wp_localize_script('iflychat-ajax', 'iflychat_no', "<div class=\"item-list\"><ul><li class=\"drupalchatnousers even first last\">No users online</li></ul></div>");
+  wp_localize_script('iflychat-ajax', 'iflychat_sm', plugin_dir_url( __FILE__ ) . 'smileys/very_emotional_emoticons-png/png-32x32/');
+  wp_localize_script('iflychat-ajax', 'iflychat_ad', ' ');
+  wp_localize_script('iflychat-ajax', 'iflychat_ns', get_option('iflychat_notification_sound', 1));
+  wp_localize_script('iflychat-ajax', 'iflychat', get_site_url() . "/");*/
+  wp_localize_script('iflychat-ajax', 'iflychat', $my_settings); 
+  //wp_localize_script('iflychat-ajax', 'Drupal', array("settings" => array("drupalchat" => $my_settings, "basePath" => get_site_url() . "/")));
 }
 
 function _iflychat_get_auth($name) {
