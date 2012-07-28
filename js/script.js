@@ -33,7 +33,7 @@ b.urls[0]){l("css");break}h+=1;b&&(h<200?setTimeout(t,50):l("css"))}}var c,s,m={
       if(data && (typeof data.css != "undefined") && (typeof data.key != "undefined")) {
 	    Drupal.settings.drupalchat.session_key = data.key;
 	    LazyLoad.css(Drupal.settings.drupalchat.external_a_host + ':' + Drupal.settings.drupalchat.external_a_port + '/i/' + data.css + '/cache.css', function () {
-		  LazyLoad.js([Drupal.settings.drupalchat.external_a_host + ':' + Drupal.settings.drupalchat.external_a_port + '/j/cache.js', Drupal.settings.drupalchat.external_a_host + ':' + Drupal.settings.drupalchat.external_a_port + '/h/cache.js'], function () {
+		  LazyLoad.js([Drupal.settings.drupalchat.external_a_host + ':' + Drupal.settings.drupalchat.external_a_port + '/j/cache.js', Drupal.settings.drupalchat.external_a_host + ':' + Drupal.settings.drupalchat.external_a_port + '/h/' + data.css + '/cache.js'], function () {
           });
         });
       }
