@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 1.0.5
+ * @version 1.0.6
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat 
-Author: Shashwat Srivastava, Shubham Gupta, Varun Kapoor - iFlyChat Team
-Version: 1.0.5
+Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
+Version: 1.0.6
 Author URI: https://iflychat.com/
 */
 
@@ -99,7 +99,18 @@ function iflychat_init() {
       'addUrl' => " ",
 	  'notificationSound' => (get_option('iflychat_notification_sound', "yes") == "yes")?"1":"2",
 	  'basePath' => get_site_url() . "/",
+	  'stopWordList' => get_option('iflychat_stop_word_list'),
+	  'useStopWordList' => get_option('iflychat_use_stop_word_list'),
+	  'blockHL' => get_option('iflychat_stop_links'),
+	  'allowAnonHL' => get_option('iflychat_allow_anon_links'),
+	  'iup' => (get_option('iflychat_user_picture') == 'yes')?'1':'2',
+	  'admin' => current_user_can('activate_plugins')?'1':'0',
     );
+	if(get_option('iflychat_user_picture') == 'yes') {
+	  $my_settings['up'] = 'http://www.gravatar.com/avatar/' . (($current_user->ID)?(md5(strtolower($current_user->user_email))):('00000000000000000000000000000000')) . '?d=mm&size=24';
+	  $my_settings['default_up'] = 'http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&size=24';
+	  $my_settings['default_cr'] = plugin_dir_url( __FILE__ ) . 'themes/light/images/default_room.png';
+	}
 	
 	if($my_settings['polling_method'] == "3") {
 	  if (is_ssl()) {
@@ -146,14 +157,14 @@ function _iflychat_get_auth($name) {
   }
   global $current_user;
   get_currentuserinfo();
-  if(is_admin()) {
+  if(current_user_can('activate_plugins')) {
     $role = "admin";
   }
   else {
     $role = "normal";
   }
   
-  $data = json_encode(array(
+  $data = array(
     'uid' => iflychat_get_user_id(),
 	'uname' => iflychat_get_user_name(),
     'api_key' => get_option('iflychat_api_key'),
@@ -162,7 +173,12 @@ function _iflychat_get_auth($name) {
 	'whichTheme' => 'blue',
 	'enableStatus' => TRUE,
 	'role' => $role,
-	'validState' => array('available','offline','busy','idle')));
+	'validState' => array('available','offline','busy','idle')
+  );
+  if(get_option('iflychat_user_picture') == 'yes') {
+    $data['up'] = 'http://www.gravatar.com/avatar/' . (($current_user->ID)?(md5(strtolower($current_user->user_email))):('00000000000000000000000000000000')) . '?d=mm&size=24';
+  }
+  $data = json_encode($data);
   $options = array(
     'method' => 'POST',
     'body' => $data,
@@ -184,12 +200,14 @@ function _iflychat_get_auth($name) {
 function iflychat_submit_uth() {
   $user_name = NULL;
   $json = NULL;
-  if(iflychat_get_user_id()) {
-    $user_name = iflychat_get_user_name(); 
-  }
-  if($user_name) {
-    $json = _iflychat_get_auth($user_name);  
-    $json->name = $user_name;
+  if((get_option('iflychat_only_loggedin') == "no") || is_user_logged_in()) {
+    if(iflychat_get_user_id()) {
+      $user_name = iflychat_get_user_name(); 
+    }
+    if($user_name) {
+      $json = _iflychat_get_auth($user_name);  
+      $json->name = $user_name;
+    }
   }
   $response = json_encode($json);
   header("Content-Type: application/json");
@@ -307,6 +325,15 @@ function iflychat_set_options(){
 				'light' => 'light', 
 				'dark' => 'dark')
 			),	
+		'user_picture' => array ( 
+			'name' => 'iflychat_user_picture', 
+			'default' => 'yes', 
+			'desc' => 'Show User Avatars in chat', 
+			'input_type' => 'dropdown', 
+			'data' => array( 
+				'yes' => 'yes', 
+				'no' => 'no')
+			),
 		'notification_sound' => array ( 
 			'name' => 'iflychat_notification_sound', 
 			'default' => 'yes', 
@@ -373,6 +400,54 @@ function iflychat_set_options(){
 			'desc' => 'Chat List Header', 
 			'input_type' => 'text'
 			),	
+		'stop_word_list' => array ( 
+			'name' => 'iflychat_stop_word_list', 
+			'default' => 'asshole,assholes,bastard,beastial,beastiality,beastility,bestial,bestiality,bitch,bitcher,bitchers,bitches,bitchin,bitching,blowjob,blowjobs,bullshit,clit,cock,cocks,cocksuck,cocksucked,cocksucker,cocksucking,cocksucks,cum,cummer,cumming,cums,cumshot,cunillingus,cunnilingus,cunt,cuntlick,cuntlicker,cuntlicking,cunts,cyberfuc,cyberfuck,cyberfucked,cyberfucker,cyberfuckers,cyberfucking,damn,dildo,dildos,dick,dink,dinks,ejaculate,ejaculated,ejaculates,ejaculating,ejaculatings,ejaculation,fag,fagging,faggot,faggs,fagot,fagots,fags,fart,farted,farting,fartings,farts,farty,felatio,fellatio,fingerfuck,fingerfucked,fingerfucker,fingerfuckers,fingerfucking,fingerfucks,fistfuck,fistfucked,fistfucker,fistfuckers,fistfucking,fistfuckings,fistfucks,fuck,fucked,fucker,fuckers,fuckin,fucking,fuckings,fuckme,fucks,fuk,fuks,gangbang,gangbanged,gangbangs,gaysex,goddamn,hardcoresex,horniest,horny,hotsex,jism,jiz,jizm,kock,kondum,kondums,kum,kumer,kummer,kumming,kums,kunilingus,lust,lusting,mothafuck,mothafucka,mothafuckas,mothafuckaz,mothafucked,mothafucker,mothafuckers,mothafuckin,mothafucking,mothafuckings,mothafucks,motherfuck,motherfucked,motherfucker,motherfuckers,motherfuckin,motherfucking,motherfuckings,motherfucks,niger,nigger,niggers,orgasim,orgasims,orgasm,orgasms,phonesex,phuk,phuked,phuking,phukked,phukking,phuks,phuq,pis,piss,pisser,pissed,pisser,pissers,pises,pisses,pisin,pissin,pising,pissing,pisof,pissoff,porn,porno,pornography,pornos,prick,pricks,pussies,pusies,pussy,pusy,pussys,pusys,slut,sluts,smut,spunk', 
+			'desc' => 'Stop Words (separated by comma)', 
+			'input_type' => 'textarea'
+			),
+		'use_stop_word_list' => array ( 
+			'name' => 'iflychat_use_stop_word_list', 
+			'default' => '1', 
+			'desc' => 'Use Stop Words to filter chat', 
+			'input_type' => 'dropdown', 
+			'data' => array(
+			  '1' => 'Don\'t filter', 
+			  '2' => 'Filter in public chatroom', 
+			  '3' => 'Filter in private chats', 
+			  '4' => 'Filter in all rooms',
+			  ),
+			),
+		'stop_links' => array ( 
+			'name' => 'iflychat_stop_links', 
+			'default' => '1', 
+			'desc' => 'Select whether to block hyperlinks posted in chats', 
+			'input_type' => 'dropdown', 
+			'data' => array(
+			  '1' => 'Don\'t block', 
+			  '2' => 'Block in public chatroom', 
+			  '3' => 'Block in private chats', 
+			  '4' => 'Block in all rooms',
+			  ),
+			),
+		'allow_anon_links' => array ( 
+			'name' => 'iflychat_allow_anon_links', 
+			'default' => '1', 
+			'desc' => 'Select whether to apply above defined block hyperlinks setting only to anonymous users', 
+			'input_type' => 'dropdown', 
+			'data' => array( 
+				'1' => 'yes', 
+				'2' => 'no')
+			),
+		'show_admin_list' => array ( 
+			'name' => 'iflychat_show_admin_list', 
+			'default' => 'no', 
+			'desc' => 'Show only admins in the online user list', 
+			'input_type' => 'dropdown', 
+			'data' => array( 
+				'yes' => 'yes', 
+				'no' => 'no')
+			),
 		/*'include_images' => array ( 
 			'name' => 'timeline_include_images', 
 			'default' => 'no', 
@@ -428,7 +503,7 @@ function iflychat_settings() {
 				        		<th scope="row"><?php _e($option['desc'], iflychat_NAME_UNIQUE); ?></th>
 				        			<td><select id="<?php echo $option['name']; ?>" name="<?php echo $option['name']; ?>">
 				        					<?php foreach($option['data'] as $opt => $value){ ?>
-												<option <?php if(get_option($option['name']) == $value){ echo 'selected="selected"';}?> name="<?php echo $option['name']; ?>" value="<?php echo $value; ?>"><?php echo $opt ; ?></option>
+												<option <?php if(get_option($option['name']) == $opt){ echo 'selected="selected"';}?> name="<?php echo $option['name']; ?>" value="<?php echo $opt; ?>"><?php echo $value ; ?></option>
 												<?php } //endforeach ?>
 										</select>
 									</td>
@@ -439,6 +514,15 @@ function iflychat_settings() {
 				    		<tr valign="top">
 				        		<th scope="row"><?php _e($option['desc'], iflychat_NAME_UNIQUE); ?></th>
 				        			<td><input id="<?php echo $option['name']; ?>" name="<?php echo $option['name']; ?>" value="<?php echo get_option($option['name']); ?>" size="64" />
+									</td>
+					        </tr>
+					<?php 
+				    	//if option type is text, do this
+				    	}elseif ( $option['input_type'] == 'textarea'){ ?>
+				    		<tr valign="top">
+				        		<th scope="row"><?php _e($option['desc'], iflychat_NAME_UNIQUE); ?></th>
+				        			<td><textarea id="<?php echo $option['name']; ?>" cols="80" rows="6" name="<?php echo $option['name']; ?>"><?php echo get_option($option['name']); ?>
+									</textarea>
 									</td>
 					        </tr>
 			     <?php 
@@ -465,6 +549,8 @@ function iflychat_settings() {
 	  'font_color' => get_option('iflychat_chat_font_color'),
 	  'chat_list_header' => get_option('iflychat_chat_list_header'),
 	  'public_chatroom_header' => get_option('iflychat_public_chatroom_header'),
+	  'version' => 'WP-1.0.6',
+	  'show_admin_list' => (get_option('iflychat_show_admin_list') == "yes")?'1':'2',
 	));
 	$options = array(
     'method' => 'POST',

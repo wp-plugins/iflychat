@@ -3,7 +3,7 @@ Contributors: darklrd
 Tags: chat
 Requires at least: 3.0
 Tested up to: 3.4
-Stable tag: 1.0.1
+Stable tag: 1.0.6
 License: GPLv2 or later
 
 iFlyChat provides one on one chat and Public Chatroom for your website.
