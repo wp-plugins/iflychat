@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 1.0.6
+ * @version 1.0.7
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat 
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 1.0.6
+Version: 1.0.7
 Author URI: https://iflychat.com/
 */
 
@@ -45,7 +45,20 @@ function iflychat_get_user_id() {
 	  }
 	}
 	  $new_session = iflychat_get_hash_session();
-	  $name = 'Guest' . time();
+	  $result = wp_remote_head(DRUPALCHAT_EXTERNAL_A_HOST . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/anam/v/' . get_option('iflychat_anon_name_set'), array(
+        'method' => 'GET',
+        'body' => NULL,
+        'timeout' => 15,
+        'headers' => array('Content-Type' => 'application/json'),
+      ));
+      if($result['response']['code'] == 200) {
+	    //echo DRUPALCHAT_EXTERNAL_A_HOST . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/anam/v/' . get_option('iflychat_anon_name_set');
+		//print_r($result);exit;
+	    $name = get_option('iflychat_anon_prefix')  . ' ' . $result['body'];
+      }
+	  else {
+	    $name = get_option('iflychat_anon_prefix') . time();
+	  }
 	  $wpdb->insert($wpdb->prefix . "iflychat_users", array('session' => $new_session, 'name' => $name, 'time' => time()), array('%s', '%s', '%d'));
 	  setcookie('iflychat_session', $new_session, time()+1209600, "/", COOKIE_DOMAIN, false);
 	  $_SESSION['iflychat_session'] = $new_session;
@@ -106,6 +119,10 @@ function iflychat_init() {
 	  'iup' => (get_option('iflychat_user_picture') == 'yes')?'1':'2',
 	  'admin' => current_user_can('activate_plugins')?'1':'0',
     );
+	if(current_user_can('activate_plugins')) {
+	  global $wp_roles;
+	  $my_settings['arole'] = $wp_roles->get_names(); 
+	}
 	if(get_option('iflychat_user_picture') == 'yes') {
 	  $my_settings['up'] = 'http://www.gravatar.com/avatar/' . (($current_user->ID)?(md5(strtolower($current_user->user_email))):('00000000000000000000000000000000')) . '?d=mm&size=24';
 	  $my_settings['default_up'] = 'http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&size=24';
@@ -161,7 +178,9 @@ function _iflychat_get_auth($name) {
     $role = "admin";
   }
   else {
-    $role = "normal";
+    //$role = "normal";
+	global $current_user;
+	$role = $current_user->roles;
   }
   
   $data = array(
@@ -201,12 +220,14 @@ function iflychat_submit_uth() {
   $user_name = NULL;
   $json = NULL;
   if((get_option('iflychat_only_loggedin') == "no") || is_user_logged_in()) {
-    if(iflychat_get_user_id()) {
+    $tid = iflychat_get_user_id();
+	if($tid) {
       $user_name = iflychat_get_user_name(); 
     }
     if($user_name) {
       $json = _iflychat_get_auth($user_name);  
       $json->name = $user_name;
+	  $json->uid = $tid;
     }
   }
   $response = json_encode($json);
@@ -361,6 +382,21 @@ function iflychat_set_options(){
 				'yes' => 'yes', 
 				'no' => 'no')
 			),
+		'anon_prefix' => array(
+			'name' => 'iflychat_anon_prefix',
+            'desc' => 'Prefix to be used with anonymous users (4 to 7 characters)',
+            'default' => 'Guest',
+			'input_type' => 'text',
+			),
+		'anon_name_set' => array(
+			'name' => 'iflychat_anon_name_set', 
+			'default' => 'usa', 
+			'desc' => 'Select country to use for generating names of anonymous users', 
+			'input_type' => 'dropdown', 
+			'data' => array( 
+				'usa' => 'United States', 
+				)
+			),
 		'public_chatroom' => array ( 
 			'name' => 'iflychat_public_chatroom', 
 			'default' => 'yes', 
@@ -468,6 +504,23 @@ function iflychat_set_options(){
 			)
 			*/
 	);
+	$result = wp_remote_head(DRUPALCHAT_EXTERNAL_A_HOST . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/anam/c', array(
+      'method' => 'GET',
+      'body' => NULL,
+      'timeout' => 15,
+      'headers' => array('Content-Type' => 'application/json'),
+    ));
+	if(is_wp_error($result)) {
+      //echo '<div id="message" class="error">Unable to connect to iFlyChat server. Error code - ' . $result->get_error_code() . '. Error message - ' . $result->get_error_message() . '</div>';
+    }
+    else if($result['response']['code'] == 200) {
+      $result = json_decode($result['body']);
+	  foreach($result as $k=>$v) {
+	    if($k != 'usa') {
+	      $options['anon_name_set']['data'][$k] = $v;
+	    }
+	  }
+    }
 
 	return $options;
 	
@@ -549,7 +602,7 @@ function iflychat_settings() {
 	  'font_color' => get_option('iflychat_chat_font_color'),
 	  'chat_list_header' => get_option('iflychat_chat_list_header'),
 	  'public_chatroom_header' => get_option('iflychat_public_chatroom_header'),
-	  'version' => 'WP-1.0.6',
+	  'version' => 'WP-1.0.7',
 	  'show_admin_list' => (get_option('iflychat_show_admin_list') == "yes")?'1':'2',
 	));
 	$options = array(
@@ -559,6 +612,12 @@ function iflychat_settings() {
     'headers' => array('Content-Type' => 'application/json'),
     );
 	$result = wp_remote_head(DRUPALCHAT_EXTERNAL_A_HOST . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/z/', $options);
+	if(is_wp_error($result)) {
+      echo '<div id="message" class="error">Unable to connect to iFlyChat server. Error code - ' . $result->get_error_code() . '. Error message - ' . $result->get_error_message() . '</div>';
+    }
+	else if($result['response']['code'] != 200) {
+	  echo '<div id="message" class="error">Unable to connect to iFlyChat server. Error code - ' . $result['response']['code'] . '. Error message - ' . $result['body'] . '</div>';
+	}
   }
 }
 
