@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 1.0.8
+ * @version 1.0.9
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
-Description: One on one chat 
+Description: One on one chat, Multiple chatrooms, Embedded chatrooms 
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 1.0.8
+Version: 1.0.9
 Author URI: https://iflychat.com/
 */
 
@@ -75,7 +75,7 @@ function iflychat_get_user_name() {
   get_currentuserinfo();
   global $wpdb;
   if($current_user->ID) {
-    return $current_user->display_name;
+    return (empty($current_user->display_name)?$current_user->user_login:$current_user->display_name);
   }
   else {
     if((isset($_COOKIE['iflychat_session']) && ($_COOKIE['iflychat_session']))) {
@@ -93,7 +93,7 @@ function iflychat_get_user_name() {
 }
 
 function iflychat_init() {
-  if((get_option('iflychat_only_loggedin') == "no") || is_user_logged_in()) {
+  if(iflychat_path_check() && ((get_option('iflychat_only_loggedin') == "no") || is_user_logged_in())) {
     global $current_user;
     get_currentuserinfo();
     $my_settings = array(
@@ -497,6 +497,21 @@ function iflychat_set_options(){
 				'yes' => 'yes', 
 				'no' => 'no')
 			),
+		'path_visibility' => array ( 
+			'name' => 'iflychat_path_visibility', 
+			'default' => '1', 
+			'desc' => 'Show chat on specific pages', 
+			'input_type' => 'dropdown', 
+			'data' => array( 
+				'1' => 'All pages except those listed', 
+				'2' => 'Only the listed pages')
+			),
+		'path_pages' => array ( 
+			'name' => 'iflychat_path_pages', 
+			'default' => '', 
+			'desc' => "Specify pages by using their paths. Enter one path per line. The '*' character is a wildcard. Example paths are <b>/2012/10/my-post</b> for a single post and <b>/2012/*</b> for a group of posts. The path should always start with a forward slash(/).", 
+			'input_type' => 'textarea'
+			),
 		/*'include_images' => array ( 
 			'name' => 'timeline_include_images', 
 			'default' => 'no', 
@@ -615,7 +630,7 @@ function iflychat_settings() {
 	  'font_color' => get_option('iflychat_chat_font_color'),
 	  'chat_list_header' => get_option('iflychat_chat_list_header'),
 	  'public_chatroom_header' => get_option('iflychat_public_chatroom_header'),
-	  'version' => 'WP-1.0.8',
+	  'version' => 'WP-1.0.9',
 	  'show_admin_list' => (get_option('iflychat_show_admin_list') == "yes")?'1':'2',
 	));
 	$options = array(
@@ -668,4 +683,30 @@ add_action( 'wp_ajax_nopriv_iflychat-get', 'iflychat_submit_uth' );
 add_action( 'wp_ajax_iflychat-get', 'iflychat_submit_uth' );
 register_activation_hook(__FILE__,'iflychat_install');
 register_deactivation_hook( __FILE__, 'iflychat_uninstall');
+function iflychat_match_path($path, $patterns) {
+  $to_replace = array(
+    '/(\r\n?|\n)/', 
+    '/\\\\\*/', 
+  );
+  $replacements = array(
+    '|',
+    '.*',  
+  );
+  $patterns_quoted = preg_quote($patterns, '/');
+  $regexps[$patterns] = '/^(' . preg_replace($to_replace, $replacements, $patterns_quoted) . ')$/';
+  return (bool) preg_match($regexps[$patterns], $path);
+}
+function iflychat_path_check() {
+  $page_match = FALSE;
+  if (trim(get_option('iflychat_path_pages')) != '') {
+    $pages = mb_strtolower(get_option('iflychat_path_pages'));
+    $path = mb_strtolower($_SERVER['REQUEST_URI']);
+    $page_match = iflychat_match_path($path, $pages);
+	$page_match = (get_option('iflychat_path_visibility') == '1')?(!$page_match):$page_match;
+  }
+  else if(get_option('iflychat_path_visibility') == '1'){
+    $page_match = TRUE;
+  }
+  return $page_match;
+}
 ?>
