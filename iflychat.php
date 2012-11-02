@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 1.0.9
+ * @version 1.1.0
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms 
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 1.0.9
+Version: 1.1.0
 Author URI: https://iflychat.com/
 */
 
@@ -206,6 +206,7 @@ function _iflychat_get_auth($name) {
     'body' => $data,
     'timeout' => 15,
     'headers' => array('Content-Type' => 'application/json'),
+	'sslverify' => false,
   );
 
   $result = wp_remote_head(DRUPALCHAT_EXTERNAL_A_HOST . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/p/', $options);
@@ -630,7 +631,7 @@ function iflychat_settings() {
 	  'font_color' => get_option('iflychat_chat_font_color'),
 	  'chat_list_header' => get_option('iflychat_chat_list_header'),
 	  'public_chatroom_header' => get_option('iflychat_public_chatroom_header'),
-	  'version' => 'WP-1.0.9',
+	  'version' => 'WP-1.1.0',
 	  'show_admin_list' => (get_option('iflychat_show_admin_list') == "yes")?'1':'2',
 	));
 	$options = array(
@@ -638,6 +639,7 @@ function iflychat_settings() {
     'body' => $data,
     'timeout' => 15,
     'headers' => array('Content-Type' => 'application/json'),
+	'sslverify' => false,
     );
 	$result = wp_remote_head(DRUPALCHAT_EXTERNAL_A_HOST . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/z/', $options);
 	if(is_wp_error($result)) {
