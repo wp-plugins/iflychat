@@ -18,6 +18,7 @@ Features
 * Multiple chat rooms
 * Provides a sleek chat bar at bottom right of the browser
 * Selectable list of Online Users (Once you choose a particular user to chat with, it creates a new tab adjacent to the chat bar along with an attached pop-up chat window)
+* Automatic integration with BuddyPress (shows BuddyPress user avatars and profile links, if present)
 * Chat rooms can be embedded into the page instead of pop-up
 * Supports chat for anonymous users 
 * Provides chat logging and message inbox functionality
