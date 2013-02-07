@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 1.1.1
+ * @version 1.1.2
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms 
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 1.1.1
+Version: 1.1.2
 Author URI: https://iflychat.com/
 */
 
@@ -62,6 +62,8 @@ function iflychat_get_user_id() {
 	  else {
 	    $name = get_option('iflychat_anon_prefix') . time();
 	  }
+    $iflychat_delete_time = (time() - (60*60*24*14));
+    $wpdb->query($wpdb->prepare("DELETE FROM " . $wpdb->prefix . "iflychat_users WHERE time < %d", $iflychat_delete_time));
 	  $wpdb->insert($wpdb->prefix . "iflychat_users", array('session' => $new_session, 'name' => $name, 'time' => time()), array('%s', '%s', '%d'));
 	  setcookie('iflychat_session', $new_session, time()+1209600, "/", COOKIE_DOMAIN, false);
 	  $_SESSION['iflychat_session'] = $new_session;
@@ -649,7 +651,7 @@ function iflychat_settings() {
 	  'font_color' => get_option('iflychat_chat_font_color'),
 	  'chat_list_header' => get_option('iflychat_chat_list_header'),
 	  'public_chatroom_header' => get_option('iflychat_public_chatroom_header'),
-	  'version' => 'WP-1.1.1',
+	  'version' => 'WP-1.1.2',
 	  'show_admin_list' => (get_option('iflychat_show_admin_list') == "yes")?'1':'2',
 	));
 	$options = array(
