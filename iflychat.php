@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 1.1.3
+ * @version 1.1.4
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms 
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 1.1.3
+Version: 1.1.4
 Author URI: https://iflychat.com/
 */
 
@@ -122,6 +122,7 @@ function iflychat_init() {
 	  'blockHL' => get_option('iflychat_stop_links'),
 	  'allowAnonHL' => get_option('iflychat_allow_anon_links'),
 	  'iup' => (get_option('iflychat_user_picture') == 'yes')?'1':'2',
+	  'open_chatlist_default' => (get_option('iflychat_minimize_chat_user_list')=='2')?'1':'2',
 	  'admin' => current_user_can('activate_plugins')?'1':'0',
     );
 	if(current_user_can('activate_plugins')) {
@@ -465,6 +466,15 @@ function iflychat_set_options(){
 				'usa' => 'United States', 
 				)
 			),
+		'minimize_chat_user_list' => array ( 
+			'name' => 'iflychat_minimize_chat_user_list', 
+			'default' => '2', 
+			'desc' => 'Select whether to minimize online user list in chat by default', 
+			'input_type' => 'dropdown', 
+			'data' => array( 
+				'1' => 'Yes', 
+				'2' => 'No',)
+			),
 		'public_chatroom' => array ( 
 			'name' => 'iflychat_public_chatroom', 
 			'default' => 'yes', 
@@ -542,6 +552,26 @@ function iflychat_set_options(){
 			'data' => array( 
 				'1' => 'yes', 
 				'2' => 'no')
+			),
+		'allow_single_message_delete' => array ( 
+			'name' => 'iflychat_allow_single_message_delete', 
+			'default' => '1', 
+			'desc' => 'Select whether to allow users to delete messages selectively when in private conversation', 
+			'input_type' => 'dropdown', 
+			'data' => array( 
+				'1' => 'Allow all users', 
+				'2' => 'Allow only moderators',
+				'3' => 'Disable')
+			),
+		'allow_clear_room_history' => array ( 
+			'name' => 'iflychat_allow_clear_room_history', 
+			'default' => '1', 
+			'desc' => 'Select whether to allow users to clear all messages in a room', 
+			'input_type' => 'dropdown', 
+			'data' => array( 
+				'1' => 'Allow all users', 
+				'2' => 'Allow only moderators',
+				'3' => 'Disable')
 			),
 		'show_admin_list' => array ( 
 			'name' => 'iflychat_show_admin_list', 
@@ -685,8 +715,10 @@ function iflychat_settings() {
 	  'font_color' => get_option('iflychat_chat_font_color'),
 	  'chat_list_header' => get_option('iflychat_chat_list_header'),
 	  'public_chatroom_header' => get_option('iflychat_public_chatroom_header'),
-	  'version' => 'WP-1.1.3',
+	  'version' => 'WP-1.1.4',
 	  'show_admin_list' => (get_option('iflychat_show_admin_list') == "yes")?'1':'2',
+	  'clear' => get_option('iflychat_allow_single_message_delete'),
+      'delmessage' => get_option('iflychat_allow_clear_room_history'),
 	));
 	$options = array(
     'method' => 'POST',
