@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 1.1.4
+ * @version 1.1.5
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms 
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 1.1.4
+Version: 1.1.5
 Author URI: https://iflychat.com/
 */
 
@@ -484,6 +484,15 @@ function iflychat_set_options(){
 				'yes' => 'yes', 
 				'no' => 'no')
 			),
+		'allow_user_font_color' => array ( 
+			'name' => 'iflychat_allow_user_font_color', 
+			'default' => '1', 
+			'desc' => 'Select whether to allow users to set color of their name in a room', 
+			'input_type' => 'dropdown', 
+			'data' => array( 
+				'1' => 'Yes', 
+				'2' => 'No',)
+			),
 		'chat_top_bar_color' => array ( 
 			'name' => 'iflychat_chat_top_bar_color', 
 			'default' => '#222222', 
@@ -715,10 +724,11 @@ function iflychat_settings() {
 	  'font_color' => get_option('iflychat_chat_font_color'),
 	  'chat_list_header' => get_option('iflychat_chat_list_header'),
 	  'public_chatroom_header' => get_option('iflychat_public_chatroom_header'),
-	  'version' => 'WP-1.1.4',
+	  'version' => 'WP-1.1.5',
 	  'show_admin_list' => (get_option('iflychat_show_admin_list') == "yes")?'1':'2',
 	  'clear' => get_option('iflychat_allow_single_message_delete'),
       'delmessage' => get_option('iflychat_allow_clear_room_history'),
+	  'ufc' => get_option('iflychat_allow_user_font_color'),
 	));
 	$options = array(
     'method' => 'POST',
