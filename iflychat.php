@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 1.1.5
+ * @version 1.1.6
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms 
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 1.1.5
+Version: 1.1.6
 Author URI: https://iflychat.com/
 */
 
@@ -156,7 +156,8 @@ function iflychat_init() {
 	  	$my_settings['up'] = 'http://www.gravatar.com/avatar/' . (($current_user->ID)?(md5(strtolower($current_user->user_email))):('00000000000000000000000000000000')) . '?d=mm&size=24';
 	  }
 	  $my_settings['default_up'] = 'http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&size=24';
-	  $my_settings['default_cr'] = plugin_dir_url( __FILE__ ) . 'themes/light/images/default_room.png';
+	  $my_settings['default_cr'] = plugin_dir_url( __FILE__ ) . 'themes/'.get_option('iflychat_theme').'/images/default_room.png';
+	  $my_settings['default_team'] = plugin_dir_url( __FILE__ ) . 'themes/'.get_option('iflychat_theme').'/images/default_room.png';
 	}
 	if(function_exists(bp_core_get_userlink) && ($current_user->ID > 0)) {
       $my_settings['upl'] = bp_core_get_userlink($current_user->ID, false, true);
@@ -176,8 +177,24 @@ function iflychat_init() {
         $my_settings['external_a_port'] = DRUPALCHAT_EXTERNAL_PORT;
 	  }
 	}
+	if(get_option('iflychat_show_admin_list') == '1') {
+	    $my_settings['text_support_chat_init_label'] = get_option('iflychat_support_chat_init_label');
+		$my_settings['text_support_chat_box_header'] = get_option('iflychat_support_chat_box_header');
+		$my_settings['text_support_chat_box_company_name'] = get_option('iflychat_support_chat_box_company_name');
+		$my_settings['text_support_chat_box_company_tagline'] = get_option('iflychat_support_chat_box_company_tagline');
+		$my_settings['text_support_chat_auto_greet_enable'] = get_option('iflychat_support_chat_auto_greet_enable');
+		$my_settings['text_support_chat_auto_greet_message'] = get_option('iflychat_support_chat_auto_greet_message');
+		$my_settings['text_support_chat_auto_greet_time'] = get_option('iflychat_support_chat_auto_greet_time', 1);
+		$my_settings['text_support_chat_offline_message_label'] = get_option('iflychat_support_chat_offline_message_label');
+		$my_settings['text_support_chat_offline_message_contact'] = get_option('iflychat_support_chat_offline_message_contact');
+		$my_settings['text_support_chat_offline_message_send_button'] = get_option('iflychat_support_chat_offline_message_send_button');
+		$my_settings['text_support_chat_offline_message_desc'] = get_option('iflychat_support_chat_offline_message_desc');
+		$my_settings['text_support_chat_init_label_off'] = get_option('iflychat_support_chat_init_label_off');
+	  }
     $protocol = isset($_SERVER["HTTPS"]) ? 'https://' : 'http://';
     $my_settings['geturl'] = admin_url('admin-ajax.php', $protocol);
+	$my_settings['soffurl'] = admin_url('admin-ajax.php', $protocol);
+	$my_settings['chat_type'] = get_option('iflychat_show_admin_list');
     wp_enqueue_script( 'iflychat-emotify', plugin_dir_url( __FILE__ ) . 'js/ba-emotify.js', array('jquery'));	
     wp_enqueue_script( 'iflychat-titlealert', plugin_dir_url( __FILE__ ) . 'js/jquery.titlealert.min.js', array('jquery'));	
     wp_enqueue_script( 'iflychat-ajax', plugin_dir_url( __FILE__ ) . 'js/script.js', array('jquery'));
@@ -387,6 +404,15 @@ function iflychat_set_options(){
 			'desc' => '<b>API key</b> (register at <a href="https://iflychat.com">iFlyChat.com</a> to get it)', 
 			'input_type' => 'text'
 			),
+		'show_admin_list' => array ( 
+			'name' => 'iflychat_show_admin_list', 
+			'default' => '2', 
+			'desc' => 'Select which chat software to use', 
+			'input_type' => 'dropdown', 
+			'data' => array( 
+				'2' => 'Community Chat', 
+				'1' => 'Support Chat')
+			),
 		'only_loggedin' => array ( 
 			'name' => 'iflychat_only_loggedin', 
 			'default' => 'no', 
@@ -522,7 +548,88 @@ function iflychat_set_options(){
 			'default' => 'Chat', 
 			'desc' => 'Chat List Header', 
 			'input_type' => 'text'
-			),	
+			),
+        'support_chat_init_label' => array ( 
+			'name' => 'iflychat_support_chat_init_label', 
+			'default' => 'Chat with us', 
+			'desc' => 'Support Chat - Start Button Label', 
+			'input_type' => 'text'
+			),
+        'support_chat_box_header' => array ( 
+			'name' => 'iflychat_support_chat_box_header', 
+			'default' => 'Support', 
+			'desc' => 'Support Chat - Chat Box Header Label', 
+			'input_type' => 'text'
+			),
+        'support_chat_box_company_name' => array ( 
+			'name' => 'iflychat_support_chat_box_company_name', 
+			'default' => 'Support Team', 
+			'desc' => 'Support Chat - Team/Company Name', 
+			'input_type' => 'text'
+			),
+        'support_chat_box_company_tagline' => array ( 
+			'name' => 'iflychat_support_chat_box_company_tagline', 
+			'default' => 'Ask us anything...', 
+			'desc' => 'Support Chat - Tagline Label', 
+			'input_type' => 'text'
+			),
+        'support_chat_auto_greet_enable' => array ( 
+			'name' => 'iflychat_support_chat_auto_greet_enable', 
+			'default' => '1', 
+			'desc' => 'Support Chat - Enable Auto Greeting Message', 
+			'input_type' => 'dropdown', 
+			'data' => array( 
+				'1' => 'Yes', 
+				'2' => 'No',)
+			),
+        'support_chat_auto_greet_message' => array ( 
+			'name' => 'iflychat_support_chat_auto_greet_message', 
+			'default' => 'Hi there! Welcome to our website. Let us know if you have any query!', 
+			'desc' => 'Support Chat - Auto Greeting Message', 
+			'input_type' => 'textarea'
+			),
+        'support_chat_auto_greet_time' => array ( 
+			'name' => 'iflychat_support_chat_auto_greet_time', 
+			'default' => '1', 
+			'desc' => 'Support Chat - Auto Greet Message Time Delay (in seconds)', 
+			'input_type' => 'text'
+			),
+        'support_chat_init_label_off' => array ( 
+			'name' => 'iflychat_support_chat_init_label_off', 
+			'default' => 'Leave Message', 
+			'desc' => 'Support Chat - Offline Message Button Label', 
+			'input_type' => 'text'
+			),
+        'support_chat_offline_message_desc' => array ( 
+			'name' => 'iflychat_support_chat_offline_message_desc', 
+			'default' => 'Hello there. We are currently offline. Please leave us a message. Thanks.', 
+			'desc' => 'Support Chat - Offline Message Description', 
+			'input_type' => 'textarea'
+			),
+        'support_chat_offline_message_label' => array ( 
+			'name' => 'iflychat_support_chat_offline_message_label', 
+			'default' => 'Message', 
+			'desc' => 'Support Chat - Offline Window - Message Label', 
+			'input_type' => 'text'
+			),
+        'support_chat_offline_message_contact' => array ( 
+			'name' => 'iflychat_support_chat_offline_message_contact', 
+			'default' => 'Contact Details', 
+			'desc' => 'Support Chat - Offline Window - Contact Details Label', 
+			'input_type' => 'text'
+			),
+        'support_chat_offline_message_send_button' => array ( 
+			'name' => 'iflychat_support_chat_offline_message_send_button', 
+			'default' => 'Send Message', 
+			'desc' => 'Support Chat - Offline Window - Send Button Label', 
+			'input_type' => 'text'
+			),
+        'support_chat_offline_message_email' => array ( 
+			'name' => 'iflychat_support_chat_offline_message_email', 
+			'default' => get_option('admin_email', 'support@yourwebsite.com'), 
+			'desc' => 'Support Chat - Email(s) to which mail offline messages should be sent (separated by comma)', 
+			'input_type' => 'text'
+			),			
 		'stop_word_list' => array ( 
 			'name' => 'iflychat_stop_word_list', 
 			'default' => 'asshole,assholes,bastard,beastial,beastiality,beastility,bestial,bestiality,bitch,bitcher,bitchers,bitches,bitchin,bitching,blowjob,blowjobs,bullshit,clit,cock,cocks,cocksuck,cocksucked,cocksucker,cocksucking,cocksucks,cum,cummer,cumming,cums,cumshot,cunillingus,cunnilingus,cunt,cuntlick,cuntlicker,cuntlicking,cunts,cyberfuc,cyberfuck,cyberfucked,cyberfucker,cyberfuckers,cyberfucking,damn,dildo,dildos,dick,dink,dinks,ejaculate,ejaculated,ejaculates,ejaculating,ejaculatings,ejaculation,fag,fagging,faggot,faggs,fagot,fagots,fags,fart,farted,farting,fartings,farts,farty,felatio,fellatio,fingerfuck,fingerfucked,fingerfucker,fingerfuckers,fingerfucking,fingerfucks,fistfuck,fistfucked,fistfucker,fistfuckers,fistfucking,fistfuckings,fistfucks,fuck,fucked,fucker,fuckers,fuckin,fucking,fuckings,fuckme,fucks,fuk,fuks,gangbang,gangbanged,gangbangs,gaysex,goddamn,hardcoresex,horniest,horny,hotsex,jism,jiz,jizm,kock,kondum,kondums,kum,kumer,kummer,kumming,kums,kunilingus,lust,lusting,mothafuck,mothafucka,mothafuckas,mothafuckaz,mothafucked,mothafucker,mothafuckers,mothafuckin,mothafucking,mothafuckings,mothafucks,motherfuck,motherfucked,motherfucker,motherfuckers,motherfuckin,motherfucking,motherfuckings,motherfucks,niger,nigger,niggers,orgasim,orgasims,orgasm,orgasms,phonesex,phuk,phuked,phuking,phukked,phukking,phuks,phuq,pis,piss,pisser,pissed,pisser,pissers,pises,pisses,pisin,pissin,pising,pissing,pisof,pissoff,porn,porno,pornography,pornos,prick,pricks,pussies,pusies,pussy,pusy,pussys,pusys,slut,sluts,smut,spunk', 
@@ -582,15 +689,7 @@ function iflychat_set_options(){
 				'2' => 'Allow only moderators',
 				'3' => 'Disable')
 			),
-		'show_admin_list' => array ( 
-			'name' => 'iflychat_show_admin_list', 
-			'default' => 'no', 
-			'desc' => 'Show only admins in the online user list', 
-			'input_type' => 'dropdown', 
-			'data' => array( 
-				'yes' => 'yes', 
-				'no' => 'no')
-			),
+		
 		'path_visibility' => array ( 
 			'name' => 'iflychat_path_visibility', 
 			'default' => '1', 
@@ -650,6 +749,7 @@ function iflychat_set_options(){
 
 //create settings page
 function iflychat_settings() {
+  wp_enqueue_script( 'iflychat-admin', plugin_dir_url( __FILE__ ) . 'js/iflychat.admin.script.js', array('jquery'));
 	?>
 		<div class="wrap">	
 			<h2><?php _e('iFlyChat Settings', iflychat_NAME_UNIQUE); ?></h2>
@@ -724,8 +824,8 @@ function iflychat_settings() {
 	  'font_color' => get_option('iflychat_chat_font_color'),
 	  'chat_list_header' => get_option('iflychat_chat_list_header'),
 	  'public_chatroom_header' => get_option('iflychat_public_chatroom_header'),
-	  'version' => 'WP-1.1.5',
-	  'show_admin_list' => (get_option('iflychat_show_admin_list') == "yes")?'1':'2',
+	  'version' => 'WP-1.1.6',
+	  'show_admin_list' => (get_option('iflychat_show_admin_list') == "1")?'1':'2',
 	  'clear' => get_option('iflychat_allow_single_message_delete'),
       'delmessage' => get_option('iflychat_allow_clear_room_history'),
 	  'ufc' => get_option('iflychat_allow_user_font_color'),
@@ -779,6 +879,8 @@ add_action("admin_menu", 'iflychat_settings_page');
 add_action('init', 'iflychat_init');
 add_action( 'wp_ajax_nopriv_iflychat-get', 'iflychat_submit_uth' );
 add_action( 'wp_ajax_iflychat-get', 'iflychat_submit_uth' );
+add_action( 'wp_ajax_nopriv_iflychat-offline-msg', 'iflychat_send_offline_message' );
+add_action( 'wp_ajax_iflychat-offline-msg', 'iflychat_send_offline_message' );
 register_activation_hook(__FILE__,'iflychat_install');
 register_deactivation_hook( __FILE__, 'iflychat_uninstall');
 function iflychat_match_path($path, $patterns) {
@@ -806,5 +908,24 @@ function iflychat_path_check() {
     $page_match = TRUE;
   }
   return $page_match;
+}
+function iflychat_mail_set_content_type(){
+    return "text/html";
+}
+function iflychat_send_offline_message() {
+  if(isset($_POST['drupalchat_m_contact_details']) && isset($_POST['drupalchat_m_message'])) {
+    global $user;
+    $drupalchat_offline_mail = array();
+    $drupalchat_offline_mail['subject'] = 'iFlyChat: Message from Customer';
+    $drupalchat_offline_mail['contact_details'] =  '<p>' . get_option('iflychat_support_chat_offline_message_contact') . ': ' . ($_POST['drupalchat_m_contact_details']) . '</p>';
+    $drupalchat_offline_mail['message'] = '<p>' . get_option('iflychat_support_chat_offline_message_label') . ': ' . ($_POST['drupalchat_m_message']) . '</p>';
+	$drupalchat_offline_mail['message'] = $drupalchat_offline_mail['contact_details'] . '<br><br>' . $drupalchat_offline_mail['message'];
+	add_filter( 'wp_mail_content_type','iflychat_mail_set_content_type' );
+    $result = wp_mail(get_option('iflychat_support_chat_offline_message_email'), $drupalchat_offline_mail['subject'], $drupalchat_offline_mail['message']); 
+  }
+  $response = json_encode($result);
+  header("Content-Type: application/json");
+  echo $response;
+  exit;
 }
 ?>
