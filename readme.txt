@@ -3,7 +3,7 @@ Contributors: darklrd
 Tags: chat
 Requires at least: 3.0
 Tested up to: 3.5
-Stable tag: 1.1.6
+Stable tag: 1.1.7
 License: GPLv2 or later
 
 iFlyChat provides one on one chat and multiple chat rooms for your website.
@@ -38,3 +38,18 @@ PS: You'll need an [iFlyChat.com API key](https://iflychat.com) to use it.
 * Get [iFlyChat.com API key](https://iflychat.com).
 * Detailed installation steps - https://iflychat.com/installation-wordpress.
 * You're done!
+
+== Screenshots ==
+
+1. **Popup Format** - Open multiple chat windows (both rooms and one-to-one) next to each other and chat simultaneously. This screenshot shows a website with 700+ concurrent users.
+2. **Embed Format** - Make your chat (room) larger and roomier by embedding it into a page. Fully customizable CSS.
+
+== Changelog ==
+
+= 1.1.7 =
+iFlyChat Support Chat released. New emoticons added. Added Screenshots.
+
+== Upgrade Notice ==
+
+= 1.1.7 =
+After updating, go to iFlyChat Settings page and click on Update button.
