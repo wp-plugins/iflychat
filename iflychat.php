@@ -1,20 +1,20 @@
 <?php
 /**
  * @package iflychat
- * @version 1.1.7
+ * @version 1.1.8
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms 
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 1.1.7
+Version: 1.1.8
 Author URI: https://iflychat.com/
 */
 
-define('DRUPALCHAT_EXTERNAL_HOST', 'http://api.iflychat.com');
+define('DRUPALCHAT_EXTERNAL_HOST', 'http://api'.get_option('iflychat_ext_d_i').'.iflychat.com');
 define('DRUPALCHAT_EXTERNAL_PORT', '80');
-define('DRUPALCHAT_EXTERNAL_A_HOST', 'https://api.iflychat.com');
+define('DRUPALCHAT_EXTERNAL_A_HOST', 'https://api'.get_option('iflychat_ext_d_i').'.iflychat.com');
 define('DRUPALCHAT_EXTERNAL_A_PORT', '443');
 
 function iflychat_get_hash_session() {
@@ -301,7 +301,10 @@ function iflychat_submit_uth() {
       $user_name = iflychat_get_user_name(); 
     }
     if($user_name) {
-      $json = _iflychat_get_auth($user_name);  
+      $json = _iflychat_get_auth($user_name);
+      if(isset($json->_i) && (get_option('iflychat_ext_d_i')!=$json->_i)) {
+	    update_option('iflychat_ext_d_i',$json->_i);
+      }		
       $json->name = $user_name;
 	  $json->uid = $tid;
     }
@@ -824,7 +827,7 @@ function iflychat_settings() {
 	  'font_color' => get_option('iflychat_chat_font_color'),
 	  'chat_list_header' => get_option('iflychat_chat_list_header'),
 	  'public_chatroom_header' => get_option('iflychat_public_chatroom_header'),
-	  'version' => 'WP-1.1.7',
+	  'version' => 'WP-1.1.8',
 	  'show_admin_list' => (get_option('iflychat_show_admin_list') == "1")?'1':'2',
 	  'clear' => get_option('iflychat_allow_single_message_delete'),
       'delmessage' => get_option('iflychat_allow_clear_room_history'),
@@ -862,6 +865,10 @@ function iflychat_register_settings()
 
 	if (get_option('iflychat_promote_plugin') === false) {
 		add_option('iflychat_promote_plugin', '0', '', 'yes');
+	}
+	
+	if (get_option('iflychat_ext_d_i') === false) {
+		add_option('iflychat_ext_d_i', '', '', 'yes');
 	}
 
 }

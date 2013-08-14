@@ -2,8 +2,8 @@
 Contributors: darklrd
 Tags: chat
 Requires at least: 3.0
-Tested up to: 3.5
-Stable tag: 1.1.7
+Tested up to: 3.6
+Stable tag: 1.1.8
 License: GPLv2 or later
 
 iFlyChat provides one on one chat and multiple chat rooms for your website.
@@ -49,7 +49,13 @@ PS: You'll need an [iFlyChat.com API key](https://iflychat.com) to use it.
 = 1.1.7 =
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
+= 1.1.8 =
+iFlyChat Sync Release.
+
 == Upgrade Notice ==
 
 = 1.1.7 =
+After updating, go to iFlyChat Settings page and click on Update button.
+
+= 1.1.8 =
 After updating, go to iFlyChat Settings page and click on Update button.
