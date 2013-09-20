@@ -39,14 +39,14 @@ b.urls[0]){l("css");break}h+=1;b&&(h<200?setTimeout(t,50):l("css"))}}var c,s,m={
 		  Drupal.settings.drupalchat.uid = data.uid;
 		}
 	    if(Drupal.settings.drupalchat.chat_type !== '1') {
-		  LazyLoad.css(Drupal.settings.drupalchat.external_a_host + ':' + Drupal.settings.drupalchat.external_a_port + '/i/' + data.css + '/cache.css?t='+(new Date()).getTime(), function () {
-		    LazyLoad.js([Drupal.settings.drupalchat.external_a_host + ':' + Drupal.settings.drupalchat.external_a_port + '/j/cache.js?t='+(new Date()).getTime(), Drupal.settings.drupalchat.external_a_host + ':' + Drupal.settings.drupalchat.external_a_port + '/h/'+ data.css + '/cache.js?t='+(new Date()).getTime()], function () {
+		  LazyLoad.css(Drupal.settings.drupalchat.external_a_host + ':' + Drupal.settings.drupalchat.external_a_port + '/i/' + data.css + '/cache.css', function () {
+		    LazyLoad.js([Drupal.settings.drupalchat.external_a_host + ':' + Drupal.settings.drupalchat.external_a_port + '/j/cache.js', Drupal.settings.drupalchat.external_a_host + ':' + Drupal.settings.drupalchat.external_a_port + '/h/'+ data.css + '/cache.js'], function () {
             });
           });
 		}
 		else {
-		  LazyLoad.css(Drupal.settings.drupalchat.external_a_host + ':' + Drupal.settings.drupalchat.external_a_port + '/i/' + data.css + '/s/'+((Drupal.settings.drupalchat.admin=="1")?('a/'):(''))+'cache.css?t='+(new Date()).getTime(), function () {
-		    LazyLoad.js([Drupal.settings.drupalchat.external_a_host + ':' + Drupal.settings.drupalchat.external_a_port + '/j/cache.js?t='+(new Date()).getTime(), Drupal.settings.drupalchat.external_a_host + ':' + Drupal.settings.drupalchat.external_a_port + '/h/'+ data.css + '/s' +((Drupal.settings.drupalchat.admin=="1")?('/a'):('')) +'/cache.js?t='+(new Date()).getTime()], function () {
+		  LazyLoad.css(Drupal.settings.drupalchat.external_a_host + ':' + Drupal.settings.drupalchat.external_a_port + '/i/' + data.css + '/s/'+((Drupal.settings.drupalchat.admin=="1")?('a/'):(''))+'cache.css', function () {
+		    LazyLoad.js([Drupal.settings.drupalchat.external_a_host + ':' + Drupal.settings.drupalchat.external_a_port + '/j/cache.js', Drupal.settings.drupalchat.external_a_host + ':' + Drupal.settings.drupalchat.external_a_port + '/h/'+ data.css + '/s' +((Drupal.settings.drupalchat.admin=="1")?('/a'):('')) +'/cache.js'], function () {
             });
           });
 		}

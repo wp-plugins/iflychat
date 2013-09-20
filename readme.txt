@@ -3,7 +3,7 @@ Contributors: darklrd
 Tags: chat
 Requires at least: 3.0
 Tested up to: 3.6
-Stable tag: 1.1.8
+Stable tag: 1.1.9
 License: GPLv2 or later
 
 iFlyChat provides one on one chat and multiple chat rooms for your website.
@@ -52,10 +52,16 @@ iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 = 1.1.8 =
 iFlyChat Sync Release.
 
+= 1.1.9 =
+iFlyChat Improved Caching.
+
 == Upgrade Notice ==
 
 = 1.1.7 =
 After updating, go to iFlyChat Settings page and click on Update button.
 
 = 1.1.8 =
+After updating, go to iFlyChat Settings page and click on Update button.
+
+= 1.1.9 =
 After updating, go to iFlyChat Settings page and click on Update button.
