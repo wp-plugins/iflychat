@@ -3,7 +3,7 @@ Contributors: darklrd
 Tags: chat
 Requires at least: 3.0
 Tested up to: 3.6
-Stable tag: 1.1.10
+Stable tag: 1.1.11
 License: GPLv2 or later
 
 iFlyChat provides one on one chat and multiple chat rooms for your website.
@@ -58,6 +58,9 @@ iFlyChat Improved Caching.
 = 1.1.10 =
 PHP mb_* fix
 
+= 1.1.11 =
+PHP mb_* fix
+
 == Upgrade Notice ==
 
 = 1.1.7 =
@@ -70,4 +73,7 @@ After updating, go to iFlyChat Settings page and click on Update button.
 After updating, go to iFlyChat Settings page and click on Update button.
 
 = 1.1.10 =
+After updating, go to iFlyChat Settings page and click on Update button.
+
+= 1.1.11 =
 After updating, go to iFlyChat Settings page and click on Update button.

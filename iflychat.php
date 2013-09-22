@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 1.1.10
+ * @version 1.1.11
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms 
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 1.1.10
+Version: 1.1.11
 Author URI: https://iflychat.com/
 */
 
@@ -827,7 +827,7 @@ function iflychat_settings() {
 	  'font_color' => get_option('iflychat_chat_font_color'),
 	  'chat_list_header' => get_option('iflychat_chat_list_header'),
 	  'public_chatroom_header' => get_option('iflychat_public_chatroom_header'),
-	  'version' => 'WP-1.1.10',
+	  'version' => 'WP-1.1.11',
 	  'show_admin_list' => (get_option('iflychat_show_admin_list') == "1")?'1':'2',
 	  'clear' => get_option('iflychat_allow_single_message_delete'),
       'delmessage' => get_option('iflychat_allow_clear_room_history'),
@@ -906,7 +906,7 @@ function iflychat_match_path($path, $patterns) {
 function iflychat_path_check() {
   $page_match = FALSE;
   if (trim(get_option('iflychat_path_pages')) != '') {
-    if(function_exists('mb_strtolower') {
+    if(function_exists('mb_strtolower')) {
       $pages = mb_strtolower(get_option('iflychat_path_pages'));
       $path = mb_strtolower($_SERVER['REQUEST_URI']);
     }
