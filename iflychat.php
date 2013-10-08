@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 1.1.11
+ * @version 1.1.12
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms 
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 1.1.11
+Version: 1.1.12
 Author URI: https://iflychat.com/
 */
 
@@ -123,19 +123,19 @@ function iflychat_init() {
 	  'allowAnonHL' => get_option('iflychat_allow_anon_links'),
 	  'iup' => (get_option('iflychat_user_picture') == 'yes')?'1':'2',
 	  'open_chatlist_default' => (get_option('iflychat_minimize_chat_user_list')=='2')?'1':'2',
-	  'admin' => current_user_can('activate_plugins')?'1':'0',
+	  'admin' => iflychat_check_chat_admin()?'1':'0',
     );
-	if(current_user_can('activate_plugins')) {
+	if(iflychat_check_chat_admin()) {
 	  global $wp_roles;
 	  $my_settings['arole'] = $wp_roles->get_names(); 
 	}
 	global $current_user;
     get_currentuserinfo();
 	if(get_option('iflychat_user_picture') == 'yes') {
-	  if(function_exists(bp_core_fetch_avatar) && ($current_user->ID > 0)) {
+	  if(function_exists("bp_core_fetch_avatar") && ($current_user->ID > 0)) {
 	    $my_settings['up'] = bp_core_fetch_avatar(array('item_id' => iflychat_get_user_id(),'html'=>false));
 	  }
-    else if(function_exists(get_simple_local_avatar) && ($current_user->ID > 0)) {
+    else if(function_exists("get_simple_local_avatar") && ($current_user->ID > 0)) {
 	    $source = get_simple_local_avatar(iflychat_get_user_id());
       $source = explode('src="', $source);
       if(isset($source[1])) {
@@ -159,7 +159,7 @@ function iflychat_init() {
 	  $my_settings['default_cr'] = plugin_dir_url( __FILE__ ) . 'themes/'.get_option('iflychat_theme').'/images/default_room.png';
 	  $my_settings['default_team'] = plugin_dir_url( __FILE__ ) . 'themes/'.get_option('iflychat_theme').'/images/default_room.png';
 	}
-	if(function_exists(bp_core_get_userlink) && ($current_user->ID > 0)) {
+	if(function_exists("bp_core_get_userlink") && ($current_user->ID > 0)) {
       $my_settings['upl'] = bp_core_get_userlink($current_user->ID, false, true);
     }
 	
@@ -224,7 +224,8 @@ function _iflychat_get_auth($name) {
   }
   global $current_user;
   get_currentuserinfo();
-  if(current_user_can('activate_plugins')) {
+  $admin_check = FALSE;
+  if(iflychat_check_chat_admin()) {
     $role = "admin";
   }
   else {
@@ -708,6 +709,12 @@ function iflychat_set_options(){
 			'desc' => "Specify pages by using their paths. Enter one path per line. The '*' character is a wildcard. Example paths are <b>/2012/10/my-post</b> for a single post and <b>/2012/*</b> for a group of posts. The path should always start with a forward slash(/).", 
 			'input_type' => 'textarea'
 			),
+    'chat_admins_array' => array ( 
+			'name' => 'iflychat_chat_admins_array', 
+			'default' => '', 
+			'desc' => "Specify WordPress username of users who should be chat admininstrators (separated by comma)", 
+			'input_type' => 'textarea'
+			),
 		/*'include_images' => array ( 
 			'name' => 'timeline_include_images', 
 			'default' => 'no', 
@@ -755,11 +762,11 @@ function iflychat_settings() {
   wp_enqueue_script( 'iflychat-admin', plugin_dir_url( __FILE__ ) . 'js/iflychat.admin.script.js', array('jquery'));
 	?>
 		<div class="wrap">	
-			<h2><?php _e('iFlyChat Settings', iflychat_NAME_UNIQUE); ?></h2>
+			<h2><?php _e('iFlyChat Settings', 'iflychat_settings'); ?></h2>
 		<?php
 		if (isset($_GET['updated']) && $_GET['updated'] == 'true') {
 			?>
-			<div id="message" class="updated fade"><p><strong><?php _e('Settings Updated', iflychat_NAME_UNIQUE); ?></strong></p></div>
+			<div id="message" class="updated fade"><p><strong><?php _e('Settings Updated', 'iflychat_settings'); ?></strong></p></div>
 			<?php
 		}
 		?>
@@ -778,7 +785,7 @@ function iflychat_settings() {
 						//if option type is a dropdown, do this
 						if ( $option['input_type'] == 'dropdown'){ ?>
 							<tr valign="top">
-				        		<th scope="row"><?php _e($option['desc'], iflychat_NAME_UNIQUE); ?></th>
+				        		<th scope="row"><?php _e($option['desc'], 'iflychat_settings'); ?></th>
 				        			<td><select id="<?php echo $option['name']; ?>" name="<?php echo $option['name']; ?>">
 				        					<?php foreach($option['data'] as $opt => $value){ ?>
 												<option <?php if(get_option($option['name']) == $opt){ echo 'selected="selected"';}?> name="<?php echo $option['name']; ?>" value="<?php echo $opt; ?>"><?php echo $value ; ?></option>
@@ -790,7 +797,7 @@ function iflychat_settings() {
 				    	//if option type is text, do this
 				    	}elseif ( $option['input_type'] == 'text'){ ?>
 				    		<tr valign="top">
-				        		<th scope="row"><?php _e($option['desc'], iflychat_NAME_UNIQUE); ?></th>
+				        		<th scope="row"><?php _e($option['desc'], 'iflychat_settings'); ?></th>
 				        			<td><input id="<?php echo $option['name']; ?>" name="<?php echo $option['name']; ?>" value="<?php echo get_option($option['name']); ?>" size="64" />
 									</td>
 					        </tr>
@@ -798,7 +805,7 @@ function iflychat_settings() {
 				    	//if option type is text, do this
 				    	}elseif ( $option['input_type'] == 'textarea'){ ?>
 				    		<tr valign="top">
-				        		<th scope="row"><?php _e($option['desc'], iflychat_NAME_UNIQUE); ?></th>
+				        		<th scope="row"><?php _e($option['desc'], 'iflychat_settings'); ?></th>
 				        			<td><textarea id="<?php echo $option['name']; ?>" cols="80" rows="6" name="<?php echo $option['name']; ?>"><?php echo get_option($option['name']); ?>
 									</textarea>
 									</td>
@@ -810,7 +817,7 @@ function iflychat_settings() {
 			     	} //endforeach ?>
 			        
 			    </table>
-			    <p class="submit"><input type="submit" class="button-primary" value="<?php _e('Update', iflychat_NAME_UNIQUE); ?>" /></p>
+			    <p class="submit"><input type="submit" class="button-primary" value="<?php _e('Update', 'iflychat_settings'); ?>" /></p>
 			</form>
 		</div>
 	<?php
@@ -827,7 +834,7 @@ function iflychat_settings() {
 	  'font_color' => get_option('iflychat_chat_font_color'),
 	  'chat_list_header' => get_option('iflychat_chat_list_header'),
 	  'public_chatroom_header' => get_option('iflychat_public_chatroom_header'),
-	  'version' => 'WP-1.1.11',
+	  'version' => 'WP-1.1.12',
 	  'show_admin_list' => (get_option('iflychat_show_admin_list') == "1")?'1':'2',
 	  'clear' => get_option('iflychat_allow_single_message_delete'),
       'delmessage' => get_option('iflychat_allow_clear_room_history'),
@@ -877,7 +884,7 @@ add_action( 'admin_init', 'iflychat_register_settings' );
 
 //add settings page
 function iflychat_settings_page() {	
-	add_options_page('iFlyChat Settings', 'iFlyChat Settings', 'manage_options', iflychat_NAME_UNIQUE, 'iflychat_settings');
+	add_options_page('iFlyChat Settings', 'iFlyChat Settings', 'manage_options', 'iflychat_settings', 'iflychat_settings');
 }
 add_action("admin_menu", 'iflychat_settings_page');
 
@@ -941,4 +948,23 @@ function iflychat_send_offline_message() {
   echo $response;
   exit;
 }
+function iflychat_check_chat_admin() {
+  global $current_user;
+  get_currentuserinfo();
+  if(current_user_can('activate_plugins')) {
+    return TRUE;
+  }
+  if(!empty(get_option('iflychat_chat_admins_array'))) {
+    $a_names = explode(",", get_option('iflychat_chat_admins_array'));
+    foreach($a_names as $an) {
+      $aa = trim($an);
+      if($aa == $current_user->user_login) {
+        return TRUE;
+        break;
+      }
+    }
+  }
+  return FALSE;
+}
+
 ?>
