@@ -3,7 +3,7 @@ Contributors: darklrd
 Tags: chat
 Requires at least: 3.0
 Tested up to: 3.6
-Stable tag: 1.1.12
+Stable tag: 1.1.13
 License: GPLv2 or later
 
 iFlyChat provides one on one chat and multiple chat rooms for your website.
@@ -64,6 +64,9 @@ PHP mb_* fix
 = 1.1.12 =
 Add WP users as chat moderators
 
+= 1.1.13 =
+Add WP users as chat moderators
+
 == Upgrade Notice ==
 
 = 1.1.7 =
@@ -82,4 +85,7 @@ After updating, go to iFlyChat Settings page and click on Update button.
 After updating, go to iFlyChat Settings page and click on Update button.
 
 = 1.1.12 =
+After updating, go to iFlyChat Settings page and click on Update button.
+
+= 1.1.13 =
 After updating, go to iFlyChat Settings page and click on Update button.
