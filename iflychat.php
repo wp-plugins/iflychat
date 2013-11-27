@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 1.1.14
+ * @version 1.1.15
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms 
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 1.1.14
+Version: 1.1.15
 Author URI: https://iflychat.com/
 */
 
@@ -195,6 +195,9 @@ function iflychat_init() {
   $my_settings['text_nmm'] = __('No More Messages', 'iflychat');
   $my_settings['text_clear_room'] = __('Clear all messages', 'iflychat');
 	$my_settings['msg_p'] = __('Type and Press Enter', 'iflychat');
+  $my_settings['text_search_bar'] = __('Type here to search', 'iflychat');
+  $my_settings['searchBar'] = (get_option('iflychat_enable_search_bar') == '1')?'1':'2';
+  $my_settings['renderImageInline'] = (get_option('iflychat_allow_render_images') == '1')?'1':'2';
 	if(iflychat_check_chat_admin()) {
 		$my_settings['text_ban'] = __('Ban', 'iflychat');
 		$my_settings['text_ban_ip'] = __('Ban IP', 'iflychat');
@@ -534,6 +537,15 @@ function iflychat_set_options(){
 				'1' => 'Yes', 
 				'2' => 'No',)
 			),
+    'enable_search_bar' => array ( 
+			'name' => 'iflychat_enable_search_bar', 
+			'default' => '1', 
+			'desc' => 'Select whether to show search bar in online user list', 
+			'input_type' => 'dropdown', 
+			'data' => array( 
+				'1' => 'Yes', 
+				'2' => 'No',)
+			),  
 		'public_chatroom' => array ( 
 			'name' => 'iflychat_public_chatroom', 
 			'default' => 'yes', 
@@ -684,7 +696,7 @@ function iflychat_set_options(){
 		'stop_links' => array ( 
 			'name' => 'iflychat_stop_links', 
 			'default' => '1', 
-			'desc' => 'Select whether to block hyperlinks posted in chats', 
+			'desc' => 'Select whether to allow/block hyperlinks posted in chats', 
 			'input_type' => 'dropdown', 
 			'data' => array(
 			  '1' => 'Don\'t block', 
@@ -696,12 +708,21 @@ function iflychat_set_options(){
 		'allow_anon_links' => array ( 
 			'name' => 'iflychat_allow_anon_links', 
 			'default' => '1', 
-			'desc' => 'Select whether to apply above defined block hyperlinks setting only to anonymous users', 
+			'desc' => 'Select whether to apply above defined hyperlinks setting only to anonymous users', 
 			'input_type' => 'dropdown', 
 			'data' => array( 
 				'1' => 'yes', 
 				'2' => 'no')
 			),
+    'allow_render_images' => array ( 
+			'name' => 'iflychat_allow_render_images', 
+			'default' => '1', 
+			'desc' => 'Select whether to render image and video hyperlinks inline in chat', 
+			'input_type' => 'dropdown', 
+			'data' => array( 
+				'1' => 'yes', 
+				'2' => 'no')
+			),  
 		'allow_single_message_delete' => array ( 
 			'name' => 'iflychat_allow_single_message_delete', 
 			'default' => '1', 
@@ -863,7 +884,7 @@ function iflychat_settings() {
 	  'font_color' => get_option('iflychat_chat_font_color'),
 	  'chat_list_header' => get_option('iflychat_chat_list_header'),
 	  'public_chatroom_header' => get_option('iflychat_public_chatroom_header'),
-	  'version' => 'WP-1.1.14',
+	  'version' => 'WP-1.1.15',
 	  'show_admin_list' => (get_option('iflychat_show_admin_list') == "1")?'1':'2',
 	  'clear' => get_option('iflychat_allow_single_message_delete'),
       'delmessage' => get_option('iflychat_allow_clear_room_history'),

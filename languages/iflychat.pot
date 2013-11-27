@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: iflychat\n"
-"POT-Creation-Date: 2013-11-27 18:30+0530\n"
-"PO-Revision-Date: 2013-11-27 18:32+0530\n"
+"POT-Creation-Date: 2013-11-28 01:14+0530\n"
+"PO-Revision-Date: 2013-11-28 01:14+0530\n"
 "Last-Translator: \n"
 "Language-Team: iFlyChat <support@iflylabs.com>\n"
 "MIME-Version: 1.0\n"
@@ -74,50 +74,54 @@ msgstr ""
 msgid "Type and Press Enter"
 msgstr ""
 
-#: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:199
-msgid "Ban"
-msgstr ""
-
-#: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:200
-msgid "Ban IP"
-msgstr ""
-
-#: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:201
-msgid "Kick"
+#: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:198
+msgid "Type here to search"
 msgstr ""
 
 #: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:202
-msgid "Banned Users"
+msgid "Ban"
 msgstr ""
 
 #: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:203
-msgid "No users have been banned currently."
+msgid "Ban IP"
 msgstr ""
 
 #: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:204
-msgid "Loading banned user list..."
+msgid "Kick"
 msgstr ""
 
 #: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:205
-msgid "Manage Rooms"
+msgid "Banned Users"
 msgstr ""
 
 #: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:206
-msgid "Unban"
+msgid "No users have been banned currently."
 msgstr ""
 
 #: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:207
+msgid "Loading banned user list..."
+msgstr ""
+
+#: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:208
+msgid "Manage Rooms"
+msgstr ""
+
+#: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:209
+msgid "Unban"
+msgstr ""
+
+#: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:210
 msgid "Unban IP"
 msgstr ""
 
-#: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:794
+#: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:815
 msgid "iFlyChat Settings"
 msgstr ""
 
-#: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:798
+#: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:819
 msgid "Settings Updated"
 msgstr ""
 
-#: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:849
+#: F:\Dropbox\websites\wp\wp-content\plugins\iflychat/iflychat.php:870
 msgid "Update"
 msgstr ""
