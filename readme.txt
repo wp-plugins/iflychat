@@ -3,7 +3,7 @@ Contributors: darklrd
 Tags: chat
 Requires at least: 3.0
 Tested up to: 3.7
-Stable tag: 1.1.15
+Stable tag: 1.1.16
 License: GPLv2 or later
 
 iFlyChat provides one on one chat and multiple chat rooms for your website.
@@ -74,6 +74,9 @@ Make plugin translatable
 = 1.1.15 =
 Toggle on/off search bar and render images inline
 
+= 1.1.16 =
+Fix compatibility
+
 == Upgrade Notice ==
 
 = 1.1.7 =
@@ -101,4 +104,7 @@ After updating, go to iFlyChat Settings page and click on Update button.
 After updating, go to iFlyChat Settings page and click on Update button.
 
 = 1.1.15 =
+After updating, go to iFlyChat Settings page and click on Update button.
+
+= 1.1.16 =
 After updating, go to iFlyChat Settings page and click on Update button.
