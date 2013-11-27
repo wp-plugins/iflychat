@@ -2,7 +2,7 @@
 Contributors: darklrd
 Tags: chat
 Requires at least: 3.0
-Tested up to: 3.6
+Tested up to: 3.7
 Stable tag: 1.1.15
 License: GPLv2 or later
 
