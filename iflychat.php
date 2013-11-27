@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 1.1.13
+ * @version 1.1.14
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms 
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 1.1.13
+Version: 1.1.14
 Author URI: https://iflychat.com/
 */
 
@@ -96,11 +96,12 @@ function iflychat_get_user_name() {
 
 function iflychat_init() {
   if(iflychat_path_check() && ((get_option('iflychat_only_loggedin') == "no") || is_user_logged_in())) {
+    load_plugin_textdomain('iflychat', false, basename( dirname( __FILE__ ) ) . '/languages' );
     global $current_user;
     get_currentuserinfo();
     $my_settings = array(
       'uid' => iflychat_get_user_id(),
-	  'username' => iflychat_get_user_name(),
+	    'username' => iflychat_get_user_name(),
       'current_timestamp' => time(),
       'polling_method' => "3",
       'pollUrl' => " ",
@@ -109,22 +110,25 @@ function iflychat_init() {
       'status' => "1",
       'goOnline' => 'Go Online',
       'goIdle' => 'Go Idle',
-      'newMessage' => 'New chat message!',
+      'newMessage' => __('New chat message!', 'iflychat'),
       'images' => plugin_dir_url( __FILE__ ) . 'themes/light/images/',
       'sound' => plugin_dir_url( __FILE__ ) . '/swf/sound.swf',
       'noUsers' => "<div class=\"item-list\"><ul><li class=\"drupalchatnousers even first last\">No users online</li></ul></div>",
       'smileyURL' => plugin_dir_url( __FILE__ ) . 'smileys/very_emotional_emoticons-png/png-32x32/',
       'addUrl' => " ",
-	  'notificationSound' => (get_option('iflychat_notification_sound', "yes") == "yes")?"1":"2",
-	  'basePath' => get_site_url() . "/",
-	  'stopWordList' => get_option('iflychat_stop_word_list'),
-	  'useStopWordList' => get_option('iflychat_use_stop_word_list'),
-	  'blockHL' => get_option('iflychat_stop_links'),
-	  'allowAnonHL' => get_option('iflychat_allow_anon_links'),
-	  'iup' => (get_option('iflychat_user_picture') == 'yes')?'1':'2',
-	  'open_chatlist_default' => (get_option('iflychat_minimize_chat_user_list')=='2')?'1':'2',
-	  'admin' => iflychat_check_chat_admin()?'1':'0',
+	    'notificationSound' => (get_option('iflychat_notification_sound', "yes") == "yes")?"1":"2",
+	    'basePath' => get_site_url() . "/",
+	    'useStopWordList' => get_option('iflychat_use_stop_word_list'),
+	    'blockHL' => get_option('iflychat_stop_links'),
+	    'allowAnonHL' => get_option('iflychat_allow_anon_links'),
+	    'iup' => (get_option('iflychat_user_picture') == 'yes')?'1':'2',
+	    'open_chatlist_default' => (get_option('iflychat_minimize_chat_user_list')=='2')?'1':'2',
+	    'admin' => iflychat_check_chat_admin()?'1':'0',
     );
+  if($my_settings['useStopWordList'] != "1") {
+    $my_settings['stopWordList'] = get_option('iflychat_stop_word_list');
+  }  
+    
 	if(iflychat_check_chat_admin()) {
 	  global $wp_roles;
 	  $my_settings['arole'] = $wp_roles->get_names(); 
@@ -177,6 +181,31 @@ function iflychat_init() {
         $my_settings['external_a_port'] = DRUPALCHAT_EXTERNAL_PORT;
 	  }
 	}
+  $my_settings['text_currently_offline'] = __('drupalchat_user is currently offline.', 'iflychat');
+  $my_settings['text_is_typing'] = __('drupalchat_user is typing...', 'iflychat');	
+	$my_settings['text_close'] = __('Close', 'iflychat');
+	$my_settings['text_minimize'] = __('Minimize', 'iflychat');
+	$my_settings['text_mute'] = __('Click to Mute', 'iflychat');
+	$my_settings['text_unmute'] = __('Click to Unmute', 'iflychat');
+	$my_settings['text_available'] = __('Available', 'iflychat');
+	$my_settings['text_idle'] = __('Idle', 'iflychat');
+	$my_settings['text_busy'] = __('Busy', 'iflychat');
+	$my_settings['text_offline'] = __('Offline', 'iflychat');
+	$my_settings['text_lmm'] = __('Load More Messages', 'iflychat');
+  $my_settings['text_nmm'] = __('No More Messages', 'iflychat');
+  $my_settings['text_clear_room'] = __('Clear all messages', 'iflychat');
+	$my_settings['msg_p'] = __('Type and Press Enter', 'iflychat');
+	if(iflychat_check_chat_admin()) {
+		$my_settings['text_ban'] = __('Ban', 'iflychat');
+		$my_settings['text_ban_ip'] = __('Ban IP', 'iflychat');
+		$my_settings['text_kick'] = __('Kick', 'iflychat');
+		$my_settings['text_ban_window_title'] = __('Banned Users', 'iflychat');
+		$my_settings['text_ban_window_default'] = __('No users have been banned currently.', 'iflychat');
+		$my_settings['text_ban_window_loading'] = __('Loading banned user list...', 'iflychat');
+		$my_settings['text_manage_rooms'] = __('Manage Rooms', 'iflychat');
+		$my_settings['text_unban'] = __('Unban', 'iflychat');
+		$my_settings['text_unban_ip'] = __('Unban IP', 'iflychat');
+  }
 	if(get_option('iflychat_show_admin_list') == '1') {
 	    $my_settings['text_support_chat_init_label'] = get_option('iflychat_support_chat_init_label');
 		$my_settings['text_support_chat_box_header'] = get_option('iflychat_support_chat_box_header');
@@ -236,14 +265,14 @@ function _iflychat_get_auth($name) {
   
   $data = array(
     'uid' => iflychat_get_user_id(),
-	'uname' => iflychat_get_user_name(),
+	  'uname' => iflychat_get_user_name(),
     'api_key' => get_option('iflychat_api_key'),
-	'image_path' => plugin_dir_url( __FILE__ ) . 'themes/light/images',
-	'isLog' => TRUE,
-	'whichTheme' => 'blue',
-	'enableStatus' => TRUE,
-	'role' => $role,
-	'validState' => array('available','offline','busy','idle')
+	  'image_path' => plugin_dir_url( __FILE__ ) . 'themes/light/images',
+	  'isLog' => TRUE,
+	  'whichTheme' => 'blue',
+	  'enableStatus' => TRUE,
+	  'role' => $role,
+	  'validState' => array('available','offline','busy','idle')
   );
   if(get_option('iflychat_user_picture') == 'yes') {
     if(function_exists(bp_core_fetch_avatar) && ($current_user->ID > 0)) {
@@ -279,7 +308,7 @@ function _iflychat_get_auth($name) {
     'body' => $data,
     'timeout' => 15,
     'headers' => array('Content-Type' => 'application/json'),
-	'sslverify' => false,
+	  'sslverify' => false,
   );
 
   $result = wp_remote_head(DRUPALCHAT_EXTERNAL_A_HOST . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/p/', $options);
@@ -834,7 +863,7 @@ function iflychat_settings() {
 	  'font_color' => get_option('iflychat_chat_font_color'),
 	  'chat_list_header' => get_option('iflychat_chat_list_header'),
 	  'public_chatroom_header' => get_option('iflychat_public_chatroom_header'),
-	  'version' => 'WP-1.1.13',
+	  'version' => 'WP-1.1.14',
 	  'show_admin_list' => (get_option('iflychat_show_admin_list') == "1")?'1':'2',
 	  'clear' => get_option('iflychat_allow_single_message_delete'),
       'delmessage' => get_option('iflychat_allow_clear_room_history'),
