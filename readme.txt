@@ -1,6 +1,6 @@
-=== iFlyChat ===
-Contributors: darklrd
-Tags: chat
+=== iFlyChat - Real Time Chat WordPress Plugin ===
+Contributors: darklrd, shubhamgupta
+Tags: chat, real time, support chat, live chat, community chat, buddypress chat, social, buddypress, social chat, social community chat, facebook chat, web chat, sales chat, one to one chat, chat room, group chat, embed chat, popup chat, IM chat, php chat, ajax chat, cloud chat, free chat, google chat, network, team chat, social community, collaborative, visitor chat, customer engagement, wordpress live chat plugin, wordpress community chat plugin, online support, social widget, chat widget, html5 chat, multilingual
 Requires at least: 3.0
 Tested up to: 3.8
 Stable tag: 1.1.19
