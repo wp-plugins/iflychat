@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 1.2.2
+ * @version 1.2.3
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms 
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 1.2.2
+Version: 1.2.3
 Author URI: https://iflychat.com/
 */
 
@@ -166,8 +166,11 @@ function iflychat_init() {
 	  $my_settings['default_team'] = plugin_dir_url( __FILE__ ) . 'themes/'.get_option('iflychat_theme').'/images/default_room.png';
 	}
 	if(function_exists("bp_core_get_userlink") && ($current_user->ID > 0)) {
-      $my_settings['upl'] = bp_core_get_userlink($current_user->ID, false, true);
-    }
+    $my_settings['upl'] = bp_core_get_userlink($current_user->ID, false, true);
+  }
+  else {
+    $my_settings['upl'] = 'javascript:void(0)';
+  }
 	
 	if($my_settings['polling_method'] == "3") {
 	  if (is_ssl()) {
@@ -307,6 +310,10 @@ function _iflychat_get_auth($name) {
   if(function_exists(bp_core_get_userlink) && ($current_user->ID > 0)) {
     $data['upl'] = bp_core_get_userlink($current_user->ID, false, true);
   }
+  else {
+    $data['upl'] = 'javascript:void(0)';
+  }
+  
   $data = json_encode($data);
   $options = array(
     'method' => 'POST',
@@ -886,7 +893,7 @@ function iflychat_settings() {
 	  'font_color' => get_option('iflychat_chat_font_color'),
 	  'chat_list_header' => get_option('iflychat_chat_list_header'),
 	  'public_chatroom_header' => get_option('iflychat_public_chatroom_header'),
-	  'version' => 'WP-1.2.2',
+	  'version' => 'WP-1.2.3',
 	  'show_admin_list' => (get_option('iflychat_show_admin_list') == "1")?'1':'2',
 	  'clear' => get_option('iflychat_allow_single_message_delete'),
     'delmessage' => get_option('iflychat_allow_clear_room_history'),
