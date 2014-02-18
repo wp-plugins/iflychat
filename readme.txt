@@ -55,6 +55,9 @@ PS: You'll need an [iFlyChat.com API key](https://iflychat.com) to use it.
 
 == Changelog ==
 
+= 1.2.5 =
+Disable aggressive caching.
+
 = 1.2.4 =
 Fix 404 profile link error if BuddyPress is not present. Update README file.
 
@@ -116,6 +119,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 1.2.5 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 1.2.4 =
 After updating, go to iFlyChat Settings page and click on Update button.
