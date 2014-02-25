@@ -2,13 +2,13 @@
 
 Contributors: darklrd, shubhamgupta
 
-Tags: chat, real time, support chat, live chat, community chat, buddypress chat, social, buddypress, social chat, social community chat, facebook chat, web chat, sales chat, one to one chat, chat room, group chat, embed chat, popup chat, IM chat, php chat, ajax chat, cloud chat, free chat, google chat, network, team chat, social community, collaborative, visitor chat, customer engagement, wordpress live chat plugin, wordpress community chat plugin, online support, social widget, chat widget, html5 chat, website chat
+Tags: chat, real time, support chat, live chat, community chat, buddypress chat, social, buddypress, social chat, social community chat, facebook chat, web chat, one to one chat, chat room, group chat, embed chat, popup chat, IM chat, php chat, ajax chat, cloud chat, google chat, team chat, social community, visitor chat, customer engagement, wordpress live chat plugin, wordpress community chat plugin, online support, social widget, chat widget, html5 chat, website chat
 
 Requires at least: 3.0
 
 Tested up to: 3.8
 
-Stable tag: 1.2.5
+Stable tag: 1.2.6
 
 License: GPLv2 or later
 
@@ -54,6 +54,9 @@ PS: You'll need an [iFlyChat.com API key](https://iflychat.com) to use it.
 2. **Embed Format** - Make your chat (room) larger and roomier by embedding it into a page. Fully customizable CSS.
 
 == Changelog ==
+
+= 1.2.6 =
+Add shortcode so that site-admins can view logs by using it.
 
 = 1.2.5 =
 Disable aggressive caching.
@@ -119,6 +122,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 1.2.6 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 1.2.5 =
 After updating, go to iFlyChat Settings page and click on Update button.
