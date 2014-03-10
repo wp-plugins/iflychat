@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 3.8
 
-Stable tag: 1.2.6
+Stable tag: 1.2.7
 
 License: GPLv2 or later
 
@@ -29,6 +29,7 @@ Features
 * Automatic integration with User Avatar
 * Automatic integration with Simple Local Avatars
 * Chat rooms can be embedded into the page instead of pop-up
+* Chat works on tablets and mobile devices
 * Supports chat for anonymous users 
 * Provides chat logging and message inbox functionality
 * Supports smilieys (detects them automatically in chat messages)
@@ -54,6 +55,9 @@ PS: You'll need an [iFlyChat.com API key](https://iflychat.com) to use it.
 2. **Embed Format** - Make your chat (room) larger and roomier by embedding it into a page. Fully customizable CSS.
 
 == Changelog ==
+
+= 1.2.7 =
+Initial code for mobile version.
 
 = 1.2.6 =
 Add shortcode so that site-admins can view logs by using it.
@@ -122,6 +126,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 1.2.7 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 1.2.6 =
 After updating, go to iFlyChat Settings page and click on Update button.
