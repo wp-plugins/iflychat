@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 3.8
 
-Stable tag: 1.2.7
+Stable tag: 1.2.8
 
 License: GPLv2 or later
 
@@ -54,7 +54,37 @@ PS: You'll need an [iFlyChat.com API key](https://iflychat.com) to use it.
 1. **Popup Format** - Open multiple chat windows (both rooms and one-to-one) next to each other and chat simultaneously. This screenshot shows a website with 700+ concurrent users.
 2. **Embed Format** - Make your chat (room) larger and roomier by embedding it into a page. Fully customizable CSS.
 
+== Frequently Asked Questions ==
+
+= Is it free to use? =
+
+We offer lifetime free plan for upto 10 simultaneous users in chat. It also includes all standard features. 
+For advanced features (such as embed chat, group chat, etc) and scalability, we offer paid plans - [https://iflychat.com/pricing] (https://iflychat.com/pricing). 
+
+= Do I have to install any software on my website server for this to work? =
+
+This is a cloud based chat. You don’t need to install anything apart from iFlyChat plugin.
+
+= How do you provide support? =
+
+Please visit our website [iflychat.com] (https://iflychat.com) for any query. We provide support via live chat on our website. Additionally, you may contact us by filling up this form - [https://iflychat.com/contact] (https://iflychat.com/contact). 
+
+= Do you have any knowledge base where I can see some documentation? =
+
+Yes, you may view our knowledge base here - [https://iflychat.com/documentation] (https://iflychat.com/documentation).
+
+= Does iFlyChat work on mobile and tablet? =
+
+Yes, our chat works across all mobile platforms. 
+
+= Does iFlyChat require Java or Flash client? =
+
+No, our chat works by utilizing HTML, JS and CSS.
+
 == Changelog ==
+
+= 1.2.8 =
+Ability to change notification sound.
 
 = 1.2.7 =
 Initial code for mobile version.
@@ -126,6 +156,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 1.2.8 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 1.2.7 =
 After updating, go to iFlyChat Settings page and click on Update button.
