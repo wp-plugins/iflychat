@@ -2,13 +2,13 @@
 
 Contributors: darklrd, shubhamgupta
 
-Tags: chat, real time, support chat, live chat, community chat, buddypress chat, social, buddypress, social chat, social community chat, facebook chat, web chat, one to one chat, chat room, group chat, embed chat, popup chat, IM chat, cloud chat, google chat, team chat, social community, visitor chat, customer engagement, wordpress live chat plugin, wordpress community chat plugin, online support, social widget, chat widget, html5 chat, website chat
+Tags: ajax chat, chat, real time, support chat, live chat, community chat, buddypress chat, social, buddypress, social chat, social community chat, facebook chat, web chat, one to one chat, chat room, group chat, embed chat, popup chat, IM chat, cloud chat, google chat, team chat, social community, visitor chat, customer engagement, wordpress live chat plugin, wordpress community chat plugin, online support, social widget, chat widget, html5 chat, website chat
 
 Requires at least: 3.0
 
 Tested up to: 3.8
 
-Stable tag: 1.2.9
+Stable tag: 1.3.0
 
 License: GPLv2 or later
 
@@ -82,6 +82,11 @@ Yes, our chat works across all mobile platforms.
 No, our chat works by utilizing HTML, JS and CSS.
 
 == Changelog ==
+
+= 1.3.0 =
+Integration with BuddyPress friends. 
+Show only friends in the online user list.
+Create rooms based on WordPress user roles correctly.
 
 = 1.2.9 =
 Fix README.
@@ -159,6 +164,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 1.3.0 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 1.2.9 =
 After updating, go to iFlyChat Settings page and click on Update button.

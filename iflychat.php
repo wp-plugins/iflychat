@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 1.2.9
+ * @version 1.3.0
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms 
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 1.2.9
+Version: 1.3.0
 Author URI: https://iflychat.com/
 */
 
@@ -269,8 +269,10 @@ function _iflychat_get_auth($name) {
   }
   else {
     //$role = "normal";
-	global $current_user;
-	$role = $current_user->roles;
+    global $current_user;
+    foreach ($current_user->roles as $rkey => $rvalue) {
+      $role[$rvalue] = $rvalue;
+    }
   }
   
   $data = array(
@@ -282,8 +284,18 @@ function _iflychat_get_auth($name) {
 	  'whichTheme' => 'blue',
 	  'enableStatus' => TRUE,
 	  'role' => $role,
-	  'validState' => array('available','offline','busy','idle')
+	  'validState' => array('available','offline','busy','idle'),
+    'rel' => '0',
   );
+  if((get_option('iflychat_enable_friends')=='2') &&  function_exists('friends_get_friend_user_ids')) {
+    $data['rel'] = '1';
+    $final_list = array();
+    $final_list['1']['name'] = 'friend';
+    $final_list['1']['plural'] = 'friends';
+    $final_list['1']['valid_uids'] = friends_get_friend_user_ids(iflychat_get_user_id());
+    $data['valid_uids'] = $final_list;
+  }  
+  
   if(get_option('iflychat_user_picture') == 'yes') {
     if(function_exists(bp_core_fetch_avatar) && ($current_user->ID > 0)) {
 	    $data['up'] = bp_core_fetch_avatar(array('item_id' => $current_user->ID,'html'=>false));
@@ -487,6 +499,15 @@ function iflychat_set_options(){
 				'yes' => 'yes', 
 				'no' => 'no')
 			),
+    'enable_friends' => array ( 
+      'name' => 'iflychat_enable_friends', 
+      'default' => '1', 
+      'desc' => 'Show only friends in online user list', 
+      'input_type' => 'dropdown', 
+      'data' => array( 
+        '1' => 'No', 
+        '2' => 'BuddyPress Friends')
+      ),
 		'notification_sound' => array ( 
 			'name' => 'iflychat_notification_sound', 
 			'default' => 'yes', 
@@ -895,7 +916,7 @@ function iflychat_settings() {
 	  'font_color' => get_option('iflychat_chat_font_color'),
 	  'chat_list_header' => get_option('iflychat_chat_list_header'),
 	  'public_chatroom_header' => get_option('iflychat_public_chatroom_header'),
-	  'version' => 'WP-1.2.9',
+	  'version' => 'WP-1.3.0',
 	  'show_admin_list' => (get_option('iflychat_show_admin_list') == "1")?'1':'2',
 	  'clear' => get_option('iflychat_allow_single_message_delete'),
     'delmessage' => get_option('iflychat_allow_clear_room_history'),
