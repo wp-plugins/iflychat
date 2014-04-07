@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 1.3.0
+ * @version 1.3.1
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms 
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 1.3.0
+Version: 1.3.1
 Author URI: https://iflychat.com/
 */
 
@@ -133,35 +133,7 @@ function iflychat_init() {
 	global $current_user;
     get_currentuserinfo();
 	if(get_option('iflychat_user_picture') == 'yes') {
-	  if(function_exists("bp_core_fetch_avatar") && ($current_user->ID > 0)) {
-	    $my_settings['up'] = bp_core_fetch_avatar(array('item_id' => iflychat_get_user_id(),'html'=>false));
-	  }
-    else if(function_exists("user_avatar_fetch_avatar") && ($current_user->ID > 0)) {
-	    $my_settings['up'] = user_avatar_fetch_avatar(array('html' => false, 'item_id' => $current_user->ID));
-	  }
-    else if(function_exists("get_wp_user_avatar_src") && ($current_user->ID > 0)) {
-	    $my_settings['up'] = get_wp_user_avatar_src(iflychat_get_user_id());
-	  }
-    else if(function_exists("get_simple_local_avatar") && ($current_user->ID > 0)) {
-	    $source = get_simple_local_avatar(iflychat_get_user_id());
-      $source = explode('src="', $source);
-      if(isset($source[1])) {
-        $source = explode('"', $source[1]);
-      }
-      else {
-        $source = explode("src='", $source[0]);
-        if(isset($source[1])) {
-          $source = explode("'", $source[1]);
-        }
-        else {
-          $source[0] = 'http://www.gravatar.com/avatar/' . (($current_user->ID)?(md5(strtolower($current_user->user_email))):('00000000000000000000000000000000')) . '?d=mm&size=24';
-        }
-      }
-      $my_settings['up'] = $source[0];
-	  }    
-	  else {
-	  	$my_settings['up'] = 'http://www.gravatar.com/avatar/' . (($current_user->ID)?(md5(strtolower($current_user->user_email))):('00000000000000000000000000000000')) . '?d=mm&size=24';
-	  }
+    $my_settings['up'] = iflychat_get_user_pic_url();
 	  $my_settings['default_up'] = 'http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&size=24';
 	  $my_settings['default_cr'] = plugin_dir_url( __FILE__ ) . 'themes/'.get_option('iflychat_theme').'/images/default_room.png';
 	  $my_settings['default_team'] = plugin_dir_url( __FILE__ ) . 'themes/'.get_option('iflychat_theme').'/images/default_room.png';
@@ -297,29 +269,7 @@ function _iflychat_get_auth($name) {
   }  
   
   if(get_option('iflychat_user_picture') == 'yes') {
-    if(function_exists(bp_core_fetch_avatar) && ($current_user->ID > 0)) {
-	    $data['up'] = bp_core_fetch_avatar(array('item_id' => $current_user->ID,'html'=>false));
-	  }
-    else if(function_exists(get_simple_local_avatar) && ($current_user->ID > 0)) {
-	    $source = get_simple_local_avatar(iflychat_get_user_id());
-      $source = explode('src="', $source);
-      if(isset($source[1])) {
-        $source = explode('"', $source[1]);
-      }
-      else {
-        $source = explode("src='", $source[0]);
-        if(isset($source[1])) {
-          $source = explode("'", $source[1]);
-        }
-        else {
-          $source[0] = 'http://www.gravatar.com/avatar/' . (($current_user->ID)?(md5(strtolower($current_user->user_email))):('00000000000000000000000000000000')) . '?d=mm&size=24';
-        }
-      }
-      $data['up'] = $source[0];
-	  }
-	  else {
-	  	$data['up'] = 'http://www.gravatar.com/avatar/' . (($current_user->ID)?(md5(strtolower($current_user->user_email))):('00000000000000000000000000000000')) . '?d=mm&size=24';
-	  }
+    $data['up'] = iflychat_get_user_pic_url();
   }
   if(function_exists(bp_core_get_userlink) && ($current_user->ID > 0)) {
     $data['upl'] = bp_core_get_userlink($current_user->ID, false, true);
@@ -916,7 +866,7 @@ function iflychat_settings() {
 	  'font_color' => get_option('iflychat_chat_font_color'),
 	  'chat_list_header' => get_option('iflychat_chat_list_header'),
 	  'public_chatroom_header' => get_option('iflychat_public_chatroom_header'),
-	  'version' => 'WP-1.3.0',
+	  'version' => 'WP-1.3.1',
 	  'show_admin_list' => (get_option('iflychat_show_admin_list') == "1")?'1':'2',
 	  'clear' => get_option('iflychat_allow_single_message_delete'),
     'delmessage' => get_option('iflychat_allow_clear_room_history'),
@@ -1124,6 +1074,42 @@ function iflychat_get_message_thread($atts) {
     }
   }
   return $output;
+}
+
+function iflychat_get_user_pic_url() {
+  global $current_user;
+  get_currentuserinfo();
+  $url = "";
+  if(function_exists("bp_core_fetch_avatar") && ($current_user->ID > 0)) {
+    $url = bp_core_fetch_avatar(array('item_id' => iflychat_get_user_id(),'html'=>false));
+  }
+  else if(function_exists("user_avatar_fetch_avatar") && ($current_user->ID > 0)) {
+    $url = user_avatar_fetch_avatar(array('html' => false, 'item_id' => $current_user->ID));
+  }
+  else if(function_exists("get_wp_user_avatar_src") && ($current_user->ID > 0)) {
+    $url = get_wp_user_avatar_src(iflychat_get_user_id());
+  }
+  else if(function_exists("get_simple_local_avatar") && ($current_user->ID > 0)) {
+    $source = get_simple_local_avatar(iflychat_get_user_id());
+    $source = explode('src="', $source);
+    if(isset($source[1])) {
+      $source = explode('"', $source[1]);
+    }
+    else {
+      $source = explode("src='", $source[0]);
+      if(isset($source[1])) {
+        $source = explode("'", $source[1]);
+      }
+      else {
+        $source[0] = 'http://www.gravatar.com/avatar/' . (($current_user->ID)?(md5(strtolower($current_user->user_email))):('00000000000000000000000000000000')) . '?d=mm&size=24';
+      }
+    }
+    $url = $source[0];
+  }
+  else {
+    $url = 'http://www.gravatar.com/avatar/' . (($current_user->ID)?(md5(strtolower($current_user->user_email))):('00000000000000000000000000000000')) . '?d=mm&size=24';
+  }
+  return $url;
 }
 
 ?>
