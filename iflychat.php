@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 1.3.1
+ * @version 1.3.2
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms 
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 1.3.1
+Version: 1.3.2
 Author URI: https://iflychat.com/
 */
 
@@ -242,6 +242,7 @@ function _iflychat_get_auth($name) {
   else {
     //$role = "normal";
     global $current_user;
+    $role = array();
     foreach ($current_user->roles as $rkey => $rvalue) {
       $role[$rvalue] = $rvalue;
     }
@@ -866,7 +867,7 @@ function iflychat_settings() {
 	  'font_color' => get_option('iflychat_chat_font_color'),
 	  'chat_list_header' => get_option('iflychat_chat_list_header'),
 	  'public_chatroom_header' => get_option('iflychat_public_chatroom_header'),
-	  'version' => 'WP-1.3.1',
+	  'version' => 'WP-1.3.2',
 	  'show_admin_list' => (get_option('iflychat_show_admin_list') == "1")?'1':'2',
 	  'clear' => get_option('iflychat_allow_single_message_delete'),
     'delmessage' => get_option('iflychat_allow_clear_room_history'),

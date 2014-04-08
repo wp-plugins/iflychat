@@ -2,13 +2,13 @@
 
 Contributors: darklrd, shubhamgupta
 
-Tags: ajax chat, chat, chat plugin, real time, support chat, live chat, community chat, buddypress chat, social, buddypress, social chat, social community chat, facebook chat, web chat, one to one chat, chat room, group chat, embed chat, popup chat, IM chat, cloud chat, google chat, team chat, social community, visitor chat, customer engagement, wordpress live chat plugin, wordpress community chat plugin, online support, social widget, chat widget, html5 chat, website chat
+Tags: ajax chat, android chat, chat module, chat, chat plugin, real time, support chat, live chat, community chat, buddypress chat, social, buddypress, social chat, social community chat, facebook chat, web chat, one to one chat, chat room, group chat, embed chat, popup chat, IM chat, cloud chat, google chat, team chat, social community, visitor chat, customer engagement, wordpress live chat plugin, wordpress community chat plugin, online support, social widget, chat widget, html5 chat, website chat, envolve, rumbletalk, iphone chat
 
 Requires at least: 3.0
 
 Tested up to: 3.9
 
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 
 License: GPLv2 or later
 
@@ -25,6 +25,7 @@ Features
 * Provides a sleek chat bar at bottom right of the browser
 * Selectable list of Online Users (Once you choose a particular user to chat with, it creates a new tab adjacent to the chat bar along with an attached pop-up chat window)
 * Automatic integration with BuddyPress (shows BuddyPress user avatars and profile links, if present)
+* Automatic integration with BuddyPress friend list
 * Automatic integration with WP User Avatar
 * Automatic integration with User Avatar
 * Automatic integration with Simple Local Avatars
@@ -82,6 +83,9 @@ Yes, our chat works across all mobile platforms.
 No, our chat works by utilizing HTML, JS and CSS.
 
 == Changelog ==
+
+= 1.3.2 =
+Fix loading issue
 
 = 1.3.1 =
 Fix user avatar issue
@@ -167,6 +171,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 1.3.2 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 1.3.1 =
 After updating, go to iFlyChat Settings page and click on Update button.
