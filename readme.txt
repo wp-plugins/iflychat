@@ -28,13 +28,13 @@ iFlyChat is a real time **chat** plugin best suited for **community** and **soci
 
 * **Anonymous Users**: Anonymous or unregistered users can be allowed to participate in the chat. Such users are assigned random names or numbers (configurable option).
 
-* **Cloud based chat**: Lighting fast response time. Sub second latency. All chat related processing for your website is handled by our cloud servers. There won't be any chat related load on your website server.
+* **Cloud based chat**: Blazing fast response time. Sub second latency. All chat related processing for your website is handled by our cloud servers. There won't be any chat related load on your website server.
 
 * **Chat Moderation**: Control swearing in public or private chat rooms. Spamming of URLs can also be stopped by setting up chat moderation at settings page.
 
 * **Delete Chat Messages**: Chat Moderator or Administrator can delete a message or clear entire history of any chat conversation. This feature can also be switched off.
 
-* **User Moderation**: Chat moderator or administrator can kick or ban (even IP based ban) users who do not abide by the rules and regulations of the chat.
+* **User Moderation**: Chat Moderator or Administrator can kick or ban (even IP based ban) users who do not abide by the rules and regulations of the chat.
 
 * **Theme Customisation**: Customize look and feel of the chat to match your website. Color and font of the text can also be changed. Labels like **chat** and **Public Chatroom** can also be customized in any language.
 
@@ -42,21 +42,33 @@ iFlyChat is a real time **chat** plugin best suited for **community** and **soci
 
 * **SSL Support**: We provide automatic encryption for SSL based sites.
 
-* **Single Sign-on**: No separate login to chat. If a user is logged-in to your website, then chat automatically logs him/her in.  
+* **Single Sign-on**: No separate login to chat. If a user is logged-in to your website, then chat automatically logs him/her in.
+
+* **Translation**: All strings in the chat plugin are translatable.
+
+* **Chat Logging**: Retrieve logs of your chat rooms using our custom [shortcode](https://iflychat.com/blog/2014/02/view-chat-room-logs-wordpress-using-shortcode). 
 
 * Multiple chat rooms
+
 * Provides a sleek chat bar at bottom right of the browser
+
 * Selectable list of Online Users (Once you choose a particular user to chat with, it creates a new tab adjacent to the chat bar along with an attached pop-up chat window)
+
 * Chat rooms can be embedded into the page instead of pop-up
+
 * Chat works on tablets and mobile devices
+
 * Supports chat for anonymous users
-* Provides chat logging and message inbox functionality
+
 * Renders Image and Youtube URLs inline.
+
 * Supports smileys (detects them automatically in chat messages)
+
 * Chat history is retained in between page loads
+
 * Provides notification sound when a new chat message is received
+
 * Notifies user by blinking browser title bar and chat popup when a new chat message is received
-* Supports translation
 
 ####BuddyPress Integration####
 
