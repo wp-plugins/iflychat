@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 3.9
 
-Stable tag: 1.3.2
+Stable tag: 2.0.0
 
 License: GPLv2 or later
 
@@ -46,7 +46,7 @@ iFlyChat is a real time **chat** plugin best suited for **community** and **soci
 
 * **Translation**: All strings in the chat plugin are translatable.
 
-* **Chat Logging**: Retrieve logs of your chat rooms using our custom [shortcode](https://iflychat.com/blog/2014/02/view-chat-room-logs-wordpress-using-shortcode). 
+* **Chat Logging**: Retrieve logs of your chat rooms using our custom [shortcode](https://iflychat.com/blog/2014/02/view-chat-room-logs-wordpress-using-shortcode).
 
 * Multiple chat rooms
 
@@ -82,13 +82,17 @@ This chat plugin supports automatic integration with BuddyPress plugin.
 
 Our chat plugin automatically detects if you have a specific avatar plugin installed. We support integration with following avatar plugins:
 
-* Gravatar (WordPress default) 
+* Gravatar (WordPress default)
 * User Avatar plugin
 * WP User Avatar plugin
-* Simple Local Avatars plugin 
+* Simple Local Avatars plugin
 
-Our lifetime free plan supports upto 10 online users in chat at a time. It includes all standard features. 
-For advanced features (such as embed chat, group chat, etc) and scalability, we offer paid plans - [https://iflychat.com/pricing](https://iflychat.com/pricing). 
+####WordPress MultiSite Integration####
+
+The chat plugin supports WordPress MultiSite feature. You can install chat globally across a WordPress Network.
+
+Our lifetime free plan supports upto 10 online users in chat at a time. It includes all standard features.
+For advanced features (such as embed chat, group chat, etc) and scalability, we offer paid plans - [https://iflychat.com/pricing](https://iflychat.com/pricing).
 
 PS: You'll need an [iFlyChat.com API key](https://iflychat.com/installation/wordpress-chat-plugin) to use chat.
 
@@ -109,8 +113,8 @@ PS: You'll need an [iFlyChat.com API key](https://iflychat.com/installation/word
 
 = Is it free to use? =
 
-We offer lifetime free plan for upto 10 simultaneous users in chat. It includes all standard features. 
-For advanced features (such as embed chat, group chat, etc) and scalability, we offer paid plans - [https://iflychat.com/pricing](https://iflychat.com/pricing). 
+We offer lifetime free plan for upto 10 simultaneous users in chat. It includes all standard features.
+For advanced features (such as embed chat, group chat, etc) and scalability, we offer paid plans - [https://iflychat.com/pricing](https://iflychat.com/pricing).
 
 = Do I have to install any software on my website server for this to work? =
 
@@ -118,7 +122,7 @@ This is a cloud based chat. You don’t need to install anything apart from iFly
 
 = How do you provide support? =
 
-Please visit our website [iflychat.com](https://iflychat.com) for any query. We provide support via live chat on our website. Additionally, you may contact us by filling up this form - [https://iflychat.com/contact](https://iflychat.com/contact). 
+Please visit our website [iflychat.com](https://iflychat.com) for any query. We provide support via live chat on our website. Additionally, you may contact us by filling up this form - [https://iflychat.com/contact](https://iflychat.com/contact).
 
 = Do you have any knowledge base where I can see some documentation? =
 
@@ -126,13 +130,17 @@ Yes, you may view our knowledge base here - [https://iflychat.com/documentation]
 
 = Does iFlyChat work on mobile and tablet? =
 
-Yes, our chat works across all mobile platforms. 
+Yes, our chat works across all mobile platforms.
 
 = Does iFlyChat require Java or Flash client? =
 
 No, our chat works by utilizing HTML, JS and CSS.
 
 == Changelog ==
+
+= 2.0.0 =
+Support WordPress MultiSite feature
+Improve Caching
 
 = 1.3.2 =
 Fix loading issue
@@ -141,7 +149,7 @@ Fix loading issue
 Fix user avatar issue
 
 = 1.3.0 =
-Integration with BuddyPress friends. 
+Integration with BuddyPress friends.
 Show only friends in the online user list.
 Create rooms based on WordPress user roles correctly.
 
@@ -221,6 +229,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 2.0.0 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 1.3.2 =
 After updating, go to iFlyChat Settings page and click on Update button.
