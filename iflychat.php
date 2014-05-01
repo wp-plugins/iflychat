@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 2.0.0
+ * @version 2.0.1
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 2.0.0
+Version: 2.0.1
 Author URI: https://iflychat.com/
 */
 
@@ -730,7 +730,7 @@ function iflychat_settings() {
 	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
 	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
 	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-	  'version' => 'WP-2.0.0',
+	  'version' => 'WP-2.0.1',
 	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
 	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
     'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
@@ -1014,7 +1014,7 @@ function iflychat_get_user_pic_url() {
 }
 
 function iflychat_get_random_name() {
-  $path = plugin_dir_url( __FILE__ ) . "guest_names/drupalchat_guest_random_names.txt";
+  $path = plugin_dir_path( __FILE__ ) . "guest_names/iflychat_guest_random_names.txt";
   $f_contents = file($path);
   $line = trim($f_contents[rand(0, count($f_contents) - 1)]);
   return $line;

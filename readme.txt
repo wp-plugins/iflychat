@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 3.9
 
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 
 License: GPLv2 or later
 
@@ -138,9 +138,12 @@ No, our chat works by utilizing HTML, JS and CSS.
 
 == Changelog ==
 
+= 2.0.1 =
+Fix random name generation in chat when allow_url_fopen is off.
+
 = 2.0.0 =
-Support WordPress MultiSite feature
-Improve Caching
+Support WordPress MultiSite feature.
+Improve Caching.
 
 = 1.3.2 =
 Fix loading issue
@@ -229,6 +232,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 2.0.1 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 2.0.0 =
 After updating, go to iFlyChat Settings page and click on Update button.
