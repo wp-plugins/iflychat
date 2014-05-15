@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 2.0.1
+ * @version 2.0.2
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 2.0.1
+Version: 2.0.2
 Author URI: https://iflychat.com/
 */
 
@@ -215,12 +215,12 @@ function _iflychat_get_auth($name) {
   $data['upl'] = iflychat_get_user_profile_url();
 
 
-  $data = json_encode($data);
+  //$data = json_encode($data);
   $options = array(
     'method' => 'POST',
     'body' => $data,
     'timeout' => 15,
-    'headers' => array('Content-Type' => 'application/json'),
+    'headers' => array('Content-Type' => 'application/x-www-form-urlencoded'),
 	  'sslverify' => false,
   );
 
@@ -717,42 +717,44 @@ function iflychat_settings() {
 			</form>
 		</div>
 	<?php
-	if(iflychat_get_option('iflychat_api_key') != " ") {
-	$data = json_encode(array(
-      'api_key' => iflychat_get_option('iflychat_api_key'),
-	  'enable_chatroom' => (iflychat_get_option('iflychat_public_chatroom') == "yes")?'1':'2',
-	  'theme' => iflychat_get_option('iflychat_theme'),
-	  'notify_sound' => (iflychat_get_option('iflychat_notification_sound') == "yes")?'1':'2',
-	  'smileys' => (iflychat_get_option('iflychat_enable_smileys') == "yes")?'1':'2',
-	  'log_chat' => (iflychat_get_option('iflychat_log_chat') == "yes")?'1':'2',
-	  'chat_topbar_color' => iflychat_get_option('iflychat_chat_top_bar_color'),
-	  'chat_topbar_text_color' => iflychat_get_option('iflychat_chat_top_bar_text_color'),
-	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
-	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
-	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-	  'version' => 'WP-2.0.1',
-	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
-	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
-    'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
-	  'ufc' => iflychat_get_option('iflychat_allow_user_font_color'),
-    'use_stop_word_list' => iflychat_get_option('iflychat_use_stop_word_list'),
-    'stop_word_list' => iflychat_get_option('iflychat_stop_word_list'),
-	));
-	$options = array(
-    'method' => 'POST',
-    'body' => $data,
-    'timeout' => 15,
-    'headers' => array('Content-Type' => 'application/json'),
-	'sslverify' => false,
-    );
-	$result = wp_remote_head(DRUPALCHAT_EXTERNAL_A_HOST . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/z/', $options);
-	if(is_wp_error($result)) {
-      echo '<div id="message" class="error">Unable to connect to iFlyChat server. Error code - ' . $result->get_error_code() . '. Error message - ' . $result->get_error_message() . '</div>';
+    if (isset($_GET['updated']) && $_GET['updated'] == 'true') {
+      if(iflychat_get_option('iflychat_api_key') != " ") {
+        $data = array(
+          'api_key' => iflychat_get_option('iflychat_api_key'),
+      	  'enable_chatroom' => (iflychat_get_option('iflychat_public_chatroom') == "yes")?'1':'2',
+      	  'theme' => iflychat_get_option('iflychat_theme'),
+      	  'notify_sound' => (iflychat_get_option('iflychat_notification_sound') == "yes")?'1':'2',
+      	  'smileys' => (iflychat_get_option('iflychat_enable_smileys') == "yes")?'1':'2',
+      	  'log_chat' => (iflychat_get_option('iflychat_log_chat') == "yes")?'1':'2',
+      	  'chat_topbar_color' => iflychat_get_option('iflychat_chat_top_bar_color'),
+      	  'chat_topbar_text_color' => iflychat_get_option('iflychat_chat_top_bar_text_color'),
+      	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
+      	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
+      	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
+      	  'version' => 'WP-2.0.2',
+      	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
+      	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
+          'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
+      	  'ufc' => iflychat_get_option('iflychat_allow_user_font_color'),
+          'use_stop_word_list' => iflychat_get_option('iflychat_use_stop_word_list'),
+          'stop_word_list' => iflychat_get_option('iflychat_stop_word_list'),
+      	);
+        $options = array(
+          'method' => 'POST',
+          'body' => $data,
+          'timeout' => 15,
+          'headers' => array('Content-Type' => 'application/x-www-form-urlencoded'),
+          'sslverify' => false,
+        );
+        $result = wp_remote_head(DRUPALCHAT_EXTERNAL_A_HOST . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/z/', $options);
+        if(is_wp_error($result)) {
+          echo '<div id="message" class="error">Unable to connect to iFlyChat server. Error code - ' . $result->get_error_code() . '. Error message - ' . $result->get_error_message() . '</div>';
+        }
+        else if($result['response']['code'] != 200) {
+  	      echo '<div id="message" class="error">Unable to connect to iFlyChat server. Error code - ' . $result['response']['code'] . '. Error message - ' . $result['body'] . '</div>';
+  	    }
+      }
     }
-	else if($result['response']['code'] != 200) {
-	  echo '<div id="message" class="error">Unable to connect to iFlyChat server. Error code - ' . $result['response']['code'] . '. Error message - ' . $result['body'] . '</div>';
-	}
-  }
 }
 
 //register settings loops through options
@@ -774,7 +776,7 @@ function iflychat_register_settings()
 	}
 
 	if (iflychat_get_option('iflychat_ext_d_i') === false) {
-		iflychat_add_option('iflychat_ext_d_i', '', '', 'yes');
+		iflychat_add_option('iflychat_ext_d_i', '3', '', 'yes');
 	}
 
 }
@@ -916,15 +918,15 @@ function iflychat_user_logout() {
 }
 
 function iflychat_get_inbox() {
-  $data = json_encode(array(
+  $data = array(
     'uid' => iflychat_get_user_id(),
     'api_key' => iflychat_get_option('iflychat_api_key'),
-  ));
+  );
   $options = array(
     'method' => 'POST',
     'body' => $data,
     'timeout' => 15,
-    'headers' => array('Content-Type' => 'application/json'),
+    'headers' => array('Content-Type' => 'application/x-www-form-urlencoded'),
 	  'sslverify' => false,
   );
   $result = wp_remote_head(DRUPALCHAT_EXTERNAL_A_HOST . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/r/', $options);
@@ -946,16 +948,16 @@ function iflychat_get_message_thread($atts) {
   extract( shortcode_atts( array(
 		'id' => 'c-0',
 	), $atts ) );
-  $data = json_encode(array(
+  $data = array(
     'uid1' => iflychat_get_user_id(),
     'uid2' => $id,
     'api_key' => iflychat_get_option('iflychat_api_key'),
-  ));
+  );
   $options = array(
     'method' => 'POST',
     'body' => $data,
     'timeout' => 15,
-    'headers' => array('Content-Type' => 'application/json'),
+    'headers' => array('Content-Type' => 'application/x-www-form-urlencoded'),
 	  'sslverify' => false,
   );
   $result = wp_remote_head(DRUPALCHAT_EXTERNAL_A_HOST . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/q/', $options);
