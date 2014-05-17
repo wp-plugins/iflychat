@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 3.9
 
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 
 License: GPLv2 or later
 
@@ -138,6 +138,9 @@ No, our chat works by utilizing HTML, JS and CSS.
 
 == Changelog ==
 
+= 2.0.3 =
+Important fix to save chat settings correctly.
+
 = 2.0.2 =
 Optimize save settings process.
 
@@ -235,6 +238,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 2.0.3 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 2.0.2 =
 After updating, go to iFlyChat Settings page and click on Update button.

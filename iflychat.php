@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 2.0.2
+ * @version 2.0.3
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 2.0.2
+Version: 2.0.3
 Author URI: https://iflychat.com/
 */
 
@@ -717,7 +717,7 @@ function iflychat_settings() {
 			</form>
 		</div>
 	<?php
-    if (isset($_GET['updated']) && $_GET['updated'] == 'true') {
+    //if((isset($_GET['updated']) && $_GET['updated'] == 'true') || (isset($_GET['settings-updated']) && $_GET['settings-updated'] == 'true')) {
       if(iflychat_get_option('iflychat_api_key') != " ") {
         $data = array(
           'api_key' => iflychat_get_option('iflychat_api_key'),
@@ -731,7 +731,7 @@ function iflychat_settings() {
       	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
       	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
       	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-      	  'version' => 'WP-2.0.2',
+      	  'version' => 'WP-2.0.3',
       	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
       	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
           'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
@@ -754,7 +754,7 @@ function iflychat_settings() {
   	      echo '<div id="message" class="error">Unable to connect to iFlyChat server. Error code - ' . $result['response']['code'] . '. Error message - ' . $result['body'] . '</div>';
   	    }
       }
-    }
+    //}
 }
 
 //register settings loops through options
