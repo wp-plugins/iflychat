@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 3.9
 
-Stable tag: 2.0.3
+Stable tag: 2.1.0
 
 License: GPLv2 or later
 
@@ -40,11 +40,15 @@ iFlyChat is a real time **chat** plugin best suited for **community** and **soci
 
 * **Chat Content Engagement**: Engage users of chat by sharing pictures, videos, and URLs from across the web. Users can also express emotions using our customisable Emoticons set.
 
+* **Share Files**: Attach files in chat. Users can upload and share files with others in private chat as well as in chat rooms.
+
 * **SSL Support**: We provide automatic encryption for SSL based sites.
 
 * **Single Sign-on**: No separate login to chat. If a user is logged-in to your website, then chat automatically logs him/her in.
 
 * **Translation**: All strings in the chat plugin are translatable.
+
+* **Browser based Mobile Chat App**: We provide standalone browser based mobile chat application. Users can access both pop and embed chat in mobile devices, smartphones and tablets.
 
 * **Chat Logging**: Retrieve logs of your chat rooms using our custom [shortcode](https://iflychat.com/blog/2014/02/view-chat-room-logs-wordpress-using-shortcode).
 
@@ -137,6 +141,10 @@ Yes, our chat works across all mobile platforms.
 No, our chat works by utilizing HTML, JS and CSS.
 
 == Changelog ==
+
+= 2.1.0 =
+File attachment in chat.
+Standalone browser based mobile chat application.
 
 = 2.0.3 =
 Important fix to save chat settings correctly.
@@ -238,6 +246,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 2.1.0 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 2.0.3 =
 After updating, go to iFlyChat Settings page and click on Update button.

@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 2.0.3
+ * @version 2.1.0
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 2.0.3
+Version: 2.1.0
 Author URI: https://iflychat.com/
 */
 
@@ -350,7 +350,7 @@ function iflychat_set_options(){
 				'yes' => 'yes',
 				'no' => 'no')
 			),
-	    'enable_smileys' => array (
+    'enable_smileys' => array (
 			'name' => 'iflychat_enable_smileys',
 			'default' => 'yes',
 			'desc' => 'Enable Smileys',
@@ -359,6 +359,15 @@ function iflychat_set_options(){
 				'yes' => 'yes',
 				'no' => 'no')
 			),
+    'enable_mobile_browser_app' => array (
+      'name' => 'iflychat_enable_mobile_browser_app',
+      'default' => '1',
+      'desc' => 'Enable browser based Mobile app',
+      'input_type' => 'dropdown',
+      'data' => array(
+        '1' => 'yes',
+        '2' => 'no')
+      ),
 		'log_chat' => array (
 			'name' => 'iflychat_log_chat',
 			'default' => 'yes',
@@ -579,6 +588,15 @@ function iflychat_set_options(){
 				'1' => 'yes',
 				'2' => 'no')
 			),
+    'enable_file_attachment' => array (
+      'name' => 'iflychat_enable_file_attachment',
+      'default' => '1',
+      'desc' => 'Select whether to allow user to share/upload file in chat',
+      'input_type' => 'dropdown',
+      'data' => array(
+        '1' => 'yes',
+        '2' => 'no')
+      ),
 		'allow_single_message_delete' => array (
 			'name' => 'iflychat_allow_single_message_delete',
 			'default' => '1',
@@ -731,13 +749,15 @@ function iflychat_settings() {
       	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
       	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
       	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-      	  'version' => 'WP-2.0.3',
+      	  'version' => 'WP-2.1.0',
       	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
       	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
           'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
       	  'ufc' => iflychat_get_option('iflychat_allow_user_font_color'),
           'use_stop_word_list' => iflychat_get_option('iflychat_use_stop_word_list'),
           'stop_word_list' => iflychat_get_option('iflychat_stop_word_list'),
+          'file_attachment' => (iflychat_get_option('iflychat_enable_file_attachment') == "1")?'1':'2',
+          'mobile_browser_app' => (iflychat_get_option('iflychat_enable_mobile_browser_app') == "1")?'1':'2',
       	);
         $options = array(
           'method' => 'POST',
