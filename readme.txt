@@ -112,6 +112,7 @@ PS: You'll need an [iFlyChat.com API key](https://iflychat.com/installation/word
 
 1. **Popup Format** - Open multiple chat windows (both rooms and one-to-one) next to each other and chat simultaneously. This screenshot shows a website with 600+ concurrent users.
 2. **Embed Format** - Make your chat (room) larger and roomier by embedding it into a page. Fully customizable CSS.
+3. **Group Chat** - Group chat enables users to chat in groups. Users can chat with specific set of people simultaneously.
 
 == Frequently Asked Questions ==
 
