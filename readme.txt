@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 3.9
 
-Stable tag: 2.1.2
+Stable tag: 2.2.0
 
 License: GPLv2 or later
 
@@ -143,6 +143,9 @@ No, our chat works by utilizing HTML, JS and CSS.
 
 == Changelog ==
 
+= 2.2.0 =
+Add iflychat_embed shortcode for embedding chat into a page
+
 = 2.1.2 =
 User avatar plugin doesn't return default picture when no picture is present. Load default picture in chat automatically in this case.
 
@@ -253,6 +256,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 2.2.0 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 2.1.2 =
 After updating, go to iFlyChat Settings page and click on Update button.
