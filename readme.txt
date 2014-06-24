@@ -2,7 +2,7 @@
 
 Contributors: darklrd, shubhamgupta
 
-Tags: ajax chat, android chat, buddypress, buddypress chat, chat, chat button, chat live, chat module, chat online, chat plugin, chat room, chat software, chat support, chat widget, cloud chat,chat wordpress, community chat, customer engagement, embed chat, envolve, facebook chat, google chat, group chat, html5 chat, IM chat, iphone chat, live chat, messaging, online chat, one to one chat, online customer chat, online live chat, online support, popup chat, plugin chat, real time, rumbletalk, social, social chat, social community, social community chat, social widget, support chat, team chat, visitor chat, web chat, website chat, wordpress community chat plugin, wordpress live chat plugin
+Tags: buddypress chat, chat, chat room, community chat, embed chat, group chat, html5 chat, one to one chat, popup chat, live chat, friends chat, mobile chat
 
 Requires at least: 3.0
 
