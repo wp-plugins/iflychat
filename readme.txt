@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 3.9
 
-Stable tag: 2.2.0
+Stable tag: 2.3.0
 
 License: GPLv2 or later
 
@@ -143,6 +143,9 @@ No, our chat works by utilizing HTML, JS and CSS.
 
 == Changelog ==
 
+= 2.3.0 =
+Compress and add all JS files of the chat plugin into one for faster loading
+
 = 2.2.0 =
 Add iflychat_embed shortcode for embedding chat into a page
 
@@ -256,6 +259,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 2.3.0 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 2.2.0 =
 After updating, go to iFlyChat Settings page and click on Update button.
