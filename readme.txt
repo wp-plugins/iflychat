@@ -2,7 +2,7 @@
 
 Contributors: darklrd, shubhamgupta
 
-Tags: buddypress chat, chat, chat room, community chat, embed chat, group chat, html5 chat, one to one chat, popup chat, live chat, friends chat, mobile chat
+Tags: buddypress, chat, chat room, community, embed chat, group chat, html5 chat, one to one chat, popup chat, live chat, friends, mobile chat
 
 Requires at least: 3.0
 
