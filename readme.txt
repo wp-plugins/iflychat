@@ -110,15 +110,15 @@ PS: You'll need an [iFlyChat.com API key](https://iflychat.com/installation/word
 
 == Screenshots ==
 
-1. **Popup Format** - Open multiple chat windows (both rooms and one-to-one) next to each other and chat simultaneously. This screenshot shows a website with 600+ concurrent users.
-2. **Embed Format** - Make your chat (room) larger and roomier by embedding it into a page. Fully customizable CSS.
-3. **Group Chat** - Group chat enables users to chat in groups. Users can chat with specific set of people simultaneously.
-4. **Theme Customisation** - Customise look and feel of the chat to match your website.
-5. **Chat Sound Notification** - You can control chat sound notification. If you are busy, just turn it off.
-6. **Tab Synchronisation** - Chat history is retained in between page navigation. Also, chat is in sync across multiple browsers/devices for the same user.
-7. **Chat Content Moderation** - Control abuse in public or private chat rooms. Spamming of URLs can also be stopped by setting up chat moderation at settings page.
-8. **Delete Chat Messages** - Chat Moderator or Admin can delete a single message or clear entire chat history of any conversation.
-9. **User Moderation** - Chat admins can kick or ban (including IP based ban) users who do not abide by the rules and regulation of the chat.
+01. **Popup Format** - Open multiple chat windows (both rooms and one-to-one) next to each other and chat simultaneously. This screenshot shows a website with 600+ concurrent users.
+02. **Embed Format** - Make your chat (room) larger and roomier by embedding it into a page. Fully customizable CSS.
+03. **Group Chat** - Group chat enables users to chat in groups. Users can chat with specific set of people simultaneously.
+04. **Theme Customisation** - Customise look and feel of the chat to match your website.
+05. **Chat Sound Notification** - You can control chat sound notification. If you are busy, just turn it off.
+06. **Tab Synchronisation** - Chat history is retained in between page navigation. Also, chat is in sync across multiple browsers/devices for the same user.
+07. **Chat Content Moderation** - Control abuse in public or private chat rooms. Spamming of URLs can also be stopped by setting up chat moderation at settings page.
+08. **Delete Chat Messages** - Chat Moderator or Admin can delete a single message or clear entire chat history of any conversation.
+09. **User Moderation** - Chat admins can kick or ban (including IP based ban) users who do not abide by the rules and regulation of the chat.
 10. **File Attachment** - Share files, images and documents of formats like pdf, docx, png etc with other chat users privately or in a public chat room.
 11. **Chat Content Engagement** - Auto render images and YouTube videos inline in chat.
 12. **Support Chat or Live Chat** - Support version allows support staff to chat with site visitors.
