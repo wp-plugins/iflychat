@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 3.9
 
-Stable tag: 2.3.0
+Stable tag: 2.4.0
 
 License: GPLv2 or later
 
@@ -123,6 +123,7 @@ PS: You'll need an [iFlyChat.com API key](https://iflychat.com/installation/word
 11. **Chat Content Engagement** - Auto render images and YouTube videos inline in chat.
 12. **Support Chat or Live Chat** - Support version allows support staff to chat with site visitors.
 
+
 == Frequently Asked Questions ==
 
 = Is it free to use? =
@@ -151,6 +152,9 @@ Yes, our chat works across all mobile platforms.
 No, our chat works by utilizing HTML, JS and CSS.
 
 == Changelog ==
+
+= 2.4.0 =
+Use iFlyChat CDN for faster delivery. Added some translation strings.
 
 = 2.3.0 =
 Compress and add all JS files of the chat plugin into one for faster loading
@@ -268,6 +272,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 2.4.0 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 2.3.0 =
 After updating, go to iFlyChat Settings page and click on Update button.

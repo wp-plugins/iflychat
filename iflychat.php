@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 2.3.0
+ * @version 2.4.0
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 2.3.0
+Version: 2.4.0
 Author URI: https://iflychat.com/
 */
 
@@ -82,6 +82,7 @@ function iflychat_init() {
 	    'iup' => (iflychat_get_option('iflychat_user_picture') == 'yes')?'1':'2',
 	    'open_chatlist_default' => (iflychat_get_option('iflychat_minimize_chat_user_list')=='2')?'1':'2',
 	    'admin' => iflychat_check_chat_admin()?'1':'0',
+      'theme' => iflychat_get_option('iflychat_theme'),
     );
 	if(iflychat_check_chat_admin()) {
 	  global $wp_roles;
@@ -127,6 +128,8 @@ function iflychat_init() {
   $my_settings['text_clear_room'] = __('Clear all messages', 'iflychat');
 	$my_settings['msg_p'] = __('Type and Press Enter', 'iflychat');
   $my_settings['text_search_bar'] = __('Type here to search', 'iflychat');
+  $my_settings['text_user_list_reconnect'] = __('Connecting...', 'iflychat');
+  $my_settings['text_user_list_loading'] = __('Loading...', 'iflychat'); 
   $my_settings['searchBar'] = (iflychat_get_option('iflychat_enable_search_bar') == '1')?'1':'2';
   $my_settings['renderImageInline'] = (iflychat_get_option('iflychat_allow_render_images') == '1')?'1':'2';
 	if(iflychat_check_chat_admin()) {
@@ -159,6 +162,11 @@ function iflychat_init() {
 	  $my_settings['soffurl'] = admin_url('admin-ajax.php', $_iflychat_protocol);
     $my_settings['mobileWebUrl'] = plugin_dir_url( __FILE__ ) . 'mobile-chat.php';
 	  $my_settings['chat_type'] = iflychat_get_option('iflychat_show_admin_list');
+    
+    if(iflychat_get_option('iflychat_show_admin_list') == '1') {
+      wp_enqueue_script( 'iflychat-titlealert', plugin_dir_url( __FILE__ ) . 'js/jquery.titlealert.min.js', array('jquery'));
+      wp_enqueue_script( 'iflychat-emotify', plugin_dir_url( __FILE__ ) . 'js/ba-emotify.js', array('jquery'));
+    }
     
     wp_enqueue_script( 'iflychat-ajax', plugin_dir_url( __FILE__ ) . 'js/iflychat.min.js', array('jquery'));
 
@@ -748,7 +756,7 @@ function iflychat_settings() {
       	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
       	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
       	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-      	  'version' => 'WP-2.3.0',
+      	  'version' => 'WP-2.4.0',
       	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
       	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
           'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
