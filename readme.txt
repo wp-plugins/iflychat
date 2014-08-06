@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 3.9
 
-Stable tag: 2.4.0
+Stable tag: 2.5.0
 
 License: GPLv2 or later
 
@@ -153,6 +153,9 @@ No, our chat works by utilizing HTML, JS and CSS.
 
 == Changelog ==
 
+= 2.5.0 =
+Allow unregistered users or guests to set their name in chat without logging into your website.
+
 = 2.4.0 =
 Use iFlyChat CDN for faster delivery. Added some translation strings.
 
@@ -272,6 +275,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 2.5.0 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 2.4.0 =
 After updating, go to iFlyChat Settings page and click on Update button.

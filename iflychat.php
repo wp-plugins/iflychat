@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 2.4.0
+ * @version 2.5.0
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 2.4.0
+Version: 2.5.0
 Author URI: https://iflychat.com/
 */
 
@@ -160,6 +160,8 @@ function iflychat_init() {
     $_iflychat_protocol = isset($_SERVER["HTTPS"]) ? 'https://' : 'http://';
     $my_settings['geturl'] = admin_url('admin-ajax.php', $_iflychat_protocol);
 	  $my_settings['soffurl'] = admin_url('admin-ajax.php', $_iflychat_protocol);
+    $my_settings['changeurl'] = admin_url('admin-ajax.php', $_iflychat_protocol);
+    $my_settings['guestPrefix'] = (iflychat_get_option('iflychat_anon_prefix') . " ");
     $my_settings['mobileWebUrl'] = plugin_dir_url( __FILE__ ) . 'mobile-chat.php';
 	  $my_settings['chat_type'] = iflychat_get_option('iflychat_show_admin_list');
     
@@ -400,6 +402,16 @@ function iflychat_set_options(){
                 '2' => 'Number',
 				)
 			),
+    'anon_change_name' => array(
+			'name' => 'iflychat_anon_change_name',
+			'default' => '1',
+			'desc' => 'Select whether to allow anonymous user to be able to change his/her name',
+			'input_type' => 'dropdown',
+			'data' => array(
+				'1' => 'Yes',
+        '2' => 'No',
+			)
+		),
 		'minimize_chat_user_list' => array (
 			'name' => 'iflychat_minimize_chat_user_list',
 			'default' => '2',
@@ -756,11 +768,13 @@ function iflychat_settings() {
       	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
       	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
       	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-      	  'version' => 'WP-2.4.0',
+      	  'version' => 'WP-2.5.0',
       	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
       	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
           'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
       	  'ufc' => iflychat_get_option('iflychat_allow_user_font_color'),
+          'guest_prefix' => (iflychat_get_option('iflychat_anon_prefix') . " "),
+          'enable_guest_change_name' => iflychat_get_option('iflychat_anon_change_name'),
           'use_stop_word_list' => iflychat_get_option('iflychat_use_stop_word_list'),
           'stop_word_list' => iflychat_get_option('iflychat_stop_word_list'),
           'file_attachment' => (iflychat_get_option('iflychat_enable_file_attachment') == "1")?'1':'2',
@@ -855,6 +869,7 @@ add_action( 'wp_ajax_nopriv_iflychat-get', 'iflychat_submit_uth' );
 add_action( 'wp_ajax_iflychat-get', 'iflychat_submit_uth' );
 add_action( 'wp_ajax_nopriv_iflychat-offline-msg', 'iflychat_send_offline_message' );
 add_action( 'wp_ajax_iflychat-offline-msg', 'iflychat_send_offline_message' );
+add_action( 'wp_ajax_nopriv_iflychat-change-guest-name', 'iflychat_change_guest_name' );
 add_action( 'wp_login', 'iflychat_user_login' );
 add_action( 'wp_logout', 'iflychat_user_logout' );
 add_shortcode( 'iflychat_inbox', 'iflychat_get_inbox' );
@@ -1075,7 +1090,7 @@ function iflychat_get_random_name() {
 function iflychat_get_current_guest_name() {
   if(isset($_SESSION) && isset($_SESSION['iflychat_guest_name'])) {
     //if(!isset($_COOKIE) || !isset($_COOKIE['drupalchat_guest_name'])) {
-      setrawcookie('iflychat_guest_name', rawurlencode($_SESSION['iflychat_guest_name']), time()+60*60*24*365);
+      setrawcookie('iflychat_guest_name', rawurlencode($_SESSION['iflychat_guest_name']), time()+60*60*24*365, '/');
     //}
   }
   else if(isset($_COOKIE) && isset($_COOKIE['iflychat_guest_name']) && isset($_COOKIE['iflychat_guest_session'])&& ($_COOKIE['iflychat_guest_session']==iflychat_compute_guest_session(iflychat_get_current_guest_id()))) {
@@ -1088,7 +1103,7 @@ function iflychat_get_current_guest_name() {
     else {
       $_SESSION['iflychat_guest_name'] = iflychat_check_plain(iflychat_get_option('iflychat_anon_prefix') . time());
     }
-    setrawcookie('iflychat_guest_name', rawurlencode($_SESSION['iflychat_guest_name']), time()+60*60*24*365);
+    setrawcookie('iflychat_guest_name', rawurlencode($_SESSION['iflychat_guest_name']), time()+60*60*24*365, '/');
   }
   return $_SESSION['iflychat_guest_name'];
 }
@@ -1096,8 +1111,8 @@ function iflychat_get_current_guest_name() {
 function iflychat_get_current_guest_id() {
   if(isset($_SESSION) && isset($_SESSION['iflychat_guest_id'])) {
     //if(!isset($_COOKIE) || !isset($_COOKIE['drupalchat_guest_id'])) {
-      setrawcookie('iflychat_guest_id', rawurlencode($_SESSION['iflychat_guest_id']), time()+60*60*24*365);
-      setrawcookie('iflychat_guest_session', rawurlencode($_SESSION['iflychat_guest_session']), time()+60*60*24*365);
+      setrawcookie('iflychat_guest_id', rawurlencode($_SESSION['iflychat_guest_id']), time()+60*60*24*365, '/');
+      setrawcookie('iflychat_guest_session', rawurlencode($_SESSION['iflychat_guest_session']), time()+60*60*24*365, '/');
     //}
   }
   else if(isset($_COOKIE) && isset($_COOKIE['iflychat_guest_id']) && isset($_COOKIE['iflychat_guest_session']) && ($_COOKIE['iflychat_guest_session']==iflychat_compute_guest_session($_COOKIE['iflychat_guest_id']))) {
@@ -1112,8 +1127,8 @@ function iflychat_get_current_guest_id() {
     }
     $_SESSION['iflychat_guest_id'] = $iflychatId;
     $_SESSION['iflychat_guest_session'] = iflychat_compute_guest_session($_SESSION['iflychat_guest_id']);
-    setrawcookie('iflychat_guest_id', rawurlencode($_SESSION['iflychat_guest_id']), time()+60*60*24*365);
-    setrawcookie('iflychat_guest_session', rawurlencode($_SESSION['iflychat_guest_session']), time()+60*60*24*365);
+    setrawcookie('iflychat_guest_id', rawurlencode($_SESSION['iflychat_guest_id']), time()+60*60*24*365, '/');
+    setrawcookie('iflychat_guest_session', rawurlencode($_SESSION['iflychat_guest_session']), time()+60*60*24*365, '/');
   }
   return $_SESSION['iflychat_guest_id'];
 }
@@ -1151,6 +1166,24 @@ function iflychat_add_option($name, $value, $v2, $v3) {
   }
   else {
     return add_option($name, $value, $v2, $v3);
+  }
+}
+
+function iflychat_change_guest_name() {
+  global $current_user;
+  get_currentuserinfo();
+  if(($current_user->ID == 0) && isset($_POST) && isset($_POST['drupalchat_guest_new_name']) && (iflychat_get_option('iflychat_anon_change_name')=='1')) {
+    $new_name = iflychat_check_plain(iflychat_get_option('iflychat_anon_prefix') . " " . $_POST['drupalchat_guest_new_name']);
+    $_SESSION['iflychat_guest_name'] = $new_name;
+    setrawcookie('iflychat_guest_name', rawurlencode($new_name), time()+60*60*24*365, '/');
+    header("Content-Type: application/json");
+    echo json_encode(array());
+    exit;
+  }
+  else {
+    header("Content-Type: application/json");
+    echo json_encode(array());
+    exit;
   }
 }
 
