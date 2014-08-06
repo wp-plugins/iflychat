@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 2.5.0
+ * @version 2.6.0
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 2.5.0
+Version: 2.6.0
 Author URI: https://iflychat.com/
 */
 
@@ -52,7 +52,7 @@ function iflychat_get_user_name() {
 }
 
 function iflychat_init() {
-  if(iflychat_path_check() && ((iflychat_get_option('iflychat_only_loggedin') == "no") || is_user_logged_in())) {
+  if(iflychat_path_check() && iflychat_check_access() && ((iflychat_get_option('iflychat_only_loggedin') == "no") || is_user_logged_in())) {
     load_plugin_textdomain('iflychat', false, basename( dirname( __FILE__ ) ) . '/languages' );
     global $current_user;
     get_currentuserinfo();
@@ -768,7 +768,7 @@ function iflychat_settings() {
       	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
       	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
       	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-      	  'version' => 'WP-2.5.0',
+      	  'version' => 'WP-2.6.0',
       	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
       	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
           'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
@@ -1185,6 +1185,17 @@ function iflychat_change_guest_name() {
     echo json_encode(array());
     exit;
   }
+}
+
+function iflychat_check_access() {
+  $flag = apply_filters('iflychat_check_access_filter', true);
+  if($flag==true) {
+    return true;
+  }
+  else {
+    return false;
+  }
+  exit;
 }
 
 ?>
