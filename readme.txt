@@ -6,9 +6,9 @@ Tags: buddypress, chat, chat room, community, embed chat, group chat, html5 chat
 
 Requires at least: 3.0
 
-Tested up to: 3.9
+Tested up to: 4.0
 
-Stable tag: 2.6.0
+Stable tag: 2.7.0
 
 License: GPLv2 or later
 
@@ -153,6 +153,9 @@ No, our chat works by utilizing HTML, JS and CSS.
 
 == Changelog ==
 
+= 2.7.0 =
+Add filters to allow other plugins to set current user's profile URL and avatar URL in chat.
+
 = 2.6.0 =
 Add filter to allow other plugins to determine if the current user can access chat.
 
@@ -278,6 +281,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 2.7.0 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 2.6.0 =
 After updating, go to iFlyChat Settings page and click on Update button.

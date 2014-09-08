@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 2.6.0
+ * @version 2.7.0
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 2.6.0
+Version: 2.7.0
 Author URI: https://iflychat.com/
 */
 
@@ -768,7 +768,7 @@ function iflychat_settings() {
       	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
       	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
       	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-      	  'version' => 'WP-2.6.0',
+      	  'version' => 'WP-2.7.0',
       	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
       	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
           'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
@@ -1043,6 +1043,10 @@ function iflychat_get_user_pic_url() {
   global $current_user;
   get_currentuserinfo();
   $url = 'http://www.gravatar.com/avatar/' . (($current_user->ID)?(md5(strtolower($current_user->user_email))):('00000000000000000000000000000000')) . '?d=mm&size=24';
+  $hook_url = apply_filters('iflychat_get_user_pic_url_filter', '');
+  if(!empty($hook_url)) {
+  	return $hook_url;
+  }
   if(function_exists("bp_core_fetch_avatar") && ($current_user->ID > 0)) {
     $url = bp_core_fetch_avatar(array('item_id' => iflychat_get_user_id(),'html'=>false));
   }
@@ -1145,10 +1149,16 @@ function iflychat_get_user_profile_url() {
   global $current_user;
   get_currentuserinfo();
   $upl = 'javascript:void(0)';
-  if(function_exists("bp_core_get_userlink") && ($current_user->ID > 0)) {
-    $upl = bp_core_get_userlink($current_user->ID, false, true);
+  $hook_upl = apply_filters('iflychat_get_user_profile_url_filter', 'javascript:void(0)');
+  if($hook_upl == $upl) {
+  	if(function_exists("bp_core_get_userlink") && ($current_user->ID > 0)) {
+      $upl = bp_core_get_userlink($current_user->ID, false, true);
+  	}
+  	return $upl;
   }
-  return $upl;
+  else {
+    return $hook_upl;
+  }	 
 }
 
 function iflychat_get_option($name) {
