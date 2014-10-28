@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 4.0
 
-Stable tag: 2.8.0
+Stable tag: 2.8.1
 
 License: GPLv2 or later
 
@@ -152,6 +152,9 @@ Yes, our chat works across all mobile platforms.
 No, our chat works by utilizing HTML, JS and CSS.
 
 == Changelog ==
+
+= 2.8.1 =
+Minor backend update.
 
 = 2.8.0 =
 Add option to display name or username in chat. Translation for French and Italian.
