@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 2.8.3
+ * @version 2.8.4
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 2.8.3
+Version: 2.8.4
 Author URI: https://iflychat.com/
 */
 
@@ -782,7 +782,7 @@ function iflychat_settings() {
       	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
       	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
       	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-      	  'version' => 'WP-2.8.3',
+      	  'version' => 'WP-2.8.4',
       	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
       	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
           'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
@@ -1225,9 +1225,22 @@ function iflychat_check_access() {
   exit;
 }
 
-function iflychat_get_avatar_url_from_html($get_avatar){
-  preg_match("/src='(.*?)'/i", $get_avatar, $matches);
-  return $matches[1];
+function iflychat_get_avatar_url_from_html($source){
+  $source = explode('src="', $source);
+    if(isset($source[1])) {
+      $source = explode('"', $source[1]);
+    }
+    else {
+      $source = explode("src='", $source[0]);
+      if(isset($source[1])) {
+        $source = explode("'", $source[1]);
+      }
+      else {
+        $source[0] = '';
+      }
+    }
+  return $source[0];
 }
+
 
 ?>
