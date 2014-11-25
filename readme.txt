@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 4.0
 
-Stable tag: 2.8.2
+Stable tag: 2.8.3
 
 License: GPLv2 or later
 
@@ -153,6 +153,9 @@ No, our chat works by utilizing HTML, JS and CSS.
 
 == Changelog ==
 
+= 2.8.3 =
+Render avatar from login plugin(s) in the chat.
+
 = 2.8.2 =
 Update README.
 
@@ -290,6 +293,15 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 2.8.3 =
+After updating, go to iFlyChat Settings page and click on Update button.
+
+= 2.8.2 =
+After updating, go to iFlyChat Settings page and click on Update button.
+
+= 2.8.1 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 2.8.0 =
 After updating, go to iFlyChat Settings page and click on Update button.
