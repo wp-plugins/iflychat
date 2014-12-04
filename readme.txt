@@ -1,4 +1,4 @@
-=== iFlyChat - Real Time WordPress Chat Plugin ===
+=== WordPress Chat by iFlyChat ===
 
 Contributors: darklrd, shubhamgupta
 
