@@ -1,4 +1,4 @@
-=== WordPress Chat by iFlyChat ===
+=== iFlyChat - Real Time WordPress Chat Plugin ===
 
 Contributors: darklrd, shubhamgupta
 
@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 4.0
 
-Stable tag: 2.8.4
+Stable tag: 2.8.5
 
 License: GPLv2 or later
 
@@ -153,6 +153,9 @@ No, our chat works by utilizing HTML, JS and CSS.
 
 == Changelog ==
 
+= 2.8.5 =
+Allow user list to be filtered in chat based on user groups.
+
 = 2.8.4 =
 Fix fetch avatar url function in chat.
 
@@ -296,6 +299,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 2.8.5 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 2.8.4 =
 After updating, go to iFlyChat Settings page and click on Update button.
