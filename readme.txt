@@ -22,7 +22,7 @@ iFlyChat is a real time **chat** plugin best suited for **community** and **soci
 
 * **One on one (private) chat**: Attractive Pop Up Chat. Interact with users and customers online using public and private rooms. Users can browse and chat simultaneously.
 
-* **Embedded Chat Room**: Make your chat room larger and roomier by embedding it to a page. Fully customizable CSS. [Try demo here](https://iflychat.com/embedded-chatroom-example-public-chatroom). (Premium feature)
+* **Embedded Chat Room**: Make your chat room larger and roomier by embedding it to a page. Fully customizable CSS. [Try demo here](https://iflychat.com/embedded-chatroom-example-public-chatroom).
 
 * **Group Chat**: Group chat enables users to chat in groups. Users can chat with specific set of people simultaneously. (Premium feature)
 
