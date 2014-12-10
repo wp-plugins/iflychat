@@ -12,7 +12,7 @@ Stable tag: 2.8.5
 
 License: GPLv2 or later
 
-iFlyChat allows visitors of your WordPress site to chat with each other privately (one-to-one chat) or together in chat rooms.
+Integrate chat into your WordPress website. Allow users to discuss in public and private chat rooms. Skyrocket user engagement by 200%.
 
 == Description ==
 
@@ -22,7 +22,7 @@ iFlyChat is a real time **chat** plugin best suited for **community** and **soci
 
 * **One on one (private) chat**: Attractive Pop Up Chat. Interact with users and customers online using public and private rooms. Users can browse and chat simultaneously.
 
-* **Embedded Chat Room**: Make your chat room larger and roomier by embedding it to a page. Fully customizable CSS. [Try demo here](https://iflychat.com/embedded-chatroom-example-public-chatroom).
+* **Embedded Chat Room**: Make different chat rooms into separate pages. Fully customisable CSS. [Try demo here](https://iflychat.com/embedded-chatroom-example-public-chatroom).
 
 * **Group Chat**: Group chat enables users to chat in groups. Users can chat with specific set of people simultaneously. (Premium feature)
 
@@ -52,27 +52,6 @@ iFlyChat is a real time **chat** plugin best suited for **community** and **soci
 
 * **Chat Logging**: Retrieve logs of your chat rooms using our custom [shortcode](https://iflychat.com/blog/2014/02/view-chat-room-logs-wordpress-using-shortcode).
 
-* Multiple chat rooms
-
-* Provides a sleek chat bar at bottom right of the browser
-
-* Selectable list of Online Users (Once you choose a particular user to chat with, it creates a new tab adjacent to the chat bar along with an attached pop-up chat window)
-
-* Chat rooms can be embedded into the page instead of pop-up
-
-* Chat works on tablets and mobile devices
-
-* Supports chat for anonymous users
-
-* Renders Image and Youtube URLs inline.
-
-* Supports smileys (detects them automatically in chat messages)
-
-* Chat history is retained in between page loads
-
-* Provides notification sound when a new chat message is received
-
-* Notifies user by blinking browser title bar and chat popup when a new chat message is received
 
 ####BuddyPress Integration####
 
