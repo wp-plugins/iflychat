@@ -16,13 +16,13 @@ Integrate chat into your WordPress website. Allow users to discuss in public and
 
 == Description ==
 
-iFlyChat is a real time **chat** plugin best suited for **community** and **social networking websites**. It helps in increasing user engagement of your WordPress site by enabling users to **chat with each other privately** (one to one private conversation), **group chat** or in **chat rooms**. Also, it is useful for forums, blogs, dating sites etc. It can also be configured to provide **online support** for products/services. It logs the user conversations so that they can be later viewed using shortcode. You can try it out live [here](https://iflychat.com/features).
+iFlyChat is a real time **chat** plugin best suited for **community** and **social networking websites**. It helps in increasing user engagement of your WordPress site by enabling users to **chat with each other privately** (one to one private conversation), **group chat** or in **chat rooms**. Also, it is useful for forums, blogs, dating sites etc. It can also be configured to provide **online support** for products/services. It logs the user conversations so that they can be later viewed using shortcode. You can try it out live [here](https://iflychat.com/features?refid=wp).
 
 ####Chat Features####
 
 * **One on one (private) chat**: Attractive Pop Up Chat. Interact with users and customers online using public and private rooms. Users can browse and chat simultaneously.
 
-* **Embedded Chat Room**: Make different chat rooms into separate pages. Fully customisable CSS. [Try demo here](https://iflychat.com/embedded-chatroom-example-public-chatroom).
+* **Embedded Chat Room**: Make different chat rooms into separate pages. Fully customisable CSS. [Try demo here](https://iflychat.com/embedded-chatroom-example-public-chatroom?refid=wp).
 
 * **Group Chat**: Group chat enables users to chat in groups. Users can chat with specific set of people simultaneously. (Premium feature)
 
@@ -50,7 +50,7 @@ iFlyChat is a real time **chat** plugin best suited for **community** and **soci
 
 * **Browser based Mobile Chat App**: We provide standalone browser based mobile chat application. Users can access both pop and embed chat in mobile devices, smartphones and tablets.
 
-* **Chat Logging**: Retrieve logs of your chat rooms using our custom [shortcode](https://iflychat.com/blog/2014/02/view-chat-room-logs-wordpress-using-shortcode).
+* **Chat Logging**: Retrieve logs of your chat rooms using our custom [shortcode](https://iflychat.com/blog/2014/02/view-chat-room-logs-wordpress-using-shortcode?refid=wp).
 
 
 ####BuddyPress Integration####
@@ -75,16 +75,16 @@ Our chat plugin automatically detects if you have a specific avatar plugin insta
 The chat plugin supports WordPress MultiSite feature. You can install chat globally across a WordPress Network.
 
 Our lifetime free plan supports upto 10 online users in chat at a time. It includes all standard features.
-For advanced features (such as embed chat, group chat, etc) and scalability, we offer paid plans - [https://iflychat.com/pricing](https://iflychat.com/pricing).
+For advanced features (such as embed chat, group chat, etc) and scalability, we offer paid plans - [https://iflychat.com/pricing](https://iflychat.com/pricing?refid=wp).
 
-PS: You'll need an [iFlyChat.com API key](https://iflychat.com/installation/wordpress-chat-plugin) to use chat.
+PS: You'll need an [iFlyChat.com API key](https://iflychat.com/installation/wordpress-chat-plugin?refid=wp) to use chat.
 
 == Installation ==
 
 * Upload the iFlyChat plugin to your WordPress site.
 * Activate it.
-* Get [iFlyChat.com API key](https://iflychat.com/iflyapi/index). You need to first create an account [here](https://iflychat.com/user/register).
-* Detailed installation steps - https://iflychat.com/installation/wordpress-chat-plugin.
+* Get [iFlyChat.com API key](https://iflychat.com/iflyapi/index?refid=wp). You need to first create an account [here](https://iflychat.com/user/register?refid=wp).
+* Detailed installation steps - [https://iflychat.com/installation/wordpress-chat-plugin](https://iflychat.com/installation/wordpress-chat-plugin?refid=wp).
 * You're done!
 
 == Screenshots ==
@@ -108,7 +108,7 @@ PS: You'll need an [iFlyChat.com API key](https://iflychat.com/installation/word
 = Is it free to use? =
 
 We offer lifetime free plan for upto 10 simultaneous users in chat. It includes all standard features.
-For advanced features (such as embed chat, group chat, etc) and scalability, we offer paid plans - [https://iflychat.com/pricing](https://iflychat.com/pricing).
+For advanced features (such as embed chat, group chat, etc) and scalability, we offer paid plans - [https://iflychat.com/pricing](https://iflychat.com/pricing?refid=wp).
 
 = Do I have to install any software on my website server for this to work? =
 
@@ -116,11 +116,11 @@ This is a cloud based chat. You don’t need to install anything apart from iFly
 
 = How do you provide support? =
 
-Please visit our website [iflychat.com](https://iflychat.com) for any query. We provide support via live chat on our website. Additionally, you may contact us by filling up this form - [https://iflychat.com/contact](https://iflychat.com/contact).
+Please visit our website [iflychat.com](https://iflychat.com?refid=wp) for any query. We provide support via live chat on our website. Additionally, you may contact us by filling up this form - [https://iflychat.com/contact](https://iflychat.com/contact?refid=wp).
 
 = Do you have any knowledge base where I can see some documentation? =
 
-Yes, you may view our knowledge base here - [https://iflychat.com/documentation](https://iflychat.com/documentation).
+Yes, you may view our knowledge base here - [https://iflychat.com/documentation](https://iflychat.com/docs?refid=wp).
 
 = Does iFlyChat work on mobile and tablet? =
 
