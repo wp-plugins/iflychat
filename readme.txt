@@ -132,7 +132,7 @@ No, our chat works by utilizing HTML, JS and CSS.
 
 = How to show or hide chat on certain pages? =
 
-We provide a URL based filter on iFlyChat settings page to show/hide chat on/from specific pages of your WordPress website. More information here - [https://iflychat.com/documentation/chat-moderation/how-show-or-hide-popup-chat-certain-pages-wordpress](https://iflychat.com/documentation/chat-moderation/how-show-or-hide-popup-chat-certain-pages-wordpress).
+We provide a URL based filter on iFlyChat settings page to show/hide chat on/from specific pages of your WordPress website. More information here - [https://iflychat.com/documentation/chat-moderation/how-show-or-hide-popup-chat-certain-pages-wordpress](https://iflychat.com/documentation/chat-moderation/how-show-or-hide-popup-chat-certain-pages-wordpress?refid=wp).
 
 == Changelog ==
 
