@@ -1,4 +1,4 @@
-=== iFlyChat - Real Time WordPress Chat Plugin ===
+=== iFlyChat - WordPress Chat ===
 
 Contributors: darklrd, shubhamgupta
 
@@ -6,7 +6,7 @@ Tags: buddypress, chat, chat room, community, embed chat, friends, group chat, h
 
 Requires at least: 3.0
 
-Tested up to: 4.0
+Tested up to: 4.1
 
 Stable tag: 2.8.5
 
