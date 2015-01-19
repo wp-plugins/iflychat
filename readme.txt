@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 4.1
 
-Stable tag: 2.8.5
+Stable tag: 2.8.6
 
 License: GPLv2 or later
 
@@ -135,6 +135,9 @@ No, our chat works by utilizing HTML, JS and CSS.
 We provide a URL based filter on iFlyChat settings page to show/hide chat on/from specific pages of your WordPress website. More information here - [https://iflychat.com/documentation/chat-moderation/how-show-or-hide-popup-chat-certain-pages-wordpress](https://iflychat.com/documentation/chat-moderation/how-show-or-hide-popup-chat-certain-pages-wordpress?refid=wp).
 
 == Changelog ==
+
+= 2.8.6 =
+Allow chat rooms to be created on basis of WordPress user roles.
 
 = 2.8.5 =
 Allow user list to be filtered in chat based on user groups.
@@ -282,6 +285,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 2.8.6 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 2.8.5 =
 After updating, go to iFlyChat Settings page and click on Update button.
