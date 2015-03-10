@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 2.8.6
+ * @version 2.8.7
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 2.8.6
+Version: 2.8.7
 Author URI: https://iflychat.com/
 */
 
@@ -106,15 +106,15 @@ function iflychat_init() {
 
 	if($my_settings['polling_method'] == "3") {
 	  if (is_ssl()) {
-        $my_settings['external_host'] = DRUPALCHAT_EXTERNAL_A_HOST;
+        $my_settings['external_host'] = iflychat_get_host(TRUE);
         $my_settings['external_port'] = DRUPALCHAT_EXTERNAL_A_PORT;
-        $my_settings['external_a_host'] = DRUPALCHAT_EXTERNAL_A_HOST;
+        $my_settings['external_a_host'] = iflychat_get_host(TRUE);
         $my_settings['external_a_port'] = DRUPALCHAT_EXTERNAL_A_PORT;
 	  }
 	  else {
-	    $my_settings['external_host'] = DRUPALCHAT_EXTERNAL_HOST;
+	    $my_settings['external_host'] = iflychat_get_host(FALSE);
         $my_settings['external_port'] = DRUPALCHAT_EXTERNAL_PORT;
-		$my_settings['external_a_host'] = DRUPALCHAT_EXTERNAL_HOST;
+		$my_settings['external_a_host'] = iflychat_get_host(FALSE);
         $my_settings['external_a_port'] = DRUPALCHAT_EXTERNAL_PORT;
 	  }
 	}
@@ -248,7 +248,7 @@ function _iflychat_get_auth($name) {
 	  'sslverify' => false,
   );
 
-  $result = wp_remote_head(DRUPALCHAT_EXTERNAL_A_HOST . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/p/', $options);
+  $result = wp_remote_head(iflychat_get_host(TRUE) . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/p/', $options);
   
   if(!is_wp_error($result) && $result['response']['code'] == 200) {
     $result = json_decode($result['body']);
@@ -792,7 +792,7 @@ function iflychat_settings() {
       	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
       	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
       	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-      	  'version' => 'WP-2.8.6',
+      	  'version' => 'WP-2.8.7',
       	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
       	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
           'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
@@ -811,7 +811,7 @@ function iflychat_settings() {
           'headers' => array('Content-Type' => 'application/x-www-form-urlencoded'),
           'sslverify' => false,
         );
-        $result = wp_remote_head(DRUPALCHAT_EXTERNAL_A_HOST . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/z/', $options);
+        $result = wp_remote_head(iflychat_get_host(TRUE) . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/z/', $options);
         if(is_wp_error($result)) {
           echo '<div id="message" class="error">Unable to connect to iFlyChat server. Error code - ' . $result->get_error_code() . '. Error message - ' . $result->get_error_message() . '</div>';
         }
@@ -996,7 +996,7 @@ function iflychat_get_inbox() {
     'headers' => array('Content-Type' => 'application/x-www-form-urlencoded'),
 	  'sslverify' => false,
   );
-  $result = wp_remote_head(DRUPALCHAT_EXTERNAL_A_HOST . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/r/', $options);
+  $result = wp_remote_head(iflychat_get_host(TRUE) . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/r/', $options);
   $output = '';
   if(!is_wp_error($result) && $result['response']['code'] == 200) {
     $query = json_decode($result['body']);
@@ -1027,7 +1027,7 @@ function iflychat_get_message_thread($atts) {
     'headers' => array('Content-Type' => 'application/x-www-form-urlencoded'),
 	  'sslverify' => false,
   );
-  $result = wp_remote_head(DRUPALCHAT_EXTERNAL_A_HOST . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/q/', $options);
+  $result = wp_remote_head(iflychat_get_host(TRUE) . ':' . DRUPALCHAT_EXTERNAL_A_PORT .  '/q/', $options);
   $output = '';
   if(!is_wp_error($result) && $result['response']['code'] == 200) {
     $query = json_decode($result['body']);
@@ -1250,6 +1250,25 @@ function iflychat_get_avatar_url_from_html($source){
       }
     }
   return $source[0];
+}
+
+function iflychat_get_host($https = FALSE) {
+  if(iflychat_get_option('iflychat_show_admin_list') == '1') {
+    if($https) {
+      return 'https://support1.iflychat.com';
+    }
+    else {
+      return 'http://support1.iflychat.com';
+    }
+  }
+  else {
+    if($https) {
+      return DRUPALCHAT_EXTERNAL_A_HOST;
+    }
+    else {
+      return DRUPALCHAT_EXTERNAL_HOST;
+    }
+  }
 }
 
 ?>
