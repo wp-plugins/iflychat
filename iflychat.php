@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 2.8.7
+ * @version 2.8.8
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 2.8.7
+Version: 2.8.8
 Author URI: https://iflychat.com/
 */
 
@@ -222,6 +222,9 @@ function _iflychat_get_auth($name) {
   if(!empty($hook_user_groups)) {
     $data['rel'] = '0';
     $data['valid_groups'] = $hook_user_groups;
+    if(iflychat_get_option('iflychat_enable_user_groups')!='1') {
+      iflychat_update_option('iflychat_enable_user_groups', '1');
+    }
   }
   else if((iflychat_get_option('iflychat_enable_friends')=='2') &&  function_exists('friends_get_friend_user_ids')) {
     $data['rel'] = '1';
@@ -230,6 +233,11 @@ function _iflychat_get_auth($name) {
     $final_list['1']['plural'] = 'friends';
     $final_list['1']['valid_uids'] = friends_get_friend_user_ids(iflychat_get_user_id());
     $data['valid_uids'] = $final_list;
+  }
+  if(empty($hook_user_groups)) {
+    if(iflychat_get_option('iflychat_enable_user_groups')!='2') {
+      iflychat_update_option('iflychat_enable_user_groups', '2');
+    }
   }
 
   if(iflychat_get_option('iflychat_user_picture') == 'yes') {
@@ -792,7 +800,7 @@ function iflychat_settings() {
       	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
       	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
       	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-      	  'version' => 'WP-2.8.7',
+      	  'version' => 'WP-2.8.8',
       	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
       	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
           'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
@@ -803,6 +811,7 @@ function iflychat_settings() {
           'stop_word_list' => iflychat_get_option('iflychat_stop_word_list'),
           'file_attachment' => (iflychat_get_option('iflychat_enable_file_attachment') == "1")?'1':'2',
           'mobile_browser_app' => (iflychat_get_option('iflychat_enable_mobile_browser_app') == "1")?'1':'2',
+          'enable_groups' =>  (iflychat_get_option('iflychat_enable_user_groups') == "1")?'1':'2',
       	);
         $options = array(
           'method' => 'POST',
@@ -1203,6 +1212,15 @@ function iflychat_add_option($name, $value, $v2, $v3) {
   }
   else {
     return add_option($name, $value, $v2, $v3);
+  }
+}
+
+function iflychat_update_option($name, $value, $v2, $v3) {
+  if (is_multisite() && is_plugin_active_for_network(plugin_basename(__FILE__ ))) {
+    return update_site_option($name, $value, $v2, $v3);
+  }
+  else {
+    return update_option($name, $value, $v2, $v3);
   }
 }
 

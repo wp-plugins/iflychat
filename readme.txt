@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 4.1
 
-Stable tag: 2.8.7
+Stable tag: 2.8.8
 
 License: GPLv2 or later
 
@@ -50,7 +50,7 @@ iFlyChat is a real time **chat** plugin best suited for **community** and **soci
 
 * **Browser based Mobile Chat App**: We provide standalone browser based mobile chat application. Users can access both pop and embed chat in mobile devices, smartphones and tablets.
 
-* **Chat Logging**: Retrieve logs of your chat rooms using our custom [shortcode](https://iflychat.com/blog/2014/02/view-chat-room-logs-wordpress-using-shortcode?refid=wp).
+* **Chat Logging**: Retrieve logs of your chat rooms using our custom [shortcode](https://iflychat.com/docs/integration/wordpress/general/how-view-logs-using-shortcode-wordpress?refid=wp).
 
 
 ####BuddyPress Integration####
@@ -132,9 +132,12 @@ No, our chat works by utilizing HTML, JS and CSS.
 
 = How to show or hide chat on certain pages? =
 
-We provide a URL based filter on iFlyChat settings page to show/hide chat on/from specific pages of your WordPress website. More information here - [https://iflychat.com/documentation/chat-moderation/how-show-or-hide-popup-chat-certain-pages-wordpress](https://iflychat.com/documentation/chat-moderation/how-show-or-hide-popup-chat-certain-pages-wordpress?refid=wp).
+We provide a URL based filter on iFlyChat settings page to show/hide chat on/from specific pages of your WordPress website. More information here - [https://iflychat.com/docs/integration/wordpress/general/how-show-or-hide-popup-chat-certain-pages](https://iflychat.com/docs/integration/wordpress/general/how-show-or-hide-popup-chat-certain-pages?refid=wp).
 
 == Changelog ==
+
+= 2.8.8 =
+03/28/2015: User list filtering based on custom user groups.
 
 = 2.8.7 =
 03/10/2015: Minor improvement in backend related code.
@@ -288,6 +291,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 2.8.8 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 2.8.7 =
 After updating, go to iFlyChat Settings page and click on Update button.
