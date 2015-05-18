@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 2.8.8
+ * @version 2.9.0
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 2.8.8
+Version: 2.9.0
 Author URI: https://iflychat.com/
 */
 
@@ -219,6 +219,8 @@ function _iflychat_get_auth($name) {
        $data['allRoles'] = $wp_roles->get_names();
    }
   $hook_user_groups = apply_filters('iflychat_get_user_groups_filter', array());
+  $hook_user_friends = apply_filters('iflychat_get_user_friends_filter', array());
+  $hook_user_roles = apply_filters('iflychat_get_user_roles_filter', array());
   if(!empty($hook_user_groups)) {
     $data['rel'] = '0';
     $data['valid_groups'] = $hook_user_groups;
@@ -234,6 +236,20 @@ function _iflychat_get_auth($name) {
     $final_list['1']['valid_uids'] = friends_get_friend_user_ids(iflychat_get_user_id());
     $data['valid_uids'] = $final_list;
   }
+  if(!empty($hook_user_friends)) {
+    if(iflychat_get_option('iflychat_enable_friends')!='2') {
+      iflychat_update_option('iflychat_enable_friends', '2');
+    }
+    $data['rel'] = '1';
+    $final_list = array();
+    $final_list['1']['name'] = 'friend';
+    $final_list['1']['plural'] = 'friends';
+    $final_list['1']['valid_uids'] = $hook_user_friends;
+    $data['valid_uids'] = $final_list;
+  }
+  if(!empty($hook_user_roles)) {
+    $data['role'] = $hook_user_roles;
+  }
   if(empty($hook_user_groups)) {
     if(iflychat_get_option('iflychat_enable_user_groups')!='2') {
       iflychat_update_option('iflychat_enable_user_groups', '2');
@@ -245,8 +261,7 @@ function _iflychat_get_auth($name) {
   }
 
   $data['upl'] = iflychat_get_user_profile_url();
-
-
+  
   //$data = json_encode($data);
   $options = array(
     'method' => 'POST',
@@ -277,6 +292,7 @@ function iflychat_submit_uth() {
     }
     if($user_name) {
       $json = _iflychat_get_auth($user_name);
+      
       if(isset($json->_i) && (iflychat_get_option('iflychat_ext_d_i')!=$json->_i)) {
 	       if (is_multisite() && is_plugin_active_for_network(plugin_basename(__FILE__ ))) {
           update_site_option('iflychat_ext_d_i',$json->_i);
@@ -304,7 +320,7 @@ function iflychat_install() {
 }
 
 function iflychat_uninstall() {
-  delete_option('iflychat_api_key');
+  //delete_option('iflychat_api_key');
   global $wpdb;
 }
 
@@ -800,7 +816,7 @@ function iflychat_settings() {
       	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
       	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
       	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-      	  'version' => 'WP-2.8.8',
+      	  'version' => 'WP-2.9.0',
       	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
       	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
           'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),

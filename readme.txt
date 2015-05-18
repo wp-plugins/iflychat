@@ -6,9 +6,9 @@ Tags: buddypress, chat, chat room, community, embed chat, friends, group chat, h
 
 Requires at least: 3.0
 
-Tested up to: 4.1
+Tested up to: 4.2
 
-Stable tag: 2.8.8
+Stable tag: 2.9.0
 
 License: GPLv2 or later
 
@@ -135,6 +135,9 @@ No, our chat works by utilizing HTML, JS and CSS.
 We provide a URL based filter on iFlyChat settings page to show/hide chat on/from specific pages of your WordPress website. More information here - [https://iflychat.com/docs/integration/wordpress/general/how-show-or-hide-popup-chat-certain-pages](https://iflychat.com/docs/integration/wordpress/general/how-show-or-hide-popup-chat-certain-pages?refid=wp).
 
 == Changelog ==
+
+= 2.9.0 =
+05/18/2015: Add filter for creating custom user roles or friends in chat.
 
 = 2.8.8 =
 03/28/2015: User list filtering based on custom user groups.
@@ -291,6 +294,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 2.9.0 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 2.8.8 =
 After updating, go to iFlyChat Settings page and click on Update button.
