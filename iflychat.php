@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 2.9.0
+ * @version 2.9.1
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 2.9.0
+Version: 2.9.1
 Author URI: https://iflychat.com/
 */
 
@@ -816,7 +816,7 @@ function iflychat_settings() {
       	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
       	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
       	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-      	  'version' => 'WP-2.9.0',
+      	  'version' => 'WP-2.9.1',
       	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
       	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
           'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
@@ -1038,11 +1038,23 @@ function iflychat_get_inbox() {
 
 function iflychat_get_message_thread($atts) {
   extract( shortcode_atts( array(
-		'id' => 'c-0',
+		'room_id' => '0',
+    'id' => '0',
 	), $atts ) );
+  if(($room_id[0] == 'c') && ($room_id[1] == '-')) {
+    $room_id = substr($room_id, 2);
+  }
+  else if($id != '0') {
+    if(($id[0] == 'c') && ($id[1] == '-')) {
+      $room_id = substr($id, 2);
+    }
+    else {
+      $room_id = $id;
+    }
+  }
   $data = array(
     'uid1' => iflychat_get_user_id(),
-    'uid2' => $id,
+    'uid2' => ('c-'.$room_id),
     'api_key' => iflychat_get_option('iflychat_api_key'),
   );
   $options = array(
@@ -1069,7 +1081,8 @@ function iflychat_get_message_thread($atts) {
 
 function iflychat_get_embed_code($atts) {
   extract( shortcode_atts( array(
-		'id' => 'c-0',
+		'room_id' => '0',
+    'id' => '0',
     'hide_user_list' => 'no',
     'hide_popup_chat' => 'no',
     'height' => '550px',
@@ -1080,7 +1093,18 @@ function iflychat_get_embed_code($atts) {
   }
   $output .= '</style>';
   $output .= '<script type="text/javascript">if(typeof(iflyembed) === "undefined") {iflyembed = {};iflyembed.settings = {};iflyembed.settings.ifly = {};}iflyembed.settings.ifly.embed = "1";iflyembed.settings.ifly.ur_hy = "1";iflyembed.settings.ifly.embed_msg = "Type your message here. Press Enter to send.";iflyembed.settings.ifly.embed_online_user_text = "Online Users";</script>';
-  $output .= '<div id="drupalchat-embed-chatroom-' . substr($id, 2) . '" class="drupalchat-embed-chatroom-container';
+  if(($room_id[0] == 'c') && ($room_id[1] == '-')) {
+    $room_id = substr($room_id, 2);
+  }
+  else if($id != '0') {
+    if(($id[0] == 'c') && ($id[1] == '-')) {
+      $room_id = substr($id, 2);
+    }
+    else {
+      $room_id = $id;
+    }
+  }
+  $output .= '<div id="drupalchat-embed-chatroom-' . $room_id . '" class="drupalchat-embed-chatroom-container';
   if($hide_popup_chat == "yes") {
     $output .= ' drupalchat-hide-popup-chat';
   }
