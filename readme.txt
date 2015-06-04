@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 4.2
 
-Stable tag: 2.9.1
+Stable tag: 2.9.2
 
 License: GPLv2 or later
 
@@ -135,6 +135,9 @@ No, our chat works by utilizing HTML, JS and CSS.
 We provide a URL based filter on iFlyChat settings page to show/hide chat on/from specific pages of your WordPress website. More information here - [https://iflychat.com/docs/integration/wordpress/general/how-show-or-hide-popup-chat-certain-pages](https://iflychat.com/docs/integration/wordpress/general/how-show-or-hide-popup-chat-certain-pages?refid=wp).
 
 == Changelog ==
+
+= 2.9.2 =
+06/04/2015: Load iFlyChat init JS file via CDN.
 
 = 2.9.1 =
 05/26/2015: Make chat room id numeric (shortcode changed). New notification sound.
@@ -297,6 +300,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 2.9.2 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 2.9.1 =
 After updating, go to iFlyChat Settings page and click on Update button.
