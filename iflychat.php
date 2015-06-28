@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 2.9.2
+ * @version 2.9.3
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 2.9.2
+Version: 2.9.3
 Author URI: https://iflychat.com/
 */
 
@@ -816,7 +816,7 @@ function iflychat_settings() {
       	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
       	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
       	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-      	  'version' => 'WP-2.9.2',
+      	  'version' => 'WP-2.9.3',
       	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
       	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
           'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
@@ -1121,7 +1121,7 @@ function iflychat_get_user_pic_url() {
   	return $hook_url;
   }
   if(function_exists("bp_core_fetch_avatar") && ($current_user->ID > 0)) {
-    $url = bp_core_fetch_avatar(array('item_id' => iflychat_get_user_id(),'html'=>false));
+    $url = iflychat_get_avatar_url_from_html(bp_core_fetch_avatar(array('item_id' => iflychat_get_user_id(),'html'=>false)));
   }
   else if(function_exists("user_avatar_fetch_avatar") && ($current_user->ID > 0)) {
     $local_url = user_avatar_fetch_avatar(array('html' => false, 'item_id' => $current_user->ID));
@@ -1304,7 +1304,7 @@ function iflychat_get_avatar_url_from_html($source){
         $source = explode("'", $source[1]);
       }
       else {
-        $source[0] = '';
+        //$source[0] = '';
       }
     }
   return $source[0];
