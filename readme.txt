@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 4.2
 
-Stable tag: 2.9.3
+Stable tag: 2.9.4
 
 License: GPLv2 or later
 
@@ -136,7 +136,10 @@ We provide a URL based filter on iFlyChat settings page to show/hide chat on/fro
 
 == Changelog ==
 
-= 2.9.2 =
+= 2.9.4 =
+06/29/2015: Set header in mobile chat.
+
+= 2.9.3 =
 06/28/2015: Avatar fix in chat when BuddyPress and WP User Avatar are used together.
 
 = 2.9.2 =
@@ -303,6 +306,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 2.9.4 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 2.9.3 =
 After updating, go to iFlyChat Settings page and click on Update button.

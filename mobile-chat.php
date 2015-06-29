@@ -16,6 +16,9 @@ $result = wp_remote_head(DRUPALCHAT_EXTERNAL_A_HOST . ':' . DRUPALCHAT_EXTERNAL_
   'timeout' => 15,
   'headers' => array('Content-Type' => 'application/x-www-form-urlencoded'),
 ));
+	
+header("Content-Type:text/html");
+
 if((!is_wp_error($result)) && ($result['response']['code'] == 200)) {
 	$o = $result['body'];
 }
