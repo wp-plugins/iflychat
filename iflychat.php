@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 2.9.4
+ * @version 2.9.5
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 2.9.4
+Version: 2.9.5
 Author URI: https://iflychat.com/
 */
 
@@ -816,7 +816,7 @@ function iflychat_settings() {
       	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
       	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
       	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-      	  'version' => 'WP-2.9.4',
+      	  'version' => 'WP-2.9.5',
       	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
       	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
           'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
@@ -824,11 +824,12 @@ function iflychat_settings() {
           'guest_prefix' => (iflychat_get_option('iflychat_anon_prefix') . " "),
           'enable_guest_change_name' => iflychat_get_option('iflychat_anon_change_name'),
           'use_stop_word_list' => iflychat_get_option('iflychat_use_stop_word_list'),
-          'stop_word_list' => iflychat_get_option('iflychat_stop_word_list'),
+          'stop_word_list' => iflychat_process_stop_word_list(iflychat_get_option('iflychat_stop_word_list')),
           'file_attachment' => (iflychat_get_option('iflychat_enable_file_attachment') == "1")?'1':'2',
           'mobile_browser_app' => (iflychat_get_option('iflychat_enable_mobile_browser_app') == "1")?'1':'2',
           'enable_groups' =>  (iflychat_get_option('iflychat_enable_user_groups') == "1")?'1':'2',
       	);
+        iflychat_update_option('iflychat_stop_word_list', iflychat_process_stop_word_list(iflychat_get_option('iflychat_stop_word_list')));
         $options = array(
           'method' => 'POST',
           'body' => $data,
@@ -1255,12 +1256,12 @@ function iflychat_add_option($name, $value, $v2, $v3) {
   }
 }
 
-function iflychat_update_option($name, $value, $v2, $v3) {
+function iflychat_update_option($name, $value) {
   if (is_multisite() && is_plugin_active_for_network(plugin_basename(__FILE__ ))) {
-    return update_site_option($name, $value, $v2, $v3);
+    return update_site_option($name, $value);
   }
   else {
-    return update_option($name, $value, $v2, $v3);
+    return update_option($name, $value);
   }
 }
 
@@ -1327,6 +1328,12 @@ function iflychat_get_host($https = FALSE) {
       return DRUPALCHAT_EXTERNAL_HOST;
     }
   }
+}
+
+function iflychat_process_stop_word_list($words) {
+  $new_arr = array_map('trim', explode(',', $words));
+  $final = implode(",", $new_arr);
+  return $final;
 }
 
 ?>
