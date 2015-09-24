@@ -6,9 +6,9 @@ Tags: buddypress, chat, chat room, community, embed chat, friends, group chat, h
 
 Requires at least: 3.0
 
-Tested up to: 4.2
+Tested up to: 4.3
 
-Stable tag: 2.9.4
+Stable tag: 2.9.6
 
 License: GPLv2 or later
 
@@ -135,6 +135,12 @@ No, our chat works by utilizing HTML, JS and CSS.
 We provide a URL based filter on iFlyChat settings page to show/hide chat on/from specific pages of your WordPress website. More information here - [https://iflychat.com/docs/integration/wordpress/general/how-show-or-hide-popup-chat-certain-pages](https://iflychat.com/docs/integration/wordpress/general/how-show-or-hide-popup-chat-certain-pages?refid=wp).
 
 == Changelog ==
+
+= 2.9.6 =
+09/24/2015: Add native mobile sdk integration option.
+
+= 2.9.5 =
+08/22/2015: Process bad words in chat.
 
 = 2.9.4 =
 06/29/2015: Set header in mobile chat.
@@ -306,6 +312,12 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 2.9.6 =
+After updating, go to iFlyChat Settings page and click on Update button.
+
+= 2.9.5 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 2.9.4 =
 After updating, go to iFlyChat Settings page and click on Update button.

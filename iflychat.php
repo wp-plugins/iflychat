@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 2.9.4
+ * @version 2.9.6
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 2.9.4
+Version: 2.9.6
 Author URI: https://iflychat.com/
 */
 
@@ -281,6 +281,25 @@ function _iflychat_get_auth($name) {
     return null;
   }
 }
+function iflychat_mobile_auth(){
+	if (iflychat_get_option('iflychat_enable_mobile_sdk_integration', '2') == '1') {
+    $uid = wp_authenticate_username_password(null,$_POST['username'],$_POST['password']);
+    $id=($uid->data->ID);
+    if($id){
+      $user = wp_set_current_user($id , $_POST['username']);
+      $result = json_encode(_iflychat_get_auth($name));
+      header("Content-Type: application/json");
+      echo $result;
+    }
+    else{
+      echo 'Access Denied';
+    }
+  }
+  else {
+    echo "Please Enable Mobile SDK Integration";
+  }
+  exit;
+}
 
 function iflychat_submit_uth() {
   $user_name = NULL;
@@ -422,17 +441,26 @@ function iflychat_set_options(){
       'desc' => 'Enable browser based Mobile app',
       'input_type' => 'dropdown',
       'data' => array(
-        '1' => 'yes',
-        '2' => 'no')
+        '1' => 'Yes',
+        '2' => 'No')
       ),
+	'enable_mobile_sdk_integration' => array (
+	  'name' => 'iflychat_enable_mobile_sdk_integration',
+      'default' => '2',
+      'desc' => 'Enable Mobile SDK integration',
+      'input_type' => 'dropdown',
+      'data' => array(
+        '1' => 'Yes',
+        '2' => 'No')
+      ),		
 		'log_chat' => array (
 			'name' => 'iflychat_log_chat',
 			'default' => 'yes',
 			'desc' => 'Log Chat Messages',
 			'input_type' => 'dropdown',
 			'data' => array(
-				'yes' => 'yes',
-				'no' => 'no')
+				'yes' => 'Yes',
+				'no' => 'No')
 			),
 		'anon_prefix' => array(
 			'name' => 'iflychat_anon_prefix',
@@ -447,7 +475,7 @@ function iflychat_set_options(){
 			'input_type' => 'dropdown',
 			'data' => array(
 				'1' => 'Name',
-                '2' => 'Number',
+        '2' => 'Number',
 				)
 			),
     'anon_change_name' => array(
@@ -816,7 +844,7 @@ function iflychat_settings() {
       	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
       	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
       	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-      	  'version' => 'WP-2.9.4',
+      	  'version' => 'WP-2.9.6',
       	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
       	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
           'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
@@ -824,11 +852,13 @@ function iflychat_settings() {
           'guest_prefix' => (iflychat_get_option('iflychat_anon_prefix') . " "),
           'enable_guest_change_name' => iflychat_get_option('iflychat_anon_change_name'),
           'use_stop_word_list' => iflychat_get_option('iflychat_use_stop_word_list'),
-          'stop_word_list' => iflychat_get_option('iflychat_stop_word_list'),
+          'stop_word_list' => iflychat_process_stop_word_list(iflychat_get_option('iflychat_stop_word_list')),
           'file_attachment' => (iflychat_get_option('iflychat_enable_file_attachment') == "1")?'1':'2',
           'mobile_browser_app' => (iflychat_get_option('iflychat_enable_mobile_browser_app') == "1")?'1':'2',
+		  'mobile_sdk_integration' => (iflychat_get_option('iflychat_enable_mobile_sdk_integration') =="2")?'1':'2',
           'enable_groups' =>  (iflychat_get_option('iflychat_enable_user_groups') == "1")?'1':'2',
       	);
+        iflychat_update_option('iflychat_stop_word_list', iflychat_process_stop_word_list(iflychat_get_option('iflychat_stop_word_list')));
         $options = array(
           'method' => 'POST',
           'body' => $data,
@@ -914,6 +944,8 @@ if(is_multisite() && is_plugin_active_for_network(plugin_basename(__FILE__ ))) {
 }
 
 add_action('init', 'iflychat_init');
+add_action( 'wp_ajax_nopriv_iflychat-mobile-auth','iflychat_mobile_auth' );
+add_action( 'wp_ajax_iflychat-mobile-auth','iflychat_mobile_auth' );
 add_action( 'wp_ajax_nopriv_iflychat-get', 'iflychat_submit_uth' );
 add_action( 'wp_ajax_iflychat-get', 'iflychat_submit_uth' );
 add_action( 'wp_ajax_nopriv_iflychat-offline-msg', 'iflychat_send_offline_message' );
@@ -1255,12 +1287,12 @@ function iflychat_add_option($name, $value, $v2, $v3) {
   }
 }
 
-function iflychat_update_option($name, $value, $v2, $v3) {
+function iflychat_update_option($name, $value) {
   if (is_multisite() && is_plugin_active_for_network(plugin_basename(__FILE__ ))) {
-    return update_site_option($name, $value, $v2, $v3);
+    return update_site_option($name, $value);
   }
   else {
-    return update_option($name, $value, $v2, $v3);
+    return update_option($name, $value);
   }
 }
 
@@ -1327,6 +1359,12 @@ function iflychat_get_host($https = FALSE) {
       return DRUPALCHAT_EXTERNAL_HOST;
     }
   }
+}
+
+function iflychat_process_stop_word_list($words) {
+  $new_arr = array_map('trim', explode(',', $words));
+  $final = implode(",", $new_arr);
+  return $final;
 }
 
 ?>
