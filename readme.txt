@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 4.3
 
-Stable tag: 2.9.7
+Stable tag: 2.9.8
 
 License: GPLv2 or later
 
@@ -135,6 +135,9 @@ No, our chat works by utilizing HTML, JS and CSS.
 We provide a URL based filter on iFlyChat settings page to show/hide chat on/from specific pages of your WordPress website. More information here - [https://iflychat.com/docs/integration/wordpress/general/how-show-or-hide-popup-chat-certain-pages](https://iflychat.com/docs/integration/wordpress/general/how-show-or-hide-popup-chat-certain-pages?refid=wp).
 
 == Changelog ==
+
+= 2.9.8 =
+09/30/2015: Revert - Fix default avatar bug.
 
 = 2.9.7 =
 09/30/2015: Fix default avatar bug.
@@ -315,6 +318,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 2.9.8 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 2.9.7 =
 After updating, go to iFlyChat Settings page and click on Update button.

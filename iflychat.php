@@ -1182,7 +1182,7 @@ function iflychat_get_user_pic_url() {
     $url = $source[0];
   }
   else if($current_user->ID > 0) {
-    if(function_exists("get_avatar_url")) {
+    if(false&&function_exists("get_avatar_url")) {
       $url = get_avatar_url(iflychat_get_user_id());
     }
     else {
