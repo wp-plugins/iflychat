@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 2.9.6
+ * @version 2.9.7
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 2.9.6
+Version: 2.9.7
 Author URI: https://iflychat.com/
 */
 
@@ -844,7 +844,7 @@ function iflychat_settings() {
       	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
       	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
       	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-      	  'version' => 'WP-2.9.6',
+      	  'version' => 'WP-2.9.7',
       	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
       	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
           'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
@@ -1182,7 +1182,12 @@ function iflychat_get_user_pic_url() {
     $url = $source[0];
   }
   else if($current_user->ID > 0) {
-    $url = iflychat_get_avatar_url_from_html(get_avatar(iflychat_get_user_id()));
+    if(function_exists("get_avatar_url")) {
+      $url = get_avatar_url(iflychat_get_user_id());
+    }
+    else {
+      $url = iflychat_get_avatar_url_from_html(get_avatar(iflychat_get_user_id()));
+    }
   }
   
   $pos = strpos($url, ':');
