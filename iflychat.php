@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 2.9.8
+ * @version 3.0.0
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 2.9.8
+Version: 3.0.0
 Author URI: https://iflychat.com/
 */
 
@@ -844,7 +844,7 @@ function iflychat_settings() {
       	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
       	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
       	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-      	  'version' => 'WP-2.9.8',
+      	  'version' => 'WP-3.0.0',
       	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
       	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
           'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
@@ -1161,7 +1161,16 @@ function iflychat_get_user_pic_url() {
       $url = $local_url;
     }
   }
-  else if(function_exists("get_wp_user_avatar_src") && ($current_user->ID > 0)) {
+  else if(function_exists("userpro_profile_data") && ($current_user->ID > 0)){
+    $user_id = $current_user->ID;
+    $url = userpro_profile_data('profilepicture', $user_id);
+  }
+  else if (function_exists("um_get_avatar_url")&&($current_user-> ID > 0)){
+    $user_id = $current_user->ID;
+    $url = um_get_avatar_url(get_avatar($user_id ,$size = 96));
+  }
+   
+    else if(function_exists("get_wp_user_avatar_src") && ($current_user->ID > 0)) {
     $url = get_wp_user_avatar_src(iflychat_get_user_id());
   }
   else if(function_exists("get_simple_local_avatar") && ($current_user->ID > 0)) {
@@ -1259,19 +1268,29 @@ function iflychat_check_plain($text) {
 }
 
 function iflychat_get_user_profile_url() {
-  global $current_user;
-  get_currentuserinfo();
+ global $userpro;
+ global $current_user;
+ get_currentuserinfo();
+ 
   $upl = 'javascript:void(0)';
   $hook_upl = apply_filters('iflychat_get_user_profile_url_filter', 'javascript:void(0)');
   if($hook_upl == $upl) {
   	if(function_exists("bp_core_get_userlink") && ($current_user->ID > 0)) {
       $upl = bp_core_get_userlink($current_user->ID, false, true);
   	}
-  	return $upl;
-  }
-  else {
-    return $hook_upl;
-  }	 
+
+	else if (function_exists("um_user_profile_url") &&($current_user->ID > 0)){
+	  $upl = um_user_profile_url($current_user->ID ,false, true);
+	}
+	
+	else if (($current_user->ID > 0) && ($userpro != null)){
+	    $upl= ($userpro->permalink($current_user->ID)); 
+	   }
+	   return $upl;
+	}	
+else{
+	return $hook_upl;
+    }
 }
 
 function iflychat_get_option($name) {
