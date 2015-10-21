@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 4.3
 
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 
 License: GPLv2 or later
 
@@ -137,6 +137,9 @@ No, our chat works by utilizing HTML, JS and CSS.
 We provide a URL based filter on iFlyChat settings page to show/hide chat on/from specific pages of your WordPress website. More information here - [https://iflychat.com/docs/integration/wordpress/general/how-show-or-hide-popup-chat-certain-pages](https://iflychat.com/docs/integration/wordpress/general/how-show-or-hide-popup-chat-certain-pages?refid=wp).
 
 == Changelog ==
+
+= 3.0.1 =
+10/21/2015: Minor change to backend.
 
 = 3.0.0 =
 09/30/2015: Integrate with UserPro and Ulimate Member plugins.
@@ -323,6 +326,9 @@ iFlyChat Sync Release.
 iFlyChat Support Chat released. New emoticons added. Added Screenshots.
 
 == Upgrade Notice ==
+
+= 3.0.1 =
+After updating, go to iFlyChat Settings page and click on Update button.
 
 = 3.0.0 =
 After updating, go to iFlyChat Settings page and click on Update button.
