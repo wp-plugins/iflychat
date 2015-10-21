@@ -3,7 +3,7 @@
 define ('IFLYCHAT_WP_ROOT_DIR', dirname(dirname(dirname(dirname(__FILE__)))));
 
 require_once(IFLYCHAT_WP_ROOT_DIR . '/wp-load.php');
-
+$_iflychat_protocol = (is_ssl()) ? 'https://' : 'http://';
 $data = array('settings' => array());
 $data['settings']['authUrl'] = admin_url('admin-ajax.php', $_iflychat_protocol);
 $data['settings']['host'] = ((is_ssl())?(DRUPALCHAT_EXTERNAL_A_HOST):(DRUPALCHAT_EXTERNAL_HOST));
