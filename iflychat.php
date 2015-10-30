@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 3.0.2
+ * @version 3.0.3
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 3.0.2
+Version: 3.0.3
 Author URI: https://iflychat.com/
 */
 
@@ -135,6 +135,8 @@ function iflychat_init() {
   $my_settings['text_search_bar'] = __('Type here to search', 'iflychat');
   $my_settings['text_user_list_reconnect'] = __('Connecting...', 'iflychat');
   $my_settings['text_user_list_loading'] = __('Loading...', 'iflychat'); 
+    $my_settings['text_set name'] = __('Set Name', 'iflychat');
+    $my_settings['text_ok'] = __('Ok' ,'iflychat');
   $my_settings['searchBar'] = (iflychat_get_option('iflychat_enable_search_bar') == '1')?'1':'2';
   $my_settings['renderImageInline'] = (iflychat_get_option('iflychat_allow_render_images') == '1')?'1':'2';
 	if(iflychat_check_chat_admin()) {
@@ -287,7 +289,7 @@ function iflychat_mobile_auth(){
     $id=($uid->data->ID);
     if($id){
       $user = wp_set_current_user($id , $_POST['username']);
-      $result = json_encode(_iflychat_get_auth($name));
+      $result = json_encode(_iflychat_get_auth($_POST['username']));
       header("Content-Type: application/json");
       echo $result;
     }
@@ -417,6 +419,24 @@ function iflychat_set_options(){
         '1' => 'No',
         '2' => 'BuddyPress Friends')
       ),
+	  'show_user_popup_chat_list'=> array(
+	    'name'=>'iflychat_show_user_popup_chat_list',
+		'default'=>'1',
+		'desc'=> 'Show users in the popup chat list',
+		'input_type' =>'dropdown',
+		'data'=> array(
+		  '1' => 'Yes',
+		  '2' => 'No')
+		),
+		'allow_send_message' => array(
+		 'name'=>'iflychat_allow_send_message',
+		 'default' =>'1',
+		 'desc' =>'Allow guests to send message',
+		 'input_type' =>'dropdown',
+		 'data' => array(
+		  '1' => 'No',
+		  '2' => 'Yes')
+		  ),
 		'notification_sound' => array (
 			'name' => 'iflychat_notification_sound',
 			'default' => 'yes',
@@ -844,7 +864,7 @@ function iflychat_settings() {
       	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
       	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
       	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-      	  'version' => 'WP-3.0.2',
+      	  'version' => 'WP-3.0.3',
       	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
       	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
           'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
@@ -857,6 +877,8 @@ function iflychat_settings() {
           'mobile_browser_app' => (iflychat_get_option('iflychat_enable_mobile_browser_app') == "1")?'1':'2',
 		  'mobile_sdk_integration' => (iflychat_get_option('iflychat_enable_mobile_sdk_integration') =="2")?'1':'2',
           'enable_groups' =>  (iflychat_get_option('iflychat_enable_user_groups') == "1")?'1':'2',
+		  'user_list_tabs' => (iflychat_get_option('iflychat_show_user_popup_chat_list') == "1")?'1':'0',
+          'deny_write_access' =>  (iflychat_get_option('iflychat_allow_send_message') == "2")?'0':'1',
       	);
         iflychat_update_option('iflychat_stop_word_list', iflychat_process_stop_word_list(iflychat_get_option('iflychat_stop_word_list')));
         $options = array(

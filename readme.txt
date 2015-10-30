@@ -8,7 +8,7 @@ Requires at least: 3.0
 
 Tested up to: 4.3
 
-Stable tag: 3.0.2
+Stable tag: 3.0.3
 
 License: GPLv2 or later
 
@@ -137,6 +137,9 @@ No, our chat works by utilizing HTML, JS and CSS.
 We provide a URL based filter on iFlyChat settings page to show/hide chat on/from specific pages of your WordPress website. More information here - [https://iflychat.com/docs/integration/wordpress/general/how-show-or-hide-popup-chat-certain-pages](https://iflychat.com/docs/integration/wordpress/general/how-show-or-hide-popup-chat-certain-pages?refid=wp).
 
 == Changelog ==
+
+= 3.0.3 =
+10/21/2015: Toggle users in the chat list and read only access for guests.
 
 = 3.0.2 =
 10/21/2015: Fix minor bug in mobile chat.
