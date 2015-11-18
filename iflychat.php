@@ -1,14 +1,14 @@
 <?php
 /**
  * @package iflychat
- * @version 3.0.3
+ * @version 3.0.4
  */
 /*
 Plugin Name: iFlyChat
 Plugin URI: http://wordpress.org/extend/plugins/iflychat/
 Description: One on one chat, Multiple chatrooms, Embedded chatrooms
 Author: Shashwat Srivastava, Shubham Gupta - iFlyChat Team
-Version: 3.0.3
+Version: 3.0.4
 Author URI: https://iflychat.com/
 */
 
@@ -294,10 +294,12 @@ function iflychat_mobile_auth(){
       echo $result;
     }
     else{
+      header('HTTP/1.1 403 Access Denied');
       echo 'Access Denied';
     }
   }
   else {
+    header('HTTP/1.1 403 Access Denied');
     echo "Please Enable Mobile SDK Integration";
   }
   exit;
@@ -864,7 +866,7 @@ function iflychat_settings() {
       	  'font_color' => iflychat_get_option('iflychat_chat_font_color'),
       	  'chat_list_header' => iflychat_get_option('iflychat_chat_list_header'),
       	  'public_chatroom_header' => iflychat_get_option('iflychat_public_chatroom_header'),
-      	  'version' => 'WP-3.0.3',
+      	  'version' => 'WP-3.0.4',
       	  'show_admin_list' => (iflychat_get_option('iflychat_show_admin_list') == "1")?'1':'2',
       	  'clear' => iflychat_get_option('iflychat_allow_single_message_delete'),
           'delmessage' => iflychat_get_option('iflychat_allow_clear_room_history'),
